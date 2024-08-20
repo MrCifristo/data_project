@@ -1,11 +1,14 @@
+// src/components/SignUpForm.jsx
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Logo from './Logo';
 import InputField from './InputField';
-import SelectField from './SelectField'; // Importa el nuevo componente
+import SelectField from './SelectField'; // Asumiendo que ya creaste este componente
 import LoginButton from './LoginButton';
 
 const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
+    // Estado local para almacenar los datos del formulario
     const [formData, setFormData] = useState({
         nombre_completo: '',
         edad: '',
@@ -21,33 +24,74 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
         consumo_calorias_diario: '',
         numero_comidas_bocadillos: '',
         consumo_agua_diario: '',
+        email: '',  // Nuevo campo para el correo electrónico
+        password: '',  // Nuevo campo para la contraseña
     });
 
+    // Maneja los cambios en los campos del formulario
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Maneja el envío del formulario de registro
     const handleSignUp = async (e) => {
         e.preventDefault();
+
         try {
-            const response = await fetch('http://localhost:5001/signup', {
+            // Primer paso: Crear un nuevo usuario en la tabla usuarios
+            const userResponse = await fetch('http://localhost:5001/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    nombre_completo: formData.nombre_completo,
+                    edad: formData.edad,
+                    sexo: formData.sexo,
+                    altura: formData.altura,
+                    peso: formData.peso,
+                    nivel_actividad: formData.nivel_actividad,
+                    historial_medico: formData.historial_medico,
+                    alergias_alimentarias: formData.alergias_alimentarias,
+                    condicion_especifica: formData.condicion_especifica,
+                    objetivos_nutricionales: formData.objetivos_nutricionales,
+                    dieta: formData.dieta,
+                    consumo_calorias_diario: formData.consumo_calorias_diario,
+                    numero_comidas_bocadillos: formData.numero_comidas_bocadillos,
+                    consumo_agua_diario: formData.consumo_agua_diario,
+                }),
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log('SignUp successful:', data);
-                onSignUp(data);
+            if (userResponse.ok) {
+                const userData = await userResponse.json();
+                const usuarioId = userData.id; // Guardar el ID del usuario recién creado
+
+                // Segundo paso: Registrar las credenciales en la tabla authentication
+                const authResponse = await fetch('http://localhost:5001/register-auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        usuario_id: usuarioId,  // Usar el ID del usuario recién creado
+                        email: formData.email,
+                        password: formData.password,  // Este se encriptará en el backend
+                    }),
+                });
+
+                if (authResponse.ok) {
+                    const authData = await authResponse.json();
+                    console.log('Registration successful:', authData);
+                    onSignUp(authData); // Ejecuta la función pasada por props después del registro exitoso
+                } else {
+                    console.error('Authentication registration failed'); // Log de error si falla la inserción en authentication
+                }
             } else {
-                console.error('SignUp failed');
+                console.error('User registration failed'); // Log de error si falla la inserción en usuarios
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error); // Captura y muestra cualquier error durante el proceso
         }
     };
 
@@ -59,6 +103,7 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     Create an account
                 </h1>
                 <form className="space-y-4 md:space-y-6" onSubmit={handleSignUp}>
+                    {/* Campos para información del usuario */}
                     <InputField
                         type="text"
                         name="nombre_completo"
@@ -155,6 +200,21 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                         name="consumo_agua_diario"
                         placeholder="Daily Water Intake (L)"
                         value={formData.consumo_agua_diario}
+                        onChange={handleChange}
+                    />
+                    {/* Campos para autenticación */}
+                    <InputField
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    <InputField
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
                         onChange={handleChange}
                     />
                     <LoginButton label="Create an account" onClick={handleSignUp} />
