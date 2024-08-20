@@ -1,16 +1,42 @@
+// src/components/LoginForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Logo from './Logo';
 import InputField from './InputField';
 import LoginButton from './LoginButton';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // useNavigate hook
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        onLogin(email, password);
+
+        try {
+            const response = await fetch('http://localhost:5001/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Login successful:', data);
+
+                // Store the token and navigate to profile page
+                localStorage.setItem('token', data.data.jwToken);
+                navigate('/profile'); // Navigate to the profile page
+                onLogin(data);
+            } else {
+                console.error('Login failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -23,14 +49,14 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
                 <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
                     <InputField
                         type="email"
-                        name="email"  // Asignamos el name aquí
+                        name="email"
                         placeholder="Your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <InputField
                         type="password"
-                        name="password"  // Asignamos el name aquí
+                        name="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
