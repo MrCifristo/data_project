@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
-// import SignUpForm from './SignUpForm'; // Eliminamos la importación de SignUpForm
+import SignUpForm from './SignUpForm';
 
 const Home = () => {
-    const [showLogin, setShowLogin] = useState(false);
+    const [showLogin, setShowLogin] = useState(true); // Mostrar login por defecto
+    const [showForm, setShowForm] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
-    // const [isSignUp, setIsSignUp] = useState(false); // Eliminamos el estado de isSignUp
 
     const toggleLoginForm = () => {
-        setShowLogin(!showLogin);
-        // setIsSignUp(false); // Ya no es necesario desactivar el modo de registro
+        setShowForm(!showForm);
     };
 
     const toggleDarkMode = () => {
@@ -17,23 +16,21 @@ const Home = () => {
         setIsDarkMode(!isDarkMode);
     };
 
-    // Eliminamos la función switchToSignUp ya que no se usará
-    // const switchToSignUp = () => {
-    //     setIsSignUp(true);
-    // };
+    const switchToSignUp = () => {
+        setShowLogin(false);
+    };
 
-    // Eliminamos la función switchToLogin ya que no se usará
-    // const switchToLogin = () => {
-    //     setIsSignUp(false);
-    // };
+    const switchToLogin = () => {
+        setShowLogin(true);
+    };
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-center  bg-cover bg-center transition-colors duration-500" style={{ backgroundImage: 'url()' }}>
+        <div className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center transition-colors duration-500" style={{ backgroundImage: 'url()' }}>
             <button
                 onClick={toggleLoginForm}
                 className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 fixed top-4 right-4 z-20"
             >
-                {showLogin ? 'Close' : 'Sign In'}
+                {showForm ? 'Close' : 'Sign In'}
             </button>
             <button
                 onClick={toggleDarkMode}
@@ -42,13 +39,17 @@ const Home = () => {
                 {isDarkMode ? 'Light' : 'Dark'}
             </button>
             <h1 className="text-4xl font-bold mb-8 text-center z-20 text-gray-900 dark:text-white">Welcome to Our Site</h1>
-            <div className={`relative z-20 w-full flex justify-center transition-opacity duration-500 ${showLogin ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                {showLogin && (
-                    <LoginForm onLogin={(email, password) => {
-                        console.log('Login attempt with:', email, password);
-                    }}
-                        // Eliminamos el botón o enlace que cambiaría a SignUpForm
-                    />
+            <div className={`relative z-20 w-full flex justify-center transition-opacity duration-500 ${showForm ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                {showForm && (
+                    showLogin ? (
+                        <LoginForm onLogin={(email, password) => {
+                            console.log('Login attempt with:', email, password);
+                        }} onSwitchToSignUp={switchToSignUp} />
+                    ) : (
+                        <SignUpForm onSignUp={(email, password) => {
+                            console.log('SignUp attempt with:', email, password);
+                        }} onSwitchToLogin={switchToLogin} />
+                    )
                 )}
             </div>
         </div>

@@ -1,59 +1,162 @@
-// src/components/SignUpForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Logo from './Logo';
 import InputField from './InputField';
+import SelectField from './SelectField'; // Importa el nuevo componente
 import LoginButton from './LoginButton';
 
 const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [formData, setFormData] = useState({
+        nombre_completo: '',
+        edad: '',
+        sexo: '',
+        altura: '',
+        peso: '',
+        nivel_actividad: '',
+        historial_medico: '',
+        alergias_alimentarias: '',
+        condicion_especifica: '',
+        objetivos_nutricionales: '',
+        dieta: '',
+        consumo_calorias_diario: '',
+        numero_comidas_bocadillos: '',
+        consumo_agua_diario: '',
+    });
 
-    const handleSignUp = (e) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSignUp = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
+        try {
+            const response = await fetch('http://localhost:5001/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('SignUp successful:', data);
+                onSignUp(data);
+            } else {
+                console.error('SignUp failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
-        onSignUp(email, password);
     };
 
     return (
         <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                {/*Aca se cambia la informacion del logo*/}
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8 overflow-y-auto max-h-[75vh]">
                 <Logo src="https://media.tenor.com/BIn4gjem0LQAAAAj/naruto-hungry.gif" alt="Company Name" />
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                     Create an account
                 </h1>
                 <form className="space-y-4 md:space-y-6" onSubmit={handleSignUp}>
                     <InputField
-                        type="email"
-                        placeholder="Your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        name="nombre_completo"
+                        placeholder="Full Name"
+                        value={formData.nombre_completo}
+                        onChange={handleChange}
                     />
                     <InputField
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        type="number"
+                        name="edad"
+                        placeholder="Age"
+                        value={formData.edad}
+                        onChange={handleChange}
                     />
                     <InputField
-                        type="password"
-                        placeholder="Confirm password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        type="text"
+                        name="sexo"
+                        placeholder="Sex"
+                        value={formData.sexo}
+                        onChange={handleChange}
                     />
-                    <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                            <input id="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required />
-                        </div>
-                        <div className="ml-3 text-sm">
-                            <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
-                        </div>
-                    </div>
+                    <InputField
+                        type="number"
+                        name="altura"
+                        placeholder="Height (cm)"
+                        value={formData.altura}
+                        onChange={handleChange}
+                    />
+                    <InputField
+                        type="number"
+                        name="peso"
+                        placeholder="Weight (kg)"
+                        value={formData.peso}
+                        onChange={handleChange}
+                    />
+                    <SelectField
+                        name="nivel_actividad"
+                        placeholder="Activity Level"
+                        value={formData.nivel_actividad}
+                        onChange={handleChange}
+                        options={['Sedentario', 'Ligera', 'Moderado', 'Intenso', 'Muy intenso']}
+                    />
+                    <SelectField
+                        name="historial_medico"
+                        placeholder="Medical History"
+                        value={formData.historial_medico}
+                        onChange={handleChange}
+                        options={['Diabetes', 'Hipertensión', 'Cardiopatía', 'Asma', 'Otra']}
+                    />
+                    <InputField
+                        type="text"
+                        name="alergias_alimentarias"
+                        placeholder="Food Allergies"
+                        value={formData.alergias_alimentarias}
+                        onChange={handleChange}
+                    />
+                    <SelectField
+                        name="condicion_especifica"
+                        placeholder="Specific Conditions"
+                        value={formData.condicion_especifica}
+                        onChange={handleChange}
+                        options={['Trastornos digestivos', 'Intolerancia a la lactosa', 'Intolerancia al gluten', 'Otra']}
+                    />
+                    <SelectField
+                        name="objetivos_nutricionales"
+                        placeholder="Nutritional Goals"
+                        value={formData.objetivos_nutricionales}
+                        onChange={handleChange}
+                        options={['Pérdida de peso', 'Mantenimiento de peso', 'Ganancia de masa muscular', 'Mejora del rendimiento deportivo', 'Salud general y bienestar']}
+                    />
+                    <SelectField
+                        name="dieta"
+                        placeholder="Diet"
+                        value={formData.dieta}
+                        onChange={handleChange}
+                        options={['Vegetariana', 'Vegana', 'Omnívora', 'Otra']}
+                    />
+                    <InputField
+                        type="number"
+                        name="consumo_calorias_diario"
+                        placeholder="Daily Calorie Intake"
+                        value={formData.consumo_calorias_diario}
+                        onChange={handleChange}
+                    />
+                    <InputField
+                        type="number"
+                        name="numero_comidas_bocadillos"
+                        placeholder="Meals and Snacks per Day"
+                        value={formData.numero_comidas_bocadillos}
+                        onChange={handleChange}
+                    />
+                    <InputField
+                        type="number"
+                        name="consumo_agua_diario"
+                        placeholder="Daily Water Intake (L)"
+                        value={formData.consumo_agua_diario}
+                        onChange={handleChange}
+                    />
                     <LoginButton label="Create an account" onClick={handleSignUp} />
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Already have an account? <a href="#" onClick={onSwitchToLogin} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
