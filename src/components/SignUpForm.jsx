@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Logo from './Logo';
 import InputField from './InputField';
-import SelectField from './SelectField'; // Asumiendo que ya creaste este componente
+import SelectField from './SelectField';
 import LoginButton from './LoginButton';
 
 const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
@@ -16,10 +16,10 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
         altura: '',
         peso: '',
         nivel_actividad: '',
-        historial_medico: '',
+        historial_medico: '',  // Cambiado a string para selección única
         alergias_alimentarias: '',
-        condicion_especifica: '',
-        objetivos_nutricionales: '',
+        condicion_especifica: '',  // Cambiado a string para selección única
+        objetivos_nutricionales: '',  // Cambiado a string para selección única
         dieta: '',
         consumo_calorias_diario: '',
         numero_comidas_bocadillos: '',
@@ -52,10 +52,10 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     altura: formData.altura,
                     peso: formData.peso,
                     nivel_actividad: formData.nivel_actividad,
-                    historial_medico: formData.historial_medico,
+                    historial_medico: formData.historial_medico,  // No es array
                     alergias_alimentarias: formData.alergias_alimentarias,
-                    condicion_especifica: formData.condicion_especifica,
-                    objetivos_nutricionales: formData.objetivos_nutricionales,
+                    condicion_especifica: formData.condicion_especifica,  // No es array
+                    objetivos_nutricionales: formData.objetivos_nutricionales,  // No es array
                     dieta: formData.dieta,
                     consumo_calorias_diario: formData.consumo_calorias_diario,
                     numero_comidas_bocadillos: formData.numero_comidas_bocadillos,
@@ -149,7 +149,7 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     <SelectField
                         name="historial_medico"
                         placeholder="Medical History"
-                        value={formData.historial_medico}
+                        value={formData.historial_medico}  // Ahora maneja un string
                         onChange={handleChange}
                         options={['Diabetes', 'Hipertensión', 'Cardiopatía', 'Asma', 'Otra']}
                     />
@@ -163,14 +163,14 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     <SelectField
                         name="condicion_especifica"
                         placeholder="Specific Conditions"
-                        value={formData.condicion_especifica}
+                        value={formData.condicion_especifica}  // Ahora maneja un string
                         onChange={handleChange}
                         options={['Trastornos digestivos', 'Intolerancia a la lactosa', 'Intolerancia al gluten', 'Otra']}
                     />
                     <SelectField
                         name="objetivos_nutricionales"
                         placeholder="Nutritional Goals"
-                        value={formData.objetivos_nutricionales}
+                        value={formData.objetivos_nutricionales}  // Ahora maneja un string
                         onChange={handleChange}
                         options={['Pérdida de peso', 'Mantenimiento de peso', 'Ganancia de masa muscular', 'Mejora del rendimiento deportivo', 'Salud general y bienestar']}
                     />
