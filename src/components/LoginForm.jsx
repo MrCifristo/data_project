@@ -1,90 +1,60 @@
-// src/components/LoginForm.jsx
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Logo from './Logo';
-import InputField from './InputField';
-import LoginButton from './LoginButton';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
-const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // useNavigate hook
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await fetch('http://localhost:5001/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Login successful:', data);
-
-                // Store the token and navigate to profile page
-                localStorage.setItem('token', data.data.jwToken);
-                navigate('/profile'); // Navigate to the profile page
-                onLogin(data);
-            } else {
-                console.error('Login failed');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+const Carousel = () => {
+    // Datos de ejemplo para las tarjetas
+    const cards = [
+        {
+            imgSrc: "/docs/images/blog/image-1.jpg",
+            title: "Noteworthy technology acquisitions 2021",
+            description: "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.",
+        },
+        {
+            imgSrc: "/docs/images/blog/image-2.jpg",
+            title: "The state of AI in 2022",
+            description: "A review of AI advancements and trends in 2022.",
+        },
+        {
+            imgSrc: "/docs/images/blog/image-3.jpg",
+            title: "Top programming languages in 2023",
+            description: "An overview of the most popular programming languages in 2023.",
+        },
+        {
+            imgSrc: "/docs/images/blog/image-4.jpg",
+            title: "Cloud computing trends in 2023",
+            description: "Exploring the latest trends in cloud computing.",
+        },
+        {
+            imgSrc: "/docs/images/blog/image-5.jpg",
+            title: "Cybersecurity best practices",
+            description: "Best practices to keep your data and systems secure in 2023.",
+        },
+    ];
 
     return (
-        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <Logo src="https://media.tenor.com/BIn4gjem0LQAAAAj/naruto-hungry.gif" alt="Company Name" />
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
-                    Sign in to your account
-                </h1>
-                <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
-                    <InputField
-                        type="email"
-                        name="email"
-                        placeholder="Your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <InputField
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                                <input id="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required />
-                            </div>
-                            <div className="ml-3 text-sm">
-                                <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
-                            </div>
+        <div className="border-2 border-black p-4 max-w-screen-lg mx-auto overflow-hidden">
+            <div className="flex space-x-4 overflow-x-auto">
+                {cards.map((card, index) => (
+                    <div key={index} className="min-w-[300px] max-w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <a href="#">
+                            <img className="rounded-t-lg" src={card.imgSrc} alt={card.title} />
+                        </a>
+                        <div className="p-5">
+                            <a href="#">
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{card.title}</h5>
+                            </a>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{card.description}</p>
+                            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Read more
+                                <svg className="w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                </svg>
+                            </a>
                         </div>
-                        <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                     </div>
-                    <LoginButton label="Sign in" onClick={handleLogin} />
-                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet? <a href="#" onClick={onSwitchToSignUp} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
-                    </p>
-                </form>
+                ))}
             </div>
         </div>
     );
 };
 
-LoginForm.propTypes = {
-    onLogin: PropTypes.func.isRequired,
-    onSwitchToSignUp: PropTypes.func.isRequired,
-};
-
-export default LoginForm;
+export default Carousel;
