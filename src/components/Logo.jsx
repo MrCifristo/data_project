@@ -1,18 +1,18 @@
-// src/components/Logo.jsx
-import PropTypes from 'prop-types';
+import React from 'react';
 
-const Logo = ({ src, alt }) => {
+const Logo = () => {
     return (
-        <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-            <img className="w-8 h-8 mr-2" src={src} alt={alt} />
-            {alt}
+        <a href="/" className="flex items-center space-x-4">
+            <img
+                src="https://dynamic.design.com/asset/logo/9870fcb1-4feb-4c90-a136-759ed18ff17c/logo-search-grid-2x?logoTemplateVersion=1&v=637841421306600000&text=NutriWizard&colorpalette=blue"
+                alt="NutriWizard"
+                className="h-16 w-auto object-contain"  // Aumenta el tamaño de la imagen
+            />
+            <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                NutriWizard
+            </span>
         </a>
     );
-};
-
-Logo.propTypes = {
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
 };
 
 export default Logo;

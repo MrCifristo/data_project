@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import LandingPage from './components/LandingPage';
-import Profile from './components/Profile'; // Asegúrate de tener el componente Profile creado
+import Profile from './components/Profile';
+import AboutUs from './components/AboutUs'; // Importa el nuevo componente
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/about-us" element={<AboutUs />} /> {/* Nueva ruta */}
                 </Routes>
             </div>
         </Router>

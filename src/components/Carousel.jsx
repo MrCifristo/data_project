@@ -1,89 +1,95 @@
 import React, { useState } from 'react';
 
 const Carousel = () => {
-    // Datos de ejemplo para las tarjetas
+    // Datos del carrusel, incluyendo la nueva tarjeta
     const cards = [
         {
-            imgSrc: "/docs/images/blog/image-1.jpg",
-            title: "Noteworthy technology acquisitions 2021",
-            description: "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.",
+            imgSrc: "https://entrenaconelite.com/wp-content/uploads/2020/12/Imagen-blog-nutrici%C3%B3n.jpg",
+            title: "Nutrición deportiva",
+            description: "Consejos y estrategias para una nutrición deportiva óptima.",
         },
         {
-            imgSrc: "/docs/images/blog/image-2.jpg",
-            title: "The state of AI in 2022",
-            description: "A review of AI advancements and trends in 2022.",
+            imgSrc: "https://www.nutricienta.com/imagenes/articulos/articulo-nutricienta-consejos-para-elaborar-el-menu-semanal.jpg",
+            title: "Planificación semanal",
+            description: "Cómo planificar tu menú semanal de manera efectiva.",
         },
         {
-            imgSrc: "/docs/images/blog/image-3.jpg",
-            title: "Top programming languages in 2023",
-            description: "An overview of the most popular programming languages in 2023.",
+            imgSrc: "https://www.cocinavital.mx/wp-content/uploads/2024/02/menu-semanal-saludable.jpg",
+            title: "Menú semanal saludable",
+            description: "Ideas de menús saludables para cada día de la semana.",
         },
         {
-            imgSrc: "/docs/images/blog/image-4.jpg",
-            title: "Cloud computing trends in 2023",
-            description: "Exploring the latest trends in cloud computing.",
+            imgSrc: "https://cocina-casera.com/wp-content/uploads/2023/03/menu-semanal-saludable.jpg",
+            title: "Recetas caseras",
+            description: "Recetas deliciosas y saludables para preparar en casa.",
         },
         {
-            imgSrc: "/docs/images/blog/image-5.jpg",
-            title: "Cybersecurity best practices",
-            description: "Best practices to keep your data and systems secure in 2023.",
+            imgSrc: "https://i.blogs.es/9c71c1/menu-saludable/840_560.jpg",
+            title: "Menú balanceado",
+            description: "Consejos para mantener una dieta balanceada y nutritiva.",
+        },
+        {
+            imgSrc: "https://media.sunbasket.com/2020/08/Faroe-Islands-Salmon_Square_Web-1024x683.jpg",
+            title: "¡Receta de Pescado Sana!",
+            description: "Una receta deliciosa y saludable de pescado.",
         },
     ];
 
-    const [startIndex, setStartIndex] = useState(0);
+    // Estado para la posición actual en el carrusel
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Muestra las tarjetas actuales en función del índice
-    const visibleCards = cards.slice(startIndex, startIndex + 3);
+    // Número de tarjetas que se mostrarán en el carrusel
+    const cardsToShow = 3;
 
-    const handleNext = () => {
-        if (startIndex + 3 < cards.length) {
-            setStartIndex(startIndex + 1);
-        }
+    // Funciones para avanzar y retroceder de 3 en 3
+    const goToPrevious = () => {
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? cards.length - cardsToShow : prevIndex - cardsToShow >= 0 ? prevIndex - cardsToShow : 0));
     };
 
-    const handlePrev = () => {
-        if (startIndex > 0) {
-            setStartIndex(startIndex - 1);
-        }
+    const goToNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + cardsToShow >= cards.length ? 0 : prevIndex + cardsToShow));
     };
 
     return (
-        <div className="flex justify-center items-center">
-            <div className="relative border-2 border-black p-4 max-w-screen-lg mx-auto">
-                <button
-                    onClick={handlePrev}
-                    className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-md focus:outline-none"
-                >
-                    ◀
-                </button>
-                <div className="flex space-x-4">
-                    {visibleCards.map((card, index) => (
-                        <div key={index} className="min-w-[200px] max-w-[200px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="relative">
+            {/* Contenedor del carrusel */}
+            <div className="flex overflow-hidden justify-center">
+                {cards.slice(currentIndex, currentIndex + cardsToShow).map((card, index) => (
+                    <div key={index} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-2">
+                        <a href="#">
+                            <img
+                                className="rounded-t-lg"
+                                src={card.imgSrc}
+                                alt={card.title}
+                                style={{ width: '350px', height: '250px', objectFit: 'cover' }} // Tamaño expandido de las imágenes
+                            />
+                        </a>
+                        <div className="p-5">
                             <a href="#">
-                                <img className="rounded-t-lg" src={card.imgSrc} alt={card.title} />
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{card.title}</h5>
                             </a>
-                            <div className="p-3">
-                                <a href="#">
-                                    <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{card.title}</h5>
-                                </a>
-                                <p className="mb-2 text-sm text-gray-700 dark:text-gray-400">{card.description}</p>
-                                <a href="#" className="inline-flex items-center px-2 py-1 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Read more
-                                    <svg className="w-3 h-3 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
-                                </a>
-                            </div>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{card.description}</p>
+                            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Read more
+                            </a>
                         </div>
-                    ))}
-                </div>
-                <button
-                    onClick={handleNext}
-                    className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-md focus:outline-none"
-                >
-                    ▶
-                </button>
+                    </div>
+                ))}
             </div>
+
+            {/* Controles de navegación */}
+            <button
+                onClick={goToPrevious}
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 p-2 bg-gray-800 text-white rounded-full"
+            >
+                Previous
+            </button>
+            <button
+                onClick={goToNext}
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 p-2 bg-gray-800 text-white rounded-full"
+            >
+                Next
+            </button>
         </div>
     );
 };

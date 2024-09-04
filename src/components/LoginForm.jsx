@@ -1,60 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const Carousel = () => {
-    // Datos de ejemplo para las tarjetas
-    const cards = [
-        {
-            imgSrc: "/docs/images/blog/image-1.jpg",
-            title: "Noteworthy technology acquisitions 2021",
-            description: "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.",
-        },
-        {
-            imgSrc: "/docs/images/blog/image-2.jpg",
-            title: "The state of AI in 2022",
-            description: "A review of AI advancements and trends in 2022.",
-        },
-        {
-            imgSrc: "/docs/images/blog/image-3.jpg",
-            title: "Top programming languages in 2023",
-            description: "An overview of the most popular programming languages in 2023.",
-        },
-        {
-            imgSrc: "/docs/images/blog/image-4.jpg",
-            title: "Cloud computing trends in 2023",
-            description: "Exploring the latest trends in cloud computing.",
-        },
-        {
-            imgSrc: "/docs/images/blog/image-5.jpg",
-            title: "Cybersecurity best practices",
-            description: "Best practices to keep your data and systems secure in 2023.",
-        },
-    ];
+const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Llama a la función de inicio de sesión que valida contra el archivo JSON
+        onLogin(email, password);
+    };
 
     return (
-        <div className="border-2 border-black p-4 max-w-screen-lg mx-auto overflow-hidden">
-            <div className="flex space-x-4 overflow-x-auto">
-                {cards.map((card, index) => (
-                    <div key={index} className="min-w-[300px] max-w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <a href="#">
-                            <img className="rounded-t-lg" src={card.imgSrc} alt={card.title} />
-                        </a>
-                        <div className="p-5">
-                            <a href="#">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{card.title}</h5>
-                            </a>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{card.description}</p>
-                            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                Read more
-                                <svg className="w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                ))}
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                    Email
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
             </div>
-        </div>
+            <div className="mb-6">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                    Password
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="password"
+                    type="password"
+                    placeholder="********"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            <div className="flex items-center justify-between">
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit"
+                >
+                    Sign In
+                </button>
+                <button
+                    className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                    type="button"
+                    onClick={onSwitchToSignUp}
+                >
+                    Sign Up
+                </button>
+            </div>
+        </form>
     );
 };
 
-export default Carousel;
+LoginForm.propTypes = {
+    onLogin: PropTypes.func.isRequired,
+    onSwitchToSignUp: PropTypes.func.isRequired,
+};
+
+export default LoginForm;

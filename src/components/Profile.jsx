@@ -1,46 +1,40 @@
-// src/components/Profile.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
+
+// Datos de perfil simulados
+const simulatedProfileData = {
+    nombre_completo: 'George Albadr',
+    edad: 30,
+    sexo: 'Male',
+    altura: 175,
+    peso: 70,
+    nivel_actividad: 'Moderate',
+    historial_medico: ['No known issues'],
+    alergias_alimentarias: 'None',
+    condicion_especifica: 'None',
+    objetivos_nutricionales: ['Maintain weight'],
+    dieta: 'Balanced',
+    consumo_calorias_diario: 2500,
+    numero_comidas_bocadillos: 3,
+    consumo_agua_diario: 2.5
+};
 
 const Profile = () => {
     const [profileData, setProfileData] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchProfile = async () => {
-            const token = localStorage.getItem('token');
+        // Simulamos la obtención de los datos de perfil directamente en el frontend
+        const token = localStorage.getItem('token');
 
-            if (!token) {
-                navigate('/login');
-                return;
-            }
+        if (!token) {
+            navigate('/login');
+            return;
+        }
 
-            try {
-                const response = await fetch('http://localhost:5001/profile', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (response.status === 403) {
-                    console.error('Access denied. Invalid token.');
-                    navigate('/login');
-                } else if (response.ok) {
-                    const data = await response.json();
-                    setProfileData(data.data);
-                } else {
-                    console.error('Profile fetch failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        fetchProfile();
+        // Simular la carga de los datos de perfil
+        setProfileData(simulatedProfileData);
     }, [navigate]);
 
     const handleLogout = () => {
