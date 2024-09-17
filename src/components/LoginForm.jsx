@@ -1,4 +1,3 @@
-// src/components/LoginForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Logo from './Logo';
@@ -9,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // useNavigate hook
+    const [rememberMe, setRememberMe] = useState(false); // Track Remember Me state
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,10 +27,12 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
                 const data = await response.json();
                 console.log('Login successful:', data);
 
-                // Store the token and navigate to profile page
-                localStorage.setItem('token', data.data.jwToken);
-                navigate('/profile'); // Navigate to the profile page
-                onLogin(data);
+                // Guarda el token en localStorage o sessionStorage según el estado de 'rememberMe'
+                const storage = rememberMe ? localStorage : sessionStorage;
+                storage.setItem('token', data.data.jwToken);
+
+                // Redirige a la página Home en lugar de Profile
+                navigate('/home');
             } else {
                 console.error('Login failed');
             }
@@ -38,6 +40,7 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
             console.error('Error:', error);
         }
     };
+
 
     return (
         <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
@@ -64,7 +67,13 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
                     <div className="flex items-center justify-between">
                         <div className="flex items-start">
                             <div className="flex items-center h-5">
-                                <input id="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required />
+                                <input
+                                    id="remember"
+                                    type="checkbox"
+                                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                                    checked={rememberMe}
+                                    onChange={() => setRememberMe(!rememberMe)} // Handle checkbox state
+                                />
                             </div>
                             <div className="ml-3 text-sm">
                                 <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
