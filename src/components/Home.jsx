@@ -15,7 +15,6 @@ const Home = () => {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <Logo src="https://flowbite.com/docs/images/logo.svg" alt="NutriWizard" />
-                    {/*<span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">YourApp</span>*/}
                 </div>
                 <div className="flex md:order-2">
                     <button
@@ -26,7 +25,7 @@ const Home = () => {
                         className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
                     >
                         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
                         </svg>
                         <span className="sr-only">Open main menu</span>
                     </button>
