@@ -71,7 +71,6 @@ app.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Email o contraseña incorrectos' });
         }
 
-        // Check if JWT_SECRET is loaded
         if (!process.env.JWT_SECRET) {
             console.error('JWT_SECRET no está definido en el archivo .env');
             return res.status(500).json({ error: 'Error del servidor: JWT_SECRET no está configurado' });
@@ -82,16 +81,6 @@ app.post('/login', async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
-
-        console.log('Token generado:', token); // Log token generado
-
-        // Decodificación de prueba para ver si el token es válido justo después de crearlo
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log('Token verificado correctamente en /login:', decoded);
-        } catch (verifyError) {
-            console.error('Error al verificar el token justo después de generarlo:', verifyError);
-        }
 
         res.json({
             data: {
@@ -112,8 +101,6 @@ app.get('/profile', async (req, res) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
 
-    console.log('Token recibido en /profile:', token);
-
     if (!token) {
         console.error('No se proporcionó un token en la cabecera Authorization');
         return res.status(401).send('No se proporcionó un token');
@@ -126,11 +113,15 @@ app.get('/profile', async (req, res) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('Token decodificado en /profile:', decoded);
 
         const usuario = await Usuario.findOne({
             where: { id: decoded.id },
-            include: [{ model: Authentication, as: 'authentication' }]
+            attributes: [
+                'nombre_completo', 'edad', 'sexo', 'altura', 'peso',
+                'nivel_actividad', 'consumo_calorias_diario', 'consumo_agua_diario',
+                'dieta', 'alergias_alimentarias', 'historial_medico',
+                'numero_comidas_bocadillos', 'objetivos_nutricionales'
+            ]
         });
 
         if (!usuario) {

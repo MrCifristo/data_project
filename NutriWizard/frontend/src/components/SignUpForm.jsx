@@ -1,4 +1,5 @@
 // src/components/SignUpForm.jsx
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Logo from './Logo.jsx';
@@ -35,6 +36,7 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
         e.preventDefault();
 
         try {
+            // Registro del usuario
             const userResponse = await fetch('http://localhost:5001/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -60,6 +62,7 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                 const userData = await userResponse.json();
                 const usuarioId = userData.id;
 
+                // Registro de autenticación
                 const authResponse = await fetch('http://localhost:5001/register-auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -73,15 +76,37 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                 if (authResponse.ok) {
                     const authData = await authResponse.json();
                     console.log('Registration successful:', authData);
-                    onSignUp(authData);
+
+                    // Realizar un login automático para obtener el token
+                    const loginResponse = await fetch('http://localhost:5001/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: formData.email,
+                            password: formData.password,
+                        }),
+                    });
+
+                    if (loginResponse.ok) {
+                        const loginData = await loginResponse.json();
+                        console.log('Login successful:', loginData);
+                        onSignUp(loginData); // Pasar los datos de login (incluyendo token)
+                    } else {
+                        console.error('Automatic login failed after registration.');
+                        alert('Registro exitoso, pero no se pudo iniciar sesión automáticamente.');
+                        onSwitchToLogin(); // Opcional: mostrar el formulario de login
+                    }
                 } else {
                     console.error('Authentication registration failed');
+                    alert('Registro de autenticación fallido. Por favor, intenta de nuevo.');
                 }
             } else {
                 console.error('User registration failed');
+                alert('Registro de usuario fallido. Por favor, verifica tus datos.');
             }
         } catch (error) {
             console.error('Error:', error);
+            alert('Ocurrió un error durante el registro. Por favor, intenta de nuevo.');
         }
     };
 

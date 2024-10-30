@@ -1,42 +1,133 @@
+// src/App.jsx
+
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Home from './components/Home.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import Profile from './components/Profile.jsx';
 import Meals from './components/Meals.jsx';
+import About from './components/About.jsx';
+import NavBar from './components/NavBar.jsx';
 
 const App = () => {
     const [user, setUser] = useState(null);
+    const [userProfile, setUserProfile] = useState(null);
+    const [loadingProfile, setLoadingProfile] = useState(true);
 
+    // Cargar el token al iniciar la app
     useEffect(() => {
         const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         if (token) {
             setUser({ token });
+            fetchUserProfile(token);
         } else {
             setUser(null);
+            setUserProfile(null);
+            setLoadingProfile(false);
         }
     }, []);
 
-    const handleLogin = (userData, rememberMe) => {
-        setUser(userData);
-        const storage = rememberMe ? localStorage : sessionStorage;
-        storage.setItem('token', userData.token);
+    // Función para obtener el perfil
+    const fetchUserProfile = async (token) => {
+        try {
+            setLoadingProfile(true);
+            const response = await fetch('http://localhost:5001/profile', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setUserProfile(data);
+            } else {
+                console.error('Failed to fetch user profile');
+                setUserProfile(null);
+                setUser(null);
+            }
+        } catch (error) {
+            console.error('Error fetching user profile:', error);
+            setUserProfile(null);
+            setUser(null);
+        } finally {
+            setLoadingProfile(false);
+        }
     };
 
+    // Manejo de login
+    const handleLogin = (userData, rememberMe) => {
+        console.log("Login exitoso, configurando usuario.");
+        // Extraer el token desde userData.data.jwToken
+        const token = userData.data.jwToken;
+        const email = userData.data.email;
+        const id = userData.data.id;
+
+        // Establecer el estado del usuario con información relevante
+        setUser({ id, email, token });
+
+        // Almacenar el token en el almacenamiento adecuado
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem('token', token);
+
+        // Obtener el perfil del usuario
+        fetchUserProfile(token);
+    };
+
+    // Manejo de logout
     const handleLogout = () => {
+        console.log("Ejecutando handleLogout");
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
+
+        // Asegura que se elimine completamente el estado
         setUser(null);
+        setUserProfile(null);
+        setLoadingProfile(false);
+
+        console.log("User después de logout:", user);
+        console.log("User profile después de logout:", userProfile);
+
+        // Forzar redireccionamiento y recarga completa
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 0);
     };
+
+    const AuthenticatedLayout = () => (
+        <>
+            <NavBar showLogout={!!user} onLogout={handleLogout} />
+            <div className="flex-1">
+                <Outlet />
+            </div>
+        </>
+    );
 
     return (
         <Router>
             <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
                 <Routes>
+                    {/* Ruta para LandingPage */}
                     <Route path="/" element={<LandingPage onLogin={handleLogin} />} />
-                    <Route path="/home" element={user ? <Home onLogout={handleLogout} /> : <Navigate to="/" />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/meals" element={user ? <Meals /> : <Navigate to="/" />} />
+
+                    {/* Rutas protegidas */}
+                    <Route element={user ? <AuthenticatedLayout /> : <Navigate to="/" />}>
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route
+                            path="/meals"
+                            element={
+                                loadingProfile ? (
+                                    <div className="text-center text-gray-500">Loading...</div>
+                                ) : userProfile ? (
+                                    <Meals userProfile={userProfile} />
+                                ) : (
+                                    <Navigate to="/" />
+                                )
+                            }
+                        />
+                        <Route path="/about" element={<About />} />
+                    </Route>
                 </Routes>
             </div>
         </Router>

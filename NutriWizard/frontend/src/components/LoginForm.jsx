@@ -1,4 +1,5 @@
 // src/components/LoginForm.jsx
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Logo from './Logo.jsx';
@@ -31,13 +32,10 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
                 const token = data.data.jwToken;
                 console.log('Token generated:', token); // Debug: Verificar el token generado
 
-                const storage = rememberMe ? localStorage : sessionStorage;
-                storage.setItem('token', token);
+                // Delegar el manejo del token a App.jsx
+                onLogin(data, rememberMe);
 
-                // Confirmar que el token se haya guardado
-                localStorage.setItem('token', token);
-                console.log('Token saved to storage:', storage.getItem('token'));
-
+                // Redirigir después del login exitoso
                 navigate('/profile');
             } else {
                 console.error('Login failed');
