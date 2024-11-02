@@ -1,6 +1,7 @@
 // src/components/Profile.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types'; // Importar PropTypes
 
 const Profile = ({ onLogout }) => {
     const [profileData, setProfileData] = useState(null);
@@ -69,6 +70,11 @@ const Profile = ({ onLogout }) => {
             </div>
         </div>
     );
+
+};
+
+Profile.propTypes = {
+    onLogout: PropTypes.func.isRequired,
 };
 
 export default Profile;

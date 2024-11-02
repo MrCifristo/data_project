@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
     try {
         const usuario = await Usuario.create(req.body);
+        console.log('Usuario creado:', usuario);
         res.status(201).json({ id: usuario.id });
     } catch (error) {
         console.error('Error en /signup:', error);
@@ -45,6 +46,7 @@ app.post('/register-auth', async (req, res) => {
             email,
             password_hash: hashedPassword
         });
+        console.log('Autenticación creada:', auth);
         res.status(201).json({ message: 'Autenticación creada exitosamente' });
     } catch (error) {
         console.error('Error en /register-auth:', error);
@@ -82,6 +84,9 @@ app.post('/login', async (req, res) => {
             { expiresIn: '1h' }
         );
 
+        console.log('Token generado para el usuario:', user.usuario_id);
+        console.log('Token payload:', jwt.decode(token));
+
         res.json({
             data: {
                 id: user.usuario_id,
@@ -113,6 +118,7 @@ app.get('/profile', async (req, res) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('Token decodificado:', decoded);
 
         const usuario = await Usuario.findOne({
             where: { id: decoded.id },
@@ -129,6 +135,8 @@ app.get('/profile', async (req, res) => {
             return res.status(404).send('Usuario no encontrado');
         }
 
+        console.log('Datos del usuario encontrados:', usuario);
+
         res.json(usuario);
     } catch (error) {
         console.error('Error verificando el token en /profile:', error);
@@ -138,4 +146,5 @@ app.get('/profile', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
+    console.log('Hora actual del servidor:', new Date().toISOString());
 });

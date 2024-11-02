@@ -14,23 +14,23 @@ const App = () => {
     const [userProfile, setUserProfile] = useState(null);
     const [loadingProfile, setLoadingProfile] = useState(true);
 
-    // Cargar el token al iniciar la app
+    // Reiniciar el estado del usuario al iniciar la aplicación
     useEffect(() => {
-        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-        if (token) {
-            setUser({ token });
-            fetchUserProfile(token);
-        } else {
-            setUser(null);
-            setUserProfile(null);
-            setLoadingProfile(false);
-        }
+        // Limpiar tokens almacenados
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+
+        // Reiniciar estados
+        setUser(null);
+        setUserProfile(null);
+        setLoadingProfile(false);
     }, []);
 
     // Función para obtener el perfil
     const fetchUserProfile = async (token) => {
         try {
             setLoadingProfile(true);
+            // Eliminados los console.log innecesarios
             const response = await fetch('http://localhost:5001/profile', {
                 method: 'GET',
                 headers: {
@@ -38,16 +38,19 @@ const App = () => {
                     'Content-Type': 'application/json'
                 }
             });
+
             if (response.ok) {
                 const data = await response.json();
                 setUserProfile(data);
             } else {
-                console.error('Failed to fetch user profile');
+                // Manejo de errores sin asignar errorData
                 setUserProfile(null);
                 setUser(null);
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
             }
         } catch (error) {
-            console.error('Error fetching user profile:', error);
+            // Manejo de errores sin asignar errorData
             setUserProfile(null);
             setUser(null);
         } finally {
@@ -57,7 +60,6 @@ const App = () => {
 
     // Manejo de login
     const handleLogin = (userData, rememberMe) => {
-        console.log("Login exitoso, configurando usuario.");
         // Extraer el token desde userData.data.jwToken
         const token = userData.data.jwToken;
         const email = userData.data.email;
@@ -76,17 +78,14 @@ const App = () => {
 
     // Manejo de logout
     const handleLogout = () => {
-        console.log("Ejecutando handleLogout");
+        // Limpiar tokens almacenados
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
 
-        // Asegura que se elimine completamente el estado
+        // Reiniciar estados
         setUser(null);
         setUserProfile(null);
         setLoadingProfile(false);
-
-        console.log("User después de logout:", user);
-        console.log("User profile después de logout:", userProfile);
 
         // Forzar redireccionamiento y recarga completa
         setTimeout(() => {
@@ -113,7 +112,7 @@ const App = () => {
                     {/* Rutas protegidas */}
                     <Route element={user ? <AuthenticatedLayout /> : <Navigate to="/" />}>
                         <Route path="/home" element={<Home />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile" element={<Profile onLogout={handleLogout} />} />
                         <Route
                             path="/meals"
                             element={
