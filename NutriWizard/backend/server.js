@@ -1,10 +1,14 @@
-// server.js
+// File: server.js
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('./models/Usuario');
 const Authentication = require('./models/Authentication');
+const UserMeal = require('./models/userMeal');
+const Meal = require('./models/meal');
+const sequelize = require('./config/database');
 require('dotenv').config();
 
 const app = express();
@@ -13,9 +17,32 @@ app.use(cors());
 
 const port = process.env.PORT || 5001;
 
+// Sincroniza los modelos con la base de datos solo si la base de datos aún no tiene las tablas
+sequelize.authenticate()
+    .then(() => {
+        console.log("Conexión exitosa a la base de datos.");
+        return sequelize.sync({ alter: true }); // Usa { alter: true } en lugar de { force: false } para actualizar la estructura sin eliminar datos
+    })
+    .then(() => {
+        console.log("Sincronización de modelos exitosa.");
+        // Iniciar el servidor después de sincronizar los modelos
+        app.listen(port, '0.0.0.0', () => {
+            console.log(`Servidor ejecutándose en el puerto ${port}`);
+            console.log('Hora actual del servidor:', new Date().toISOString());
+        });
+    })
+    .catch((error) => {
+        console.error("Error al conectar o sincronizar con la base de datos:", error);
+    });
+
 // Model Associations
 Usuario.hasOne(Authentication, { foreignKey: 'usuario_id', as: 'authentication' });
 Authentication.belongsTo(Usuario, { foreignKey: 'usuario_id', as: 'usuario' });
+
+Usuario.hasMany(UserMeal, { foreignKey: 'userId', as: 'userMeals' });
+UserMeal.belongsTo(Meal, { foreignKey: 'breakfast', as: 'breakfastMeal' });
+UserMeal.belongsTo(Meal, { foreignKey: 'lunch', as: 'lunchMeal' });
+UserMeal.belongsTo(Meal, { foreignKey: 'dinner', as: 'dinnerMeal' });
 
 // Root Route
 app.get('/', (req, res) => {
@@ -26,9 +53,10 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
     try {
         const usuario = await Usuario.create(req.body);
+        console.log('Usuario creado:', usuario);
         res.status(201).json({ id: usuario.id });
     } catch (error) {
-        console.error('Error en /signup:', error);
+        console.error('Error en /signup:', error.message);
         res.status(500).json({ error: 'Error al registrar el usuario' });
     }
 });
@@ -36,18 +64,19 @@ app.post('/signup', async (req, res) => {
 // Register Authentication Endpoint
 app.post('/register-auth', async (req, res) => {
     const { usuario_id, email, password } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         const auth = await Authentication.create({
             usuario_id,
             email,
             password_hash: hashedPassword
         });
+        console.log('Autenticación creada:', auth);
         res.status(201).json({ message: 'Autenticación creada exitosamente' });
     } catch (error) {
-        console.error('Error en /register-auth:', error);
+        console.error('Error en /register-auth:', error.message);
         res.status(500).json({ error: 'Error al registrar la autenticación' });
     }
 });
@@ -82,6 +111,7 @@ app.post('/login', async (req, res) => {
             { expiresIn: '1h' }
         );
 
+        console.log('Token generado para el usuario:', user.usuario_id);
         res.json({
             data: {
                 id: user.usuario_id,
@@ -91,7 +121,7 @@ app.post('/login', async (req, res) => {
             success: true
         });
     } catch (error) {
-        console.error('Error en /login:', error);
+        console.error('Error en /login:', error.message);
         res.status(500).json({ error: 'Error en el inicio de sesión' });
     }
 });
@@ -113,11 +143,12 @@ app.get('/profile', async (req, res) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('Token decodificado:', decoded);
 
         const usuario = await Usuario.findOne({
             where: { id: decoded.id },
             attributes: [
-                'nombre_completo', 'edad', 'sexo', 'altura', 'peso',
+                'id', 'nombre_completo', 'edad', 'sexo', 'altura', 'peso',
                 'nivel_actividad', 'consumo_calorias_diario', 'consumo_agua_diario',
                 'dieta', 'alergias_alimentarias', 'historial_medico',
                 'numero_comidas_bocadillos', 'objetivos_nutricionales'
@@ -129,13 +160,81 @@ app.get('/profile', async (req, res) => {
             return res.status(404).send('Usuario no encontrado');
         }
 
+        console.log('Datos del usuario encontrados:', usuario);
         res.json(usuario);
     } catch (error) {
-        console.error('Error verificando el token en /profile:', error);
+        console.error('Error verificando el token en /profile:', error.message);
         res.status(401).send('Token inválido');
     }
 });
 
-app.listen(port, () => {
-    console.log(`Servidor ejecutándose en el puerto ${port}`);
+// User Meals Endpoint
+app.get('/user-meals', async (req, res) => {
+    try {
+        const userMeals = await UserMeal.findAll({
+            include: [
+                { model: Meal, as: 'breakfastMeal' },
+                { model: Meal, as: 'lunchMeal' },
+                { model: Meal, as: 'dinnerMeal' }
+            ]
+        });
+
+        if (!userMeals || userMeals.length === 0) {
+            return res.status(404).json({ error: 'User meals not found' });
+        }
+
+        res.json(userMeals);
+    } catch (error) {
+        console.error('Error en /user-meals:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Create Meal Endpoint
+app.post('/meals', async (req, res) => {
+    try {
+        const meal = await Meal.create(req.body);
+        console.log('Comida creada:', meal);
+        res.status(201).json(meal);
+    } catch (error) {
+        console.error('Error en /meals:', error.message);
+        res.status(500).json({ error: 'Error al crear la comida' });
+    }
+});
+
+// Update Meal Endpoint
+app.put('/meals/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [updated] = await Meal.update(req.body, { where: { id } });
+
+        if (updated) {
+            const updatedMeal = await Meal.findOne({ where: { id } });
+            console.log('Comida actualizada:', updatedMeal);
+            res.status(200).json(updatedMeal);
+        } else {
+            res.status(404).json({ error: 'Comida no encontrada' });
+        }
+    } catch (error) {
+        console.error('Error en /meals/:id:', error.message);
+        res.status(500).json({ error: 'Error al actualizar la comida' });
+    }
+});
+
+// Delete Meal Endpoint
+app.delete('/meals/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Meal.destroy({ where: { id } });
+
+        if (deleted) {
+            console.log('Comida eliminada con ID:', id);
+            res.status(204).send();
+        } else {
+            res.status(404).json({ error: 'Comida no encontrada' });
+        }
+    } catch (error) {
+        console.error('Error en /meals/:id:', error.message);
+        res.status(500).json({ error: 'Error al eliminar la comida' });
+    }
 });

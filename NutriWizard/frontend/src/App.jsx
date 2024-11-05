@@ -1,12 +1,12 @@
 // src/App.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import Home from './components/Home.jsx';
-import LandingPage from './components/LandingPage.jsx';
-import Profile from './components/Profile.jsx';
-import Meals from './components/Meals.jsx';
-import About from './components/About.jsx';
+import Home from './pages/Home.jsx';
+import LandingPage from './pages/LandingPage.jsx';
+import Profile from './pages/Profile.jsx';
+import Meals from './pages/Meals.jsx';
+import About from './pages/About.jsx';
 import NavBar from './components/NavBar.jsx';
 
 const App = () => {
@@ -14,20 +14,15 @@ const App = () => {
     const [userProfile, setUserProfile] = useState(null);
     const [loadingProfile, setLoadingProfile] = useState(true);
 
-    // Cargar el token al iniciar la app
     useEffect(() => {
-        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-        if (token) {
-            setUser({ token });
-            fetchUserProfile(token);
-        } else {
-            setUser(null);
-            setUserProfile(null);
-            setLoadingProfile(false);
-        }
+        // Limpieza de tokens y reinicio de estados al montar el componente
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        setUser(null);
+        setUserProfile(null);
+        setLoadingProfile(false);
     }, []);
 
-    // Función para obtener el perfil
     const fetchUserProfile = async (token) => {
         try {
             setLoadingProfile(true);
@@ -38,16 +33,17 @@ const App = () => {
                     'Content-Type': 'application/json'
                 }
             });
+
             if (response.ok) {
                 const data = await response.json();
                 setUserProfile(data);
             } else {
-                console.error('Failed to fetch user profile');
                 setUserProfile(null);
                 setUser(null);
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
             }
         } catch (error) {
-            console.error('Error fetching user profile:', error);
             setUserProfile(null);
             setUser(null);
         } finally {
@@ -55,43 +51,29 @@ const App = () => {
         }
     };
 
-    // Manejo de login
-    const handleLogin = (userData, rememberMe) => {
-        console.log("Login exitoso, configurando usuario.");
-        // Extraer el token desde userData.data.jwToken
-        const token = userData.data.jwToken;
-        const email = userData.data.email;
-        const id = userData.data.id;
-
-        // Establecer el estado del usuario con información relevante
-        setUser({ id, email, token });
-
-        // Almacenar el token en el almacenamiento adecuado
-        const storage = rememberMe ? localStorage : sessionStorage;
-        storage.setItem('token', token);
-
-        // Obtener el perfil del usuario
-        fetchUserProfile(token);
-    };
-
-    // Manejo de logout
-    const handleLogout = () => {
-        console.log("Ejecutando handleLogout");
+    const handleLogout = useCallback(() => {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-
-        // Asegura que se elimine completamente el estado
         setUser(null);
         setUserProfile(null);
         setLoadingProfile(false);
 
-        console.log("User después de logout:", user);
-        console.log("User profile después de logout:", userProfile);
-
-        // Forzar redireccionamiento y recarga completa
         setTimeout(() => {
             window.location.href = '/';
         }, 0);
+    }, []);
+
+    const handleLogin = (userData, rememberMe) => {
+        const token = userData.data.jwToken;
+        const email = userData.data.email;
+        const id = userData.data.id;
+
+        setUser({ id, email, token });
+
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem('token', token);
+
+        fetchUserProfile(token);
     };
 
     const AuthenticatedLayout = () => (
@@ -113,7 +95,7 @@ const App = () => {
                     {/* Rutas protegidas */}
                     <Route element={user ? <AuthenticatedLayout /> : <Navigate to="/" />}>
                         <Route path="/home" element={<Home />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile" element={<Profile onLogout={handleLogout} />} />
                         <Route
                             path="/meals"
                             element={

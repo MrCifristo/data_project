@@ -19,6 +19,7 @@ const NavBar = ({ showLogout, onLogout }) => {
         <nav className={`${isAboutPage ? 'fixed top-0' : 'relative'} w-full flex justify-between items-center p-4 bg-indigo-500 text-white shadow-lg z-50`}>
             <div className="flex items-center space-x-3">
                 <Logo src="https://flowbite.com/docs/images/logo.svg" alt="NutriWizard" className="w-8 h-8 mr-2" />
+                <span className="text-xl font-bold">NutriWizard</span>
             </div>
             <div className="space-x-4">
                 <Link to="/home" className="hover:underline">Home</Link>

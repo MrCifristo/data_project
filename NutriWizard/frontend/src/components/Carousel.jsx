@@ -1,81 +1,64 @@
-// src/components/Meals.jsx
-import React, { useState, useEffect } from 'react';
-import Carousel from './Carousel.jsx';
-import { Pie } from 'react-chartjs-2';
-import Footer from './Footer';
-import {
-    Chart as ChartJS,
-    ArcElement,
-    Tooltip,
-    Legend,
-} from 'chart.js';
+// src/components/Carousel.jsx
+import React, { useState } from 'react';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+const images = [
+    'https://marketplace.canva.com/EAFAPEVUs7A/1/0/1067w/canva-tarjeta-recetas-f%C3%A1ciles-simple-amarillo-y-blanco-kUbp0QbvdNk.jpg',
+    'https://lh3.googleusercontent.com/proxy/sVof3rvxKXpRrFntcnM30rfxy6yLdOfRWW8Lato37tZI0POk3_BQw-dpHAR7BB0oTgCU6QGzq2r0Maq_l4pewRdfoDlyzGOiWbU8riqjjn20LWDxIy9w2PIWkQAN8VyxXhqQwFdE-YxF2nPCljINwFNBZTXB',
+    'https://enriquetomas.com/cdn/shop/articles/72ppp_brocheta-melon_006.jpg?v=1690363201',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXglWlt_GOq2jLYZgPvXRQhE1OXqdwowbQoA&s',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGoQgh-QD3XCvMfEZUQWdx7pMfDBcaFSAi6w&s',
+    'https://i0.wp.com/thehappening.com/wp-content/uploads/2018/10/librosaludable8.jpg?fit=1024%2C694&ssl=1',
+];
 
-const Meals = ({ userProfile }) => {
-    const [caloriesData, setCaloriesData] = useState(null);
+const Carousel = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    useEffect(() => {
-        if (userProfile) {
-            console.log("User Profile Data:", userProfile);
-            const caloricIntake = userProfile.consumo_calorias_diario || 0;
-            const waterConsumption = userProfile.consumo_agua_diario || 0;
-            const snacksMeals = userProfile.numero_comidas_bocadillos || 0;
+    const prevSlide = () => {
+        const index = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+        setCurrentIndex(index);
+    };
 
-            // Verificar si los datos son correctos
-            if (caloricIntake > 0 || waterConsumption > 0 || snacksMeals > 0) {
-                setCaloriesData({
-                    labels: ['Daily Caloric Intake (kcal)', 'Water Consumption (L)', 'Number of Meals/Snacks'],
-                    datasets: [
-                        {
-                            label: 'User Consumption',
-                            data: [caloricIntake, waterConsumption, snacksMeals],
-                            backgroundColor: ['#4CAF50', '#36A2EB', '#FF6384'],
-                            hoverBackgroundColor: ['#66BB6A', '#42A5F5', '#FF7394']
-                        },
-                    ],
-                });
-            } else {
-                console.warn("Los valores de entrada son cero, el gráfico puede no mostrarse correctamente.");
-            }
-        }
-    }, [userProfile]);
-
-    if (!userProfile) {
-        return <p className="text-center text-red-500">No user profile data available.</p>;
-    }
+    const nextSlide = () => {
+        const index = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+        setCurrentIndex(index);
+    };
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-            <div className="flex justify-center items-center flex-col">
-                <div className="w-full mb-12">
-                    <Carousel />
-                </div>
-
-                <div className="w-full max-w-6xl px-4 flex flex-col md:flex-row gap-8">
-                    <div className="w-full md:w-2/3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                        <h2 className="text-2xl font-bold mb-4">Nutrition Breakdown</h2>
-                        {caloriesData ? (
-                            <Pie
-                                data={caloriesData}
-                                options={{
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'bottom',
-                                        },
-                                    },
-                                }}
-                            />
-                        ) : (
-                            <p className="text-center text-gray-500">No data available for chart.</p>
-                        )}
-                    </div>
-                </div>
+        <div className="relative w-full min-h-2-w-4xl mx-auto">
+            <div className="overflow-hidden rounded-lg shadow-lg">
+                <img
+                    src={images[currentIndex]}
+                    alt={`Slide ${currentIndex}`}
+                    className="w-full h-64 object-cover transition-transform duration-500"
+                />
             </div>
-            <Footer />
+            {/* Botones */}
+            <button
+                onClick={prevSlide}
+                className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none"
+            >
+                &#10094;
+            </button>
+            <button
+                onClick={nextSlide}
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none"
+            >
+                &#10095;
+            </button>
+            {/* Indicadores */}
+            <div className="flex justify-center mt-4 space-x-2">
+                {images.map((_, index) => (
+                    <span
+                        key={index}
+                        className={`h-3 w-3 rounded-full ${
+                            index === currentIndex ? 'bg-gray-800' : 'bg-gray-400'
+                        } cursor-pointer`}
+                        onClick={() => setCurrentIndex(index)}
+                    ></span>
+                ))}
+            </div>
         </div>
     );
 };
 
-export default Meals;
+export default Carousel;

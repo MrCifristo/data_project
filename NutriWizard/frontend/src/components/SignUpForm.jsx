@@ -36,6 +36,7 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
         e.preventDefault();
 
         try {
+            console.log('Sending sign-up request with:', formData);
             // Registro del usuario
             const userResponse = await fetch('http://localhost:5001/signup', {
                 method: 'POST',
@@ -58,9 +59,11 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                 }),
             });
 
+            console.log('Signup response status:', userResponse.status);
             if (userResponse.ok) {
                 const userData = await userResponse.json();
                 const usuarioId = userData.id;
+                console.log('User registered with ID:', usuarioId);
 
                 // Registro de autenticación
                 const authResponse = await fetch('http://localhost:5001/register-auth', {
@@ -73,9 +76,10 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     }),
                 });
 
+                console.log('Authentication registration response status:', authResponse.status);
                 if (authResponse.ok) {
                     const authData = await authResponse.json();
-                    console.log('Registration successful:', authData);
+                    console.log('Authentication registration successful:', authData);
 
                     // Realizar un login automático para obtener el token
                     const loginResponse = await fetch('http://localhost:5001/login', {
@@ -87,21 +91,28 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                         }),
                     });
 
+                    console.log('Automatic login response status:', loginResponse.status);
                     if (loginResponse.ok) {
                         const loginData = await loginResponse.json();
-                        console.log('Login successful:', loginData);
+                        console.log('Automatic login successful:', loginData);
                         onSignUp(loginData); // Pasar los datos de login (incluyendo token)
                     } else {
                         console.error('Automatic login failed after registration.');
+                        const errorData = await loginResponse.json();
+                        console.error('Login error:', errorData);
                         alert('Registro exitoso, pero no se pudo iniciar sesión automáticamente.');
                         onSwitchToLogin(); // Opcional: mostrar el formulario de login
                     }
                 } else {
                     console.error('Authentication registration failed');
+                    const errorData = await authResponse.json();
+                    console.error('Authentication registration error:', errorData);
                     alert('Registro de autenticación fallido. Por favor, intenta de nuevo.');
                 }
             } else {
                 console.error('User registration failed');
+                const errorData = await userResponse.json();
+                console.error('User registration error:', errorData);
                 alert('Registro de usuario fallido. Por favor, verifica tus datos.');
             }
         } catch (error) {
@@ -139,7 +150,7 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     <LoginButton label="Create an account" />
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Already have an account?{' '}
-                        <button onClick={onSwitchToLogin} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</button>
+                        <button type="button" onClick={onSwitchToLogin} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</button>
                     </p>
                 </form>
             </div>
