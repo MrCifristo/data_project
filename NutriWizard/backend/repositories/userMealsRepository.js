@@ -1,7 +1,7 @@
 
 // File: repositories/userMealsRepository.js
 
-const UserMeal = require('../models/userMeal');
+const UserMeal = require('../models/user_meals');
 
 class UserMealsRepository {
     static async createUserMeal(data) {

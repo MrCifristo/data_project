@@ -1,13 +1,12 @@
-// LandingPage.jsx
+// src/pages/LandingPage.jsx
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
 
-const LandingPage = ({ onLogin }) => {
+const LandingPage = () => {
     const [showLogin, setShowLogin] = useState(true);
     const [showForm, setShowForm] = useState(false);
-    const navigate = useNavigate();
 
     const toggleLoginForm = () => {
         setShowForm(!showForm);
@@ -19,11 +18,6 @@ const LandingPage = ({ onLogin }) => {
 
     const switchToLogin = () => {
         setShowLogin(true);
-    };
-
-    const handleLogin = (userData, rememberMe) => {
-        onLogin(userData, rememberMe);
-        navigate('/home'); // Redirige solo después de un login exitoso
     };
 
     return (
@@ -40,9 +34,9 @@ const LandingPage = ({ onLogin }) => {
             <div className={`relative z-10 w-full max-w-md mx-auto transition-opacity duration-500 ${showForm ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                 {showForm && (
                     showLogin ? (
-                        <LoginForm onLogin={handleLogin} onSwitchToSignUp={switchToSignUp} />
+                        <LoginForm onSwitchToSignUp={switchToSignUp} />
                     ) : (
-                        <SignUpForm onSignUp={handleLogin} onSwitchToLogin={switchToLogin} />
+                        <SignUpForm onSwitchToLogin={switchToLogin} />
                     )
                 )}
             </div>

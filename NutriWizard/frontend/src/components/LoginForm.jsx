@@ -1,24 +1,25 @@
 // src/components/LoginForm.jsx
 
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Logo from './Logo.jsx';
-import InputField from './InputField.jsx';
-import LoginButton from './LoginButton.jsx';
+import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Logo from './Logo';
+import InputField from './InputField';
+import LoginButton from './LoginButton';
 
-const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
+const LoginForm = ({ onSwitchToSignUp }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:5001/login', {
+            const response = await fetch('http://localhost:5001/api/users/login', { // Cambiado a la URL correcta
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -26,10 +27,7 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                // const token = data.data.jwToken; // Eliminado porque no se usa
-
-                // Delegar el manejo del token a App.jsx
-                onLogin(data, rememberMe);
+                login(data.data.jwToken, rememberMe);
 
                 // Redirigir después del login exitoso
                 navigate('/profile');
@@ -46,11 +44,10 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
     return (
         <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
             <div className="p-6 flex items-center space-x-4 md:space-x-6 sm:p-8">
-                {/* Ajuste del tamaño del logo usando Tailwind CSS */}
                 <Logo
                     src="https://media.tenor.com/BIn4gjem0LQAAAAj/naruto-hungry.gif"
                     alt="Company Name"
-                    className="w-12 h-12" // Tamaño reducido
+                    className="w-12 h-12"
                 />
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Sign in to your account
@@ -73,15 +70,13 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
                 />
                 <div className="flex items-center justify-between">
                     <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                            <input
-                                id="remember"
-                                type="checkbox"
-                                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                                checked={rememberMe}
-                                onChange={() => setRememberMe(!rememberMe)}
-                            />
-                        </div>
+                        <input
+                            id="remember"
+                            type="checkbox"
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                            checked={rememberMe}
+                            onChange={() => setRememberMe(!rememberMe)}
+                        />
                         <label htmlFor="remember" className="ml-3 text-sm text-gray-500 dark:text-gray-300">
                             Remember me
                         </label>
@@ -95,18 +90,16 @@ const LoginForm = ({ onLogin, onSwitchToSignUp }) => {
                     </button>
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
-                <LoginButton label="Sign in" />
+                <LoginButton label="Sign in" onClick={handleLogin} />
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                    Don’t have an account yet? <button type="button" onClick={onSwitchToSignUp} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</button>
+                    Don’t have an account yet?{' '}
+                    <button type="button" onClick={onSwitchToSignUp} className="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                        Sign up
+                    </button>
                 </p>
             </form>
         </div>
     );
-};
-
-LoginForm.propTypes = {
-    onLogin: PropTypes.func.isRequired,
-    onSwitchToSignUp: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
