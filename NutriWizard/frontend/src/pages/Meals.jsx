@@ -5,6 +5,7 @@ import Carousel from '../components/Carousel.jsx';
 import { Doughnut } from 'react-chartjs-2';
 import Footer from '../components/Footer';
 import LayoutForm from '../components/LayoutForm.jsx';
+import { useAuth } from '../contexts/AuthContext';
 import {
     Chart as ChartJS,
     ArcElement,
@@ -14,12 +15,37 @@ import {
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Meals = ({ userProfile }) => {
+const Meals = () => {
+    const { userProfile } = useAuth(); // Obtener userProfile desde el contexto
     const [combinedData, setCombinedData] = useState(null);
     const [userMeals, setUserMeals] = useState(null);
     const [showForm, setShowForm] = useState(false);
 
+    // Función para obtener los datos de comidas del backend
+    const fetchUserMeals = async () => {
+        try {
+            const response = await fetch('http://localhost:5001/api/meals/user-meals');
+            if (response.ok) {
+                const data = await response.json();
+                setUserMeals(data);
+            } else {
+                setUserMeals(null);
+            }
+        } catch (error) {
+            setUserMeals(null);
+            console.error("Error fetching user meals:", error);
+        }
+    };
+
+    // Función que se llama después de crear una nueva receta
+    const handleRecipeCreated = () => {
+        fetchUserMeals(); // Actualiza la lista de recetas
+        setShowForm(false); // Cierra el formulario
+    };
+
+    // Verificar si userProfile se ha cargado correctamente
     useEffect(() => {
+        console.log('userProfile in Meals:', userProfile); // Verificar valor de userProfile
         if (userProfile) {
             const caloricIntake = userProfile.consumo_calorias_diario || 0;
             const waterConsumption = userProfile.consumo_agua_diario || 0;
@@ -57,25 +83,11 @@ const Meals = ({ userProfile }) => {
         }
     }, [userProfile]);
 
+    // Llamar a fetchUserMeals cuando el componente se monte
     useEffect(() => {
-        const fetchUserMeals = async () => {
-            try {
-                const response = await fetch('http://localhost:5001/user-meals'); // Updated to fetch all meal plans
-                if (response.ok) {
-                    const data = await response.json();
-                    setUserMeals(data);
-                } else {
-                    setUserMeals(null);
-                }
-            } catch (error) {
-                setUserMeals(null);
-            }
-        };
-
         fetchUserMeals();
     }, []);
 
-    // Condiciones y opciones para el gráfico
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -191,18 +203,17 @@ const Meals = ({ userProfile }) => {
                             <p className="text-center text-gray-500">No meal data available.</p>
                         )}
                     </div>
-                    {/* Botón para mostrar el LayoutForm */}
                     <div className="mt-8 w-full max-w-4xl mx-auto text-center">
                         <button
                             onClick={() => setShowForm(!showForm)}
-                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
                         >
                             Add New Meal
                         </button>
                     </div>
                     {showForm && (
                         <div className="mt-8 w-full max-w-4xl mx-auto">
-                            <LayoutForm />
+                            <LayoutForm onRecipeCreated={handleRecipeCreated} />
                         </div>
                     )}
                 </div>

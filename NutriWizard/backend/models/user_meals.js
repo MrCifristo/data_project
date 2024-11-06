@@ -1,10 +1,11 @@
-// File: models/UserMeal.js
+// File: models/user_meals.js
+
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Usuario = require('./Usuario');
-const Meal = require('./Meal');
+const Usuario = require('./Usuario'); // Asegúrate de tener Usuario definido correctamente
+const Meals = require('./meals');
 
-const UserMeal = sequelize.define('UserMeal', {
+const User_meals = sequelize.define('user_meals', {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -16,21 +17,21 @@ const UserMeal = sequelize.define('UserMeal', {
     breakfast: {
         type: DataTypes.INTEGER,
         references: {
-            model: Meal,
+            model: Meals,
             key: 'id',
         },
     },
     lunch: {
         type: DataTypes.INTEGER,
         references: {
-            model: Meal,
+            model: Meals,
             key: 'id',
         },
     },
     dinner: {
         type: DataTypes.INTEGER,
         references: {
-            model: Meal,
+            model: Meals,
             key: 'id',
         },
     },
@@ -39,4 +40,9 @@ const UserMeal = sequelize.define('UserMeal', {
     timestamps: true,
 });
 
-module.exports = UserMeal;
+// Asociaciones con alias específicos
+User_meals.belongsTo(Meals, { foreignKey: 'breakfast', as: 'breakfastMeal' });
+User_meals.belongsTo(Meals, { foreignKey: 'lunch', as: 'lunchMeal' });
+User_meals.belongsTo(Meals, { foreignKey: 'dinner', as: 'dinnerMeal' });
+
+module.exports = User_meals;

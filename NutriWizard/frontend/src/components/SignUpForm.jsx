@@ -1,13 +1,13 @@
 // src/components/SignUpForm.jsx
 
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useAuth } from '../contexts/AuthContext';
 import Logo from './Logo.jsx';
 import InputField from './InputField.jsx';
 import SelectField from './SelectField.jsx';
-import LoginButton from './LoginButton.jsx';
 
-const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
+const SignUpForm = ({ onSwitchToLogin }) => {
+    const { login } = useAuth();
     const [formData, setFormData] = useState({
         nombre_completo: '',
         edad: '',
@@ -37,8 +37,8 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
 
         try {
             console.log('Sending sign-up request with:', formData);
-            // Registro del usuario
-            const userResponse = await fetch('http://localhost:5001/signup', {
+
+            const userResponse = await fetch('http://localhost:5001/api/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -59,14 +59,11 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                 }),
             });
 
-            console.log('Signup response status:', userResponse.status);
             if (userResponse.ok) {
                 const userData = await userResponse.json();
                 const usuarioId = userData.id;
-                console.log('User registered with ID:', usuarioId);
 
-                // Registro de autenticación
-                const authResponse = await fetch('http://localhost:5001/register-auth', {
+                const authResponse = await fetch('http://localhost:5001/api/users/register-auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -76,13 +73,8 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     }),
                 });
 
-                console.log('Authentication registration response status:', authResponse.status);
                 if (authResponse.ok) {
-                    const authData = await authResponse.json();
-                    console.log('Authentication registration successful:', authData);
-
-                    // Realizar un login automático para obtener el token
-                    const loginResponse = await fetch('http://localhost:5001/login', {
+                    const loginResponse = await fetch('http://localhost:5001/api/users/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -91,28 +83,17 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                         }),
                     });
 
-                    console.log('Automatic login response status:', loginResponse.status);
                     if (loginResponse.ok) {
                         const loginData = await loginResponse.json();
-                        console.log('Automatic login successful:', loginData);
-                        onSignUp(loginData); // Pasar los datos de login (incluyendo token)
+                        login(loginData.data.jwToken, true);
                     } else {
-                        console.error('Automatic login failed after registration.');
-                        const errorData = await loginResponse.json();
-                        console.error('Login error:', errorData);
                         alert('Registro exitoso, pero no se pudo iniciar sesión automáticamente.');
-                        onSwitchToLogin(); // Opcional: mostrar el formulario de login
+                        onSwitchToLogin();
                     }
                 } else {
-                    console.error('Authentication registration failed');
-                    const errorData = await authResponse.json();
-                    console.error('Authentication registration error:', errorData);
                     alert('Registro de autenticación fallido. Por favor, intenta de nuevo.');
                 }
             } else {
-                console.error('User registration failed');
-                const errorData = await userResponse.json();
-                console.error('User registration error:', errorData);
                 alert('Registro de usuario fallido. Por favor, verifica tus datos.');
             }
         } catch (error) {
@@ -124,12 +105,15 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
     return (
         <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 overflow-y-auto max-h-[75vh]">
-                <Logo src="https://media.tenor.com/BIn4gjem0LQAAAAj/naruto-hungry.gif" alt="Company Name" />
+                <Logo
+                    src="https://media.tenor.com/BIn4gjem0LQAAAAj/naruto-hungry.gif"
+                    alt="Company Name"
+                    className="w-12 h-12 mx-auto" // Ajuste de tamaño del logo a 48x48 píxeles
+                />
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                     Create an account
                 </h1>
                 <form className="space-y-4 md:space-y-6" onSubmit={handleSignUp}>
-                    {/* Campos para información del usuario */}
                     <InputField type="text" name="nombre_completo" placeholder="Full Name" value={formData.nombre_completo} onChange={handleChange} />
                     <InputField type="number" name="edad" placeholder="Age" value={formData.edad} onChange={handleChange} />
                     <InputField type="text" name="sexo" placeholder="Sex" value={formData.sexo} onChange={handleChange} />
@@ -144,10 +128,16 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
                     <InputField type="number" name="consumo_calorias_diario" placeholder="Daily Calorie Intake" value={formData.consumo_calorias_diario} onChange={handleChange} />
                     <InputField type="number" name="numero_comidas_bocadillos" placeholder="Meals and Snacks per Day" value={formData.numero_comidas_bocadillos} onChange={handleChange} />
                     <InputField type="number" name="consumo_agua_diario" placeholder="Daily Water Intake (L)" value={formData.consumo_agua_diario} onChange={handleChange} />
-                    {/* Campos para autenticación */}
                     <InputField type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
                     <InputField type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
-                    <LoginButton label="Create an account" />
+
+                    <button
+                        type="submit"
+                        className="w-full py-3 px-4 text-white font-semibold bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+                    >
+                        Create an account
+                    </button>
+
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Already have an account?{' '}
                         <button type="button" onClick={onSwitchToLogin} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</button>
@@ -156,11 +146,6 @@ const SignUpForm = ({ onSignUp, onSwitchToLogin }) => {
             </div>
         </div>
     );
-};
-
-SignUpForm.propTypes = {
-    onSignUp: PropTypes.func.isRequired,
-    onSwitchToLogin: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;
