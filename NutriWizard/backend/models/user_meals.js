@@ -2,7 +2,7 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Usuario = require('./Usuario'); // Asegúrate de tener Usuario definido correctamente
+const Usuario = require('./Usuario');
 const Meals = require('./meals');
 
 const User_meals = sequelize.define('user_meals', {
@@ -16,6 +16,7 @@ const User_meals = sequelize.define('user_meals', {
     },
     breakfast: {
         type: DataTypes.INTEGER,
+        allowNull: true,
         references: {
             model: Meals,
             key: 'id',
@@ -23,6 +24,7 @@ const User_meals = sequelize.define('user_meals', {
     },
     lunch: {
         type: DataTypes.INTEGER,
+        allowNull: true,
         references: {
             model: Meals,
             key: 'id',
@@ -30,6 +32,7 @@ const User_meals = sequelize.define('user_meals', {
     },
     dinner: {
         type: DataTypes.INTEGER,
+        allowNull: true,
         references: {
             model: Meals,
             key: 'id',
@@ -41,8 +44,8 @@ const User_meals = sequelize.define('user_meals', {
 });
 
 // Asociaciones con alias específicos
-User_meals.belongsTo(Meals, { foreignKey: 'breakfast', as: 'breakfastMeal' });
-User_meals.belongsTo(Meals, { foreignKey: 'lunch', as: 'lunchMeal' });
-User_meals.belongsTo(Meals, { foreignKey: 'dinner', as: 'dinnerMeal' });
+User_meals.belongsTo(Meals, { foreignKey: 'breakfast', as: 'breakfastMeal', onDelete: 'CASCADE' });
+User_meals.belongsTo(Meals, { foreignKey: 'lunch', as: 'lunchMeal', onDelete: 'CASCADE' });
+User_meals.belongsTo(Meals, { foreignKey: 'dinner', as: 'dinnerMeal', onDelete: 'CASCADE' });
 
 module.exports = User_meals;

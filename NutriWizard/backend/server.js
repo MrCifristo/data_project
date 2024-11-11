@@ -5,13 +5,11 @@ const cors = require('cors');
 const sequelize = require('./config/database');
 const mealRoutes = require('./routes/mealRoutes');
 const userRoutes = require('./routes/userRoutes');
-const meals = require('./models/meals'); // Cambiado a minúsculas
-const user_meals = require('./models/user_meals'); // Cambiado a minúsculas
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors());//
 
 const port = process.env.PORT || 5001;
 
@@ -20,29 +18,32 @@ const syncDatabase = async () => {
         await sequelize.authenticate();
         console.log("Conexión exitosa a la base de datos.");
 
+        await sequelize.sync();
+        console.log("Sincronizacion de todas las tablas completada")
+
         //limpiar tabla meals
         //await meals.destroy({ where: {} });
         //console.log("Eliminamos lo que esta en meals");
 
         // Sincronizar el modelo de meal primero para que existan las claves necesarias
-        await meals.sync({ alter: true });
-        console.log("Sincronización de 'meal' completa.");
+        // await meals.sync({ alter: true });
+        // console.log("Sincronización de 'meal' completa.");
 
 
         // Desactivar restricciones de clave foránea temporalmente
-        await sequelize.query('SET session_replication_role = replica');
+        // await sequelize.query('SET session_replication_role = replica');
 
         // **Eliminar esta línea para evitar limpiar la tabla 'user_meals'**
         //await user_meal.destroy({ where: {} });
         //console.log("Sincronización de 'user_meal' sin limpieza.");
 
         // Sincronizar user_meal
-        await user_meals.sync({ alter: true });
-        console.log("Sincronización de 'user_meal' completa.");
+        // await user_meals.sync({ alter: true });
+        // console.log("Sincronización de 'user_meal' completa.");
 
         // Reactivar restricciones de clave foránea
-        await sequelize.query('SET session_replication_role = DEFAULT');
-        console.log("Restricciones de clave foránea reactivadas.");
+        // await sequelize.query('SET session_replication_role = DEFAULT');
+        // console.log("Restricciones de clave foránea reactivadas.");
 
         app.listen(port, '0.0.0.0', () => {
             console.log(`Servidor ejecutándose en el puerto ${port}`);
