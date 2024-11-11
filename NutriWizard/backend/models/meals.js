@@ -31,7 +31,7 @@ const Meals = sequelize.define('meals', {
     },
     mealType: {
         type: DataTypes.STRING,
-        allowNull: true, // Temporalmente permitir valores NULL
+        allowNull: false,
         defaultValue: 'unknown' // Valor por defecto temporal
     }
 }, {

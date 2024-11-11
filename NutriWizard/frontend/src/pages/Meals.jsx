@@ -1,5 +1,4 @@
-// File: src/pages/Meals.jsx
-
+// src/pages/Meals.jsx
 import React, { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel.jsx';
 import { Doughnut } from 'react-chartjs-2';
@@ -16,36 +15,58 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Meals = () => {
-    const { userProfile } = useAuth(); // Obtener userProfile desde el contexto
+    const { userProfile } = useAuth();
     const [combinedData, setCombinedData] = useState(null);
-    const [userMeals, setUserMeals] = useState(null);
+    const [userMeals, setUserMeals] = useState([]);
+    const [highlightedMeal, setHighlightedMeal] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    // Función para obtener los datos de comidas del backend
-    const fetchUserMeals = async () => {
+    const fetchAllMeals = async () => {
         try {
-            const response = await fetch('http://localhost:5001/api/meals/user-meals');
+            const response = await fetch('http://localhost:5001/api/meals');
             if (response.ok) {
                 const data = await response.json();
-                setUserMeals(data);
+                const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setUserMeals(sortedData);
             } else {
-                setUserMeals(null);
+                console.error('Failed to fetch all meals');
             }
         } catch (error) {
-            setUserMeals(null);
-            console.error("Error fetching user meals:", error);
+            console.error("Error fetching all meals:", error);
         }
     };
 
-    // Función que se llama después de crear una nueva receta
-    const handleRecipeCreated = () => {
-        fetchUserMeals(); // Actualiza la lista de recetas
-        setShowForm(false); // Cierra el formulario
+    const handleSearch = () => {
+        const foundMeal = userMeals.find(meal =>
+            meal.name.toLowerCase() === searchTerm.toLowerCase().trim()
+        );
+        setHighlightedMeal(foundMeal || null);
     };
 
-    // Verificar si userProfile se ha cargado correctamente
+    const handleRecipeCreated = () => {
+        fetchAllMeals();
+        setShowForm(false);
+        setSearchTerm('');
+        setHighlightedMeal(null);
+    };
+
+    const handleDeleteMeal = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5001/api/meals/${id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                fetchAllMeals();
+            } else {
+                console.error(`Failed to delete meal with ID ${id}`);
+            }
+        } catch (error) {
+            console.error('Error deleting meal:', error);
+        }
+    };
+
     useEffect(() => {
-        console.log('userProfile in Meals:', userProfile); // Verificar valor de userProfile
         if (userProfile) {
             const caloricIntake = userProfile.consumo_calorias_diario || 0;
             const waterConsumption = userProfile.consumo_agua_diario || 0;
@@ -59,7 +80,7 @@ const Meals = () => {
                         data: [caloricIntake, 2000 - caloricIntake],
                         backgroundColor: ['#4CAF50', '#C8E6C9'],
                         borderWidth: 1,
-                        borderColor: '#fff',
+                        borderColor: '#0c0c0c',
                         hoverOffset: 4,
                     },
                     {
@@ -67,7 +88,7 @@ const Meals = () => {
                         data: [waterConsumption, 3 - waterConsumption],
                         backgroundColor: ['#36A2EB', '#BBDEFB'],
                         borderWidth: 1,
-                        borderColor: '#fff',
+                        borderColor: '#0c0c0c',
                         hoverOffset: 4,
                     },
                     {
@@ -75,7 +96,7 @@ const Meals = () => {
                         data: [weight, 0],
                         backgroundColor: ['#FF6384', '#FFCDD2'],
                         borderWidth: 1,
-                        borderColor: '#fff',
+                        borderColor: '#0c0c0c',
                         hoverOffset: 4,
                     },
                 ],
@@ -83,9 +104,8 @@ const Meals = () => {
         }
     }, [userProfile]);
 
-    // Llamar a fetchUserMeals cuando el componente se monte
     useEffect(() => {
-        fetchUserMeals();
+        fetchAllMeals();
     }, []);
 
     const chartOptions = {
@@ -144,11 +164,6 @@ const Meals = () => {
         },
     };
 
-    // Renderizado condicional
-    if (!userProfile) {
-        return <p className="text-center text-red-500 mt-8">No user profile data available.</p>;
-    }
-
     return (
         <div className="bg-gray-50 pt-2 pb-0 sm:py-4 min-h-screen flex flex-col">
             <div className="flex-grow">
@@ -167,35 +182,85 @@ const Meals = () => {
                         </div>
                         <Carousel />
                     </div>
-                    {/* Tabla de User Meals */}
+
+                    {/* Search bar */}
+                    <div className="mt-8 w-full max-w-4xl mx-auto flex items-center gap-4">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search for a meal..."
+                            className="block w-full px-4 py-2 border rounded-md text-gray-700 focus:ring-2 focus:ring-indigo-600"
+                        />
+                        <button
+                            onClick={handleSearch}
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                        >
+                            Search
+                        </button>
+                    </div>
+
+                    {/* Highlighted Meal */}
+                    {highlightedMeal && (
+                        <div className="mt-8 w-full max-w-4xl mx-auto bg-yellow-100 p-4 rounded-lg shadow-lg">
+                            <h3 className="text-xl font-semibold text-gray-900 mb-2">Search Result</h3>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-full bg-white border">
+                                    <thead>
+                                    <tr>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Name</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Calories</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Protein</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Fats</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Carbs</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.name}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.calories}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.protein}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.fats}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.carbs}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Meal Table */}
                     <div className="mt-8 w-full max-w-4xl mx-auto">
-                        <h3 className="text-2xl font-semibold text-gray-950 mb-6">Recommended Meal Plans</h3>
-                        {userMeals && userMeals.length > 0 ? (
+                        <h3 className="text-2xl font-semibold text-gray-950 mb-6">All Meal Plans</h3>
+                        {userMeals.length ? (
                             <table className="min-w-full bg-white border">
                                 <thead>
                                 <tr>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-900">Meal</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-900">Name</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-900">Calories (cal)</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-900">Protein (g)</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-900">Fats (%)</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-900">Carbs (g)</th>
+                                    <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Name</th>
+                                    <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Calories</th>
+                                    <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Protein</th>
+                                    <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Fats</th>
+                                    <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Carbs</th>
+                                    <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {userMeals.map((mealPlan, index) => (
-                                    ['breakfastMeal', 'lunchMeal', 'dinnerMeal'].map((mealType) => (
-                                        mealPlan[mealType] && (
-                                            <tr key={`${index}-${mealType}`}>
-                                                <td className="px-6 py-4 border-b border-gray-300 text-sm text-gray-900 capitalize">{mealType.replace('Meal', '')}</td>
-                                                <td className="px-6 py-4 border-b border-gray-300 text-sm text-gray-900">{mealPlan[mealType].name}</td>
-                                                <td className="px-6 py-4 border-b border-gray-300 text-sm text-gray-900">{mealPlan[mealType].calories} cal</td>
-                                                <td className="px-6 py-4 border-b border-gray-300 text-sm text-gray-900">{mealPlan[mealType].protein} g</td>
-                                                <td className="px-6 py-4 border-b border-gray-300 text-sm text-gray-900">{mealPlan[mealType].fats} %</td>
-                                                <td className="px-6 py-4 border-b border-gray-300 text-sm text-gray-900">{mealPlan[mealType].carbs} g</td>
-                                            </tr>
-                                        )
-                                    ))
+                                {userMeals.map(meal => (
+                                    <tr key={meal.id}>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.name}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.calories}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.protein}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.fats}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.carbs}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900 space-x-1">
+                                            <button
+                                                onClick={() => handleDeleteMeal(meal.id)}
+                                                className="bg-red-500 text-white px-2 py-1 text-xs rounded hover:bg-red-600"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
                                 ))}
                                 </tbody>
                             </table>
@@ -203,6 +268,8 @@ const Meals = () => {
                             <p className="text-center text-gray-500">No meal data available.</p>
                         )}
                     </div>
+
+                    {/* Add & Refresh Buttons */}
                     <div className="mt-8 w-full max-w-4xl mx-auto text-center">
                         <button
                             onClick={() => setShowForm(!showForm)}
@@ -210,7 +277,14 @@ const Meals = () => {
                         >
                             Add New Meal
                         </button>
+                        <button
+                            onClick={fetchAllMeals}
+                            className="ml-4 rounded-md bg-gray-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400"
+                        >
+                            Refresh
+                        </button>
                     </div>
+
                     {showForm && (
                         <div className="mt-8 w-full max-w-4xl mx-auto">
                             <LayoutForm onRecipeCreated={handleRecipeCreated} />

@@ -1,16 +1,20 @@
-// File: LayoutForm.jsx
+// src/components/LayoutForm.jsx
 
 import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function LayoutForm({ onRecipeCreated }) {
+    const { user } = useAuth(); // Obtener el userId del contexto de autenticación
     const [formData, setFormData] = useState({
         name: '',
         calories: '',
         protein: '',
         fats: '',
         carbs: '',
-        mealType: '', // Nuevo campo para seleccionar el tipo de comida
+        mealType: '', // Campo para seleccionar el tipo de comida
     });
+
+    const [error, setError] = useState(null); // Estado para manejar errores
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,18 +33,21 @@ export default function LayoutForm({ onRecipeCreated }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ ...formData, userId: user?.id }), // Incluir userId en la solicitud
             });
 
             if (response.ok) {
                 const newMeal = await response.json();
                 onRecipeCreated(newMeal); // Llamar a la función para actualizar la lista en Meals.jsx
                 setFormData({ name: '', calories: '', protein: '', fats: '', carbs: '', mealType: '' }); // Limpiar el formulario
+                setError(null); // Limpiar errores si se creó exitosamente
             } else {
-                console.error('Error creating recipe');
+                const errorData = await response.json();
+                setError(errorData.error || 'Error creating recipe'); // Manejar error del backend
             }
         } catch (error) {
             console.error('Error:', error);
+            setError('An unexpected error occurred. Please try again.');
         }
     };
 
@@ -63,6 +70,7 @@ export default function LayoutForm({ onRecipeCreated }) {
                             id="name"
                             value={formData.name}
                             onChange={handleChange}
+                            required
                             className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                         />
                     </div>
@@ -77,6 +85,7 @@ export default function LayoutForm({ onRecipeCreated }) {
                             id="calories"
                             value={formData.calories}
                             onChange={handleChange}
+                            required
                             className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                         />
                     </div>
@@ -91,13 +100,14 @@ export default function LayoutForm({ onRecipeCreated }) {
                             id="protein"
                             value={formData.protein}
                             onChange={handleChange}
+                            required
                             className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                         />
                     </div>
 
                     <div className="sm:col-span-2">
                         <label htmlFor="fats" className="block text-sm font-medium text-gray-900">
-                            Fats (g)
+                            Fats (%)
                         </label>
                         <input
                             type="number"
@@ -105,6 +115,7 @@ export default function LayoutForm({ onRecipeCreated }) {
                             id="fats"
                             value={formData.fats}
                             onChange={handleChange}
+                            required
                             className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                         />
                     </div>
@@ -119,6 +130,7 @@ export default function LayoutForm({ onRecipeCreated }) {
                             id="carbs"
                             value={formData.carbs}
                             onChange={handleChange}
+                            required
                             className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                         />
                     </div>
@@ -132,6 +144,7 @@ export default function LayoutForm({ onRecipeCreated }) {
                             id="mealType"
                             value={formData.mealType}
                             onChange={handleChange}
+                            required
                             className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                         >
                             <option value="">Select</option>
@@ -142,6 +155,8 @@ export default function LayoutForm({ onRecipeCreated }) {
                     </div>
                 </div>
             </div>
+
+            {error && <p className="text-red-500 mt-4">{error}</p>} {/* Mostrar mensaje de error si existe */}
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
                 <button
