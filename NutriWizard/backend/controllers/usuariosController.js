@@ -2,7 +2,7 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { usuario } = require('../models');
+const UsuarioRepository = require('../repositories/usuarioRepository');
 
 const usuariosController = {
     /**
@@ -10,7 +10,7 @@ const usuariosController = {
      */
     async signup(req, res) {
         try {
-            console.log('Datos recibidos en /signup:', req.body); // Log para verificar datos recibidos
+            console.log('Datos recibidos en /signup:', req.body);
 
             const {
                 nombre_completo,
@@ -33,23 +33,23 @@ const usuariosController = {
 
             // Verifica que los campos obligatorios estén presentes
             if (!nombre_completo || !email || !password) {
-                console.log('Datos faltantes en /signup:', { nombre_completo, email, password }); // Log para detectar campos faltantes
+                console.log('Datos faltantes en /signup:', { nombre_completo, email, password });
                 return res.status(400).json({ message: 'Nombre, email y contraseña son requeridos.' });
             }
 
             // Verifica si el correo ya existe
-            const existingUser = await usuario.findOne({ where: { email } });
+            const existingUser = await UsuarioRepository.findByEmail(email);
             if (existingUser) {
-                console.log('Correo ya registrado en /signup:', email); // Log cuando el correo ya existe
+                console.log('Correo ya registrado en /signup:', email);
                 return res.status(400).json({ message: 'El correo ya está registrado.' });
             }
 
             // Hashea la contraseña
             const hashedPassword = await bcrypt.hash(password, 10);
-            console.log('Contraseña hasheada correctamente en /signup.'); // Log tras hash exitoso
+            console.log('Contraseña hasheada correctamente en /signup.');
 
             // Crea el nuevo usuario
-            const newUser = await usuario.create({
+            const newUser = await UsuarioRepository.create({
                 nombre_completo,
                 email,
                 password_hash: hashedPassword,
@@ -68,18 +68,18 @@ const usuariosController = {
                 consumo_agua_diario,
             });
 
-            console.log('Usuario creado exitosamente en /signup:', newUser); // Log del nuevo usuario creado
+            console.log('Usuario creado exitosamente en /signup:', newUser);
 
             // Genera un token JWT
-            const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
+            const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
                 expiresIn: '1h',
             });
 
-            console.log('Token generado exitosamente en /signup:', token); // Log del token generado
+            console.log('Token generado exitosamente en /signup:', token);
 
             res.status(201).json({ user: newUser, token });
         } catch (error) {
-            console.error('Error en /signup:', error); // Log detallado del error
+            console.error('Error en /signup:', error);
             res.status(500).json({ message: 'Error interno del servidor.' });
         }
     },
@@ -89,23 +89,24 @@ const usuariosController = {
      */
     async getProfile(req, res) {
         try {
-            console.log('Solicitando perfil con ID:', req.user.id); // Log para verificar ID de usuario
+            console.log('Solicitando perfil con ID:', req.user.id);
 
             const userId = req.user.id;
 
-            const user = await usuario.findByPk(userId, {
-                attributes: { exclude: ['password_hash'] }, // Excluye el hash de la contraseña
-            });
+            const user = await UsuarioRepository.findById(userId);
 
             if (!user) {
-                console.log('Usuario no encontrado para el ID:', userId); // Log cuando no se encuentra el usuario
+                console.log('Usuario no encontrado para el ID:', userId);
                 return res.status(404).json({ message: 'Usuario no encontrado.' });
             }
 
-            console.log('Perfil encontrado:', user); // Log del perfil encontrado
-            res.status(200).json(user);
+            // Excluye el hash de la contraseña antes de responder
+            const { password_hash, ...userData } = user.toObject();
+
+            console.log('Perfil encontrado:', userData);
+            res.status(200).json(userData);
         } catch (error) {
-            console.error('Error en /profile:', error); // Log detallado del error
+            console.error('Error en /profile:', error);
             res.status(500).json({ message: 'Error interno del servidor.' });
         }
     },

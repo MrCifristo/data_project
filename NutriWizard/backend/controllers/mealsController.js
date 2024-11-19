@@ -1,6 +1,6 @@
 const logger = require('../config/logger');
 const redisClient = require('../config/redis');
-const MealsRepository = require('../repositories/mealsRepository');
+const MealsRepository = require('../repositories/mealsRepository'); // Ahora adaptado a MongoDB
 const { v4: uuidv4 } = require('uuid'); // Para generar identificadores únicos
 
 class MealsController {
@@ -13,7 +13,7 @@ class MealsController {
         const startTime = Date.now(); // Inicio del tiempo de respuesta
 
         try {
-            // Obtiene todas las comidas desde la base de datos
+            // Obtiene todas las comidas desde MongoDB
             const meals = await MealsRepository.getAllMeals();
 
             // Valida si existen datos
@@ -96,7 +96,7 @@ class MealsController {
             }
 
             logger.warn(`${label} - ❌ Cache miss for meal:${id}`);
-            const meal = await MealsRepository.getMealById(id);
+            const meal = await MealsRepository.getMealById(id); // MongoDB consulta
             if (!meal) {
                 const endTime = Date.now();
                 logger.info(`${label} - Response Time: ${endTime - startTime}ms`);

@@ -1,68 +1,80 @@
-
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-    const Usuario = sequelize.define('usuario', {
-        nombre_completo: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        edad: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        sexo: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        altura: {
-            type: DataTypes.FLOAT,
-            allowNull: false,
-        },
-        peso: {
-            type: DataTypes.FLOAT,
-            allowNull: false,
-        },
-        nivel_actividad: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        historial_medico: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        alergias_alimentarias: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        condicion_especifica: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        objetivos_nutricionales: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        dieta: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        consumo_calorias_diario: {
-            type: DataTypes.FLOAT,
-            allowNull: false,
-        },
-        numero_comidas_bocadillos: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        consumo_agua_diario: {
-            type: DataTypes.FLOAT,
-            allowNull: false,
-        },
-    }, {
-        tableName: 'usuarios',
-        timestamps: false,
-    });
+const mongoose = require('mongoose');
 
-    return Usuario;
-};
+const modelName = 'usuarios';
+
+if (!mongoose.models[modelName]) {
+    // Definir el esquema para usuarios
+    const usuarioSchema = new mongoose.Schema(
+        {
+            nombre_completo: {
+                type: String,
+                required: true,
+                trim: true, // Elimina espacios al inicio y al final
+            },
+            edad: {
+                type: Number,
+                required: true,
+            },
+            sexo: {
+                type: String,
+                required: true,
+                enum: ['masculino', 'femenino', 'otro'], // Valores permitidos
+            },
+            altura: {
+                type: Number,
+                required: true, // Altura en cm
+            },
+            peso: {
+                type: Number,
+                required: true, // Peso en kg
+            },
+            nivel_actividad: {
+                type: String,
+                required: true,
+                enum: ['sedentario', 'ligero', 'moderado', 'intenso'], // Opciones predefinidas
+            },
+            historial_medico: {
+                type: String,
+                required: true,
+            },
+            alergias_alimentarias: {
+                type: String,
+                required: true,
+            },
+            condicion_especifica: {
+                type: String,
+                required: true,
+            },
+            objetivos_nutricionales: {
+                type: String,
+                required: true,
+            },
+            dieta: {
+                type: String,
+                required: true,
+            },
+            consumo_calorias_diario: {
+                type: Number,
+                required: true, // Calorías consumidas por día
+            },
+            numero_comidas_bocadillos: {
+                type: Number,
+                required: true, // Número de comidas/snacks por día
+            },
+            consumo_agua_diario: {
+                type: Number,
+                required: true, // Litros de agua consumidos por día
+            },
+        },
+        {
+            timestamps: true, // Agrega createdAt y updatedAt automáticamente
+            collection: 'usuarios', // Nombre exacto de la colección en la base de datos
+        }
+    );
+
+    mongoose.model(modelName, usuarioSchema);
+}
+
+module.exports = mongoose.models[modelName];

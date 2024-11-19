@@ -1,58 +1,57 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-    const Menu = sequelize.define('menu', {
-        userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'usuarios', // Nombre de la tabla referenciada
-                key: 'id',
+const mongoose = require('mongoose');
+
+const modelName = 'menu';
+
+if (!mongoose.models[modelName]) {
+    // Definir el esquema para el menú
+    const menuSchema = new mongoose.Schema(
+        {
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'usuarios', // Relación con la colección 'usuarios'
+                required: true,
+            },
+            mealId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'meals', // Relación con la colección 'meals'
+                required: true,
+            },
+            name: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            calories: {
+                type: Number,
+                required: true,
+            },
+            protein: {
+                type: Number,
+                required: true,
+            },
+            fats: {
+                type: Number,
+                required: true,
+            },
+            carbs: {
+                type: Number,
+                required: true,
+            },
+            mealType: {
+                type: String,
+                required: true,
+                default: 'unknown',
+                enum: ['breakfast', 'lunch', 'dinner', 'snack', 'unknown'], // Valores válidos
             },
         },
-        mealId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'meals', // Nombre de la tabla referenciada
-                key: 'id',
-            },
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        calories: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        protein: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        fats: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        carbs: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        mealType: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 'unknown',
-        },
-    }, {
-        tableName: 'Menus', // Nombre exacto de la tabla en la base de datos
-        timestamps: true,
-    });
+        {
+            timestamps: true, // Agrega automáticamente createdAt y updatedAt
+        }
+    );
 
-    // Asociaciones
-    Menu.associate = (models) => {
-        Menu.belongsTo(models.usuario, { foreignKey: 'userId', as: 'user' });
-        Menu.belongsTo(models.meals, { foreignKey: 'mealId', as: 'meal' });
-    };
+    mongoose.model(modelName, menuSchema);
+}
 
-    return Menu;
-};
+module.exports = mongoose.models[modelName];

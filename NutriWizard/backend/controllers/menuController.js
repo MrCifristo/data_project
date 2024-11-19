@@ -1,7 +1,8 @@
-// File: controllers/menuController.js
-const { menu, meals } = require('../models');
 const logger = require('../config/logger');
+const redisClient = require('../config/redis');
 const { v4: uuidv4 } = require('uuid');
+const MenuRepository = require('../repositories/menuRepository');
+const MealsRepository = require('../repositories/mealsRepository');
 
 class MenuController {
     /**
@@ -22,15 +23,15 @@ class MenuController {
                 return res.status(400).json({ error: 'userId y mealId son requeridos.' });
             }
 
-            // Buscar la información de la comida en la tabla meals
-            const mealData = await meals.findByPk(mealId);
+            // Buscar la información de la comida en MongoDB
+            const mealData = await MealsRepository.getMealById(mealId);
             if (!mealData) {
                 logger.warn(`${label} - Meal no encontrado para mealId: ${mealId}`);
                 return res.status(404).json({ error: 'Meal no encontrado.' });
             }
 
-            // Crear una nueva entrada en la tabla menu
-            const newMenuEntry = await menu.create({
+            // Crear una nueva entrada en la colección de menú
+            const newMenuEntry = await MenuRepository.create({
                 userId,
                 mealId,
                 name: mealData.name,
@@ -68,10 +69,15 @@ class MenuController {
 
         try {
             // Buscar todas las entradas del menú para el usuario
-            const userMenu = await menu.findAll({
-                where: { userId },
-                include: { model: meals, as: 'meal' }, // Incluir detalles de la comida
-            });
+            const userMenu = await MenuRepository.getMenuByUserId(userId);
+
+            if (!userMenu || userMenu.length === 0) {
+                logger.warn(`${label} - Menú vacío o no encontrado para userId: ${userId}`);
+                const endTime = Date.now();
+                logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
+                logger.info(`${label} - End`);
+                return res.status(404).json({ error: 'Menú vacío o no encontrado.' });
+            }
 
             logger.info(`${label} - Menú encontrado para userId ${userId}: ${JSON.stringify(userMenu)}`);
             const endTime = Date.now();
@@ -99,15 +105,15 @@ class MenuController {
         const startTime = Date.now();
 
         try {
-            // Buscar la entrada del menú por ID
-            const menuEntry = await menu.findByPk(menuId);
+            // Buscar la entrada del menú por ID en MongoDB
+            const menuEntry = await MenuRepository.getMenuEntryById(menuId);
             if (!menuEntry) {
                 logger.warn(`${label} - Entrada no encontrada para menuId: ${menuId}`);
                 return res.status(404).json({ error: 'Entrada no encontrada en el menú.' });
             }
 
             // Eliminar la entrada
-            await menuEntry.destroy();
+            await MenuRepository.delete(menuId);
             logger.info(`${label} - Entrada eliminada con éxito: ${menuId}`);
             const endTime = Date.now();
             logger.info(`${label} - Response Time: ${endTime - startTime}ms`);

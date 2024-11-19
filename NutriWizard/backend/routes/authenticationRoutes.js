@@ -1,8 +1,7 @@
-// File: routes/authenticationRoutes.js
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Authentication = require('../models/Authentication');
+const Authentication = require('../models/Authentication'); // Modelo de autenticación
 require('dotenv').config();
 
 const router = express.Router();
@@ -16,16 +15,23 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'Todos los campos son requeridos' });
         }
 
-        // Hashea la contraseña
+        // Verificar si el email ya existe
+        const existingUser = await Authentication.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'El correo ya está registrado' });
+        }
+
+        // Hashear la contraseña
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Crea una nueva autenticación
-        const auth = await Authentication.create({
+        // Crear una nueva autenticación
+        const auth = new Authentication({
             usuario_id,
             email,
             password_hash: hashedPassword,
         });
+        await auth.save();
 
         res.status(201).json({ message: 'Autenticación registrada', auth });
     } catch (error) {
@@ -43,21 +49,26 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Email y contraseña son requeridos' });
         }
 
-        const user = await Authentication.findOne({ where: { email } });
+        // Buscar el usuario por email
+        const user = await Authentication.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
+        // Verificar la contraseña
         const validPassword = await bcrypt.compare(password, user.password_hash);
 
         if (!validPassword) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
 
-        const token = jwt.sign({ id: user.usuario_id, email: user.email }, process.env.JWT_SECRET, {
-            expiresIn: '1h',
-        });
+        // Generar token JWT
+        const token = jwt.sign(
+            { id: user.usuario_id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
 
         res.status(200).json({ message: 'Inicio de sesión exitoso', token });
     } catch (error) {

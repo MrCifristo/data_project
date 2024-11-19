@@ -1,41 +1,47 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-    const Meals = sequelize.define('meals', {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        calories: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        protein: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        fats: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        carbs: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        mealType: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 'unknown',
-        },
-    }, {
-        tableName: 'meals', // Nombre exacto de la tabla en la base de datos
-        timestamps: true,   // Para createdAt y updatedAt
-    });
+const mongoose = require('mongoose');
 
-    return Meals;
-};
+const modelName = 'meals';
+
+if (!mongoose.models[modelName]) {
+    // Definir el esquema de meals
+    const mealsSchema = new mongoose.Schema(
+        {
+            name: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            calories: {
+                type: Number,
+                required: true,
+            },
+            protein: {
+                type: Number,
+                required: true,
+            },
+            fats: {
+                type: Number,
+                required: true,
+            },
+            carbs: {
+                type: Number,
+                required: true,
+            },
+            mealType: {
+                type: String,
+                required: true,
+                default: 'unknown',
+                enum: ['breakfast', 'lunch', 'dinner', 'snack', 'unknown'], // Valores válidos
+            },
+        },
+        {
+            timestamps: true, // Agrega automáticamente createdAt y updatedAt
+        }
+    );
+
+    mongoose.model(modelName, mealsSchema);
+}
+
+module.exports = mongoose.models[modelName];

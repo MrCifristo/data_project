@@ -1,7 +1,7 @@
 const express = require('express');
 const mealsController = require('../controllers/mealsController');
-const { meals } = require('../models'); // Importar el modelo meals
 const jwt = require('jsonwebtoken');
+const Meal = require('../models/meals'); // Modelo de Mongoose para Meal
 require('dotenv').config();
 
 const router = express.Router();
@@ -25,16 +25,36 @@ const authenticateToken = (req, res, next) => {
 };
 
 // GET /api/meals - Obtener todas las comidas con lógica de cache
-router.get('/', mealsController.getAllMeals);
+router.get('/', async (req, res) => {
+    try {
+        await mealsController.getAllMeals(req, res);
+    } catch (error) {
+        console.error('Error al obtener todas las comidas:', error.message);
+        res.status(500).json({ error: 'Error interno del servidor al obtener todas las comidas' });
+    }
+});
 
-// Ruta para refrescar el caché
-router.get('/refresh', mealsController.refreshCache);
+// GET /api/meals/refresh - Refrescar el caché con los datos más recientes
+router.get('/refresh', async (req, res) => {
+    try {
+        await mealsController.refreshCache(req, res);
+    } catch (error) {
+        console.error('Error al refrescar el caché:', error.message);
+        res.status(500).json({ error: 'Error interno del servidor al refrescar el caché' });
+    }
+});
 
 // GET /api/meals/:id - Obtener una comida específica con lógica de cache
-router.get('/:id', mealsController.getMealById);
+router.get('/:id', async (req, res) => {
+    try {
+        await mealsController.getMealById(req, res);
+    } catch (error) {
+        console.error('Error al obtener la comida específica:', error.message);
+        res.status(500).json({ error: 'Error interno del servidor al obtener la comida' });
+    }
+});
 
-
-// POST /api/meals - Crear una nueva comida sin autenticación
+// POST /api/meals - Crear una nueva comida
 router.post('/', async (req, res) => {
     try {
         const { name, calories, protein, fats, carbs, mealType } = req.body;
@@ -45,7 +65,7 @@ router.post('/', async (req, res) => {
 
         console.log('Creando nueva comida:', { name, calories, protein, fats, carbs, mealType });
 
-        const newMeal = await meals.create({
+        const newMeal = new Meal({
             name,
             calories: parseFloat(calories),
             protein: parseFloat(protein),
@@ -54,6 +74,7 @@ router.post('/', async (req, res) => {
             mealType,
         });
 
+        await newMeal.save();
         console.log('Nueva comida creada:', newMeal);
         res.status(201).json(newMeal);
     } catch (error) {
@@ -69,15 +90,18 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 
         console.log(`Intentando eliminar la comida con ID: ${mealId} para el usuario con ID: ${req.user.id}`);
 
-        const meal = await meals.findOne({
-            where: { id: mealId, userId: req.user.id },
-        });
+        const meal = await Meal.findById(mealId);
 
         if (!meal) {
-            return res.status(404).json({ error: 'Comida no encontrada o no autorizada' });
+            return res.status(404).json({ error: 'Comida no encontrada' });
         }
 
-        await meal.destroy();
+        // Opcional: Validar que el usuario tiene permiso para eliminar esta comida
+        // if (meal.userId.toString() !== req.user.id) {
+        //     return res.status(403).json({ error: 'No autorizado para eliminar esta comida' });
+        // }
+
+        await meal.deleteOne();
         console.log(`Comida con ID ${mealId} eliminada con éxito`);
         res.status(200).json({ message: 'Comida eliminada con éxito' });
     } catch (error) {
