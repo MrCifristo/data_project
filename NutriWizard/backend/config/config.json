@@ -3,24 +3,24 @@
     "username": "test",
     "password": "test",
     "database": "NutriWizard",
-    "host": "127.0.0.1",
-    "port": 5433,
+    "host": "db",
+    "port": 5432,
     "dialect": "postgres"
   },
   "test": {
     "username": "test",
     "password": "test",
     "database": "NutriWizard",
-    "host": "127.0.0.1",
-    "port": 5433,
+    "host": "db",
+    "port": 5432,
     "dialect": "postgres"
   },
   "production": {
     "username": "test",
     "password": "test",
     "database": "NutriWizard",
-    "host": "127.0.0.1",
-    "port": 5433,
+    "host": "db",
+    "port": 5432,
     "dialect": "postgres"
   }
 }

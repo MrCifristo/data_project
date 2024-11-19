@@ -1,10 +1,11 @@
 // File: server.js
-
+console.log('Iniciando servidor...'); // Agregar esto al inicio de server.js
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
 const mealRoutes = require('./routes/mealRoutes');
 const userRoutes = require('./routes/userRoutes');
+const menuRoutes = require('./routes/menuRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -12,6 +13,18 @@ app.use(express.json());
 app.use(cors());//
 
 const port = process.env.PORT || 5001;
+const db = require('./models');
+
+(async () => {
+    try {
+        console.log('Modelos cargados:', Object.keys(db)); // Verifica modelos cargados
+
+        const menus = await db.menu.findAll(); // Intenta consultar la tabla Menus
+        console.log('Menus encontrados:', menus);
+    } catch (error) {
+        console.error('Error interactuando con el modelo Menu:', error);
+    }
+})();
 
 const syncDatabase = async () => {
     try {
@@ -65,5 +78,6 @@ app.get('/', (req, res) => {
 // Rutas API
 app.use('/api/meals', mealRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/menu', menuRoutes);
 
 module.exports = app;
