@@ -23,22 +23,21 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-// GET /api/meals - Obtener todas las comidas para el usuario actual
-router.get('/', authenticateToken, async (req, res) => {
+// GET /api/meals - Obtener todas las comidas sin autenticación
+router.get('/', async (req, res) => {
     try {
-        console.log(`Obteniendo comidas para el usuario con ID: ${req.user.id}`);
+        console.log('Obteniendo comidas desde la tabla meals');
 
-        const userMeals = await meals.findAll({
-            where: { userId: req.user.id }, // Filtrar comidas por userId
-            order: [['createdAt', 'DESC']], // Ordenar por fecha de creación
-        });
+        // Consulta directa a la tabla meals sin validación de token
+        const allMeals = await meals.findAll();
 
-        res.status(200).json(userMeals);
+        res.status(200).json(allMeals); // Devuelve las comidas directamente
     } catch (error) {
-        console.error('Error al obtener todas las comidas:', error.message);
-        res.status(500).json({ error: 'Error al obtener todas las comidas' });
+        console.error('Error al obtener las comidas:', error.message);
+        res.status(500).json({ error: 'Error al obtener las comidas' });
     }
 });
+
 
 // POST /api/meals - Crear una nueva comida para el usuario actual
 router.post('/', authenticateToken, async (req, res) => {

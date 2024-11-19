@@ -30,11 +30,11 @@ module.exports = (sequelize, DataTypes) => {
         mealType: {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: 'unknown', // Valor por defecto temporal
+            defaultValue: 'unknown',
         },
     }, {
-        tableName: 'meals',
-        timestamps: true,
+        tableName: 'meals', // Nombre exacto de la tabla en la base de datos
+        timestamps: true,   // Para createdAt y updatedAt
     });
 
     return Meals;
