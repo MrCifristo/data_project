@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import LandingPage from './pages/LandingPage';
-import Profile from './pages/Profile';
+import ProfilePage from './pages/ProfilePage';
 import Meals from './pages/Meals';
 import About from './pages/About';
 import NavBar from './components/NavBar';
@@ -32,7 +32,7 @@ const AppContent = () => {
                     )}
                 >
                     <Route path="/home" element={<Home />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/meals" element={<Meals />} />
                     <Route path="/about" element={<About />} />
                 </Route>

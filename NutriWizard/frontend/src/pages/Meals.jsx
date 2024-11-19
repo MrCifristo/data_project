@@ -1,4 +1,3 @@
-// src/pages/Meals.jsx
 import React, { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel.jsx';
 import { Doughnut } from 'react-chartjs-2';
@@ -24,11 +23,9 @@ const Meals = () => {
 
     const fetchAllMeals = async () => {
         try {
-            const token = localStorage.getItem('token');
-
             const response = await fetch('http://localhost:5001/api/meals', {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
                 },
             });
 
@@ -36,8 +33,6 @@ const Meals = () => {
                 const data = await response.json();
                 const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 setUserMeals(sortedData);
-            } else if (response.status === 401) {
-                console.error('Unauthorized: Invalid or missing token');
             } else {
                 console.error('Failed to fetch all meals');
             }
@@ -47,15 +42,15 @@ const Meals = () => {
     };
 
     const handleSearch = () => {
-        const foundMeal = userMeals.find(meal =>
+        const foundMeal = userMeals.find((meal) =>
             meal.name.toLowerCase() === searchTerm.toLowerCase().trim()
         );
         setHighlightedMeal(foundMeal || null);
     };
 
     const handleRecipeCreated = () => {
-        fetchAllMeals();
-        setShowForm(false);
+        fetchAllMeals(); // Refresca la lista de comidas tras crear una nueva
+        setShowForm(false); // Cierra el formulario
         setSearchTerm('');
         setHighlightedMeal(null);
     };
@@ -66,12 +61,46 @@ const Meals = () => {
                 method: 'DELETE',
             });
             if (response.ok) {
-                fetchAllMeals();
+                fetchAllMeals(); // Refresca las comidas tras eliminar
             } else {
                 console.error(`Failed to delete meal with ID ${id}`);
             }
         } catch (error) {
             console.error('Error deleting meal:', error);
+        }
+    };
+
+    const handleAddToMenu = async (mealId) => {
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        if (!token) {
+            alert('Token no encontrado. Por favor, inicia sesión.');
+            return;
+        }
+
+        const userId = userProfile?.id; // Obtén el userId desde el contexto
+        if (!userId) {
+            alert('No se encontró el ID del usuario');
+            return;
+        }
+
+        try {
+            console.log('Enviando datos al backend:', { userId, mealId });
+            const response = await fetch('http://localhost:5001/api/menu', {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId, mealId }),
+            });
+
+            if (response.ok) {
+                alert('Comida agregada al menú con éxito');
+            } else {
+                console.error('Error al agregar comida al menú:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error adding meal to menu:', error);
         }
     };
 
@@ -192,53 +221,7 @@ const Meals = () => {
                         <Carousel />
                     </div>
 
-                    {/* Search bar */}
-                    <div className="mt-8 w-full max-w-4xl mx-auto flex items-center gap-4">
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder="Search for a meal..."
-                            className="block w-full px-4 py-2 border rounded-md text-gray-700 focus:ring-2 focus:ring-indigo-600"
-                        />
-                        <button
-                            onClick={handleSearch}
-                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                        >
-                            Search
-                        </button>
-                    </div>
-
-                    {/* Highlighted Meal */}
-                    {highlightedMeal && (
-                        <div className="mt-8 w-full max-w-4xl mx-auto bg-yellow-100 p-4 rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">Search Result</h3>
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full bg-white border">
-                                    <thead>
-                                    <tr>
-                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Name</th>
-                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Calories</th>
-                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Protein</th>
-                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Fats</th>
-                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Carbs</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.name}</td>
-                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.calories}</td>
-                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.protein}</td>
-                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.fats}</td>
-                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.carbs}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Meal Table */}
+                    {/* Tabla de comidas */}
                     <div className="mt-8 w-full max-w-4xl mx-auto">
                         <h3 className="text-2xl font-semibold text-gray-950 mb-6">All Meal Plans</h3>
                         {userMeals.length ? (
@@ -254,17 +237,23 @@ const Meals = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {userMeals.map(meal => (
+                                {userMeals.map((meal) => (
                                     <tr key={meal.id}>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.name}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.calories}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.protein}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.fats}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.carbs}</td>
-                                        <td className="px-4 py-3 border-b text-xs text-gray-900 space-x-1">
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900 space-x-2">
+                                            <button
+                                                onClick={() => handleAddToMenu(meal.id)}
+                                                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                            >
+                                                Add to Menu
+                                            </button>
                                             <button
                                                 onClick={() => handleDeleteMeal(meal.id)}
-                                                className="bg-red-500 text-white px-2 py-1 text-xs rounded hover:bg-red-600"
+                                                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                                             >
                                                 Delete
                                             </button>
@@ -278,7 +267,7 @@ const Meals = () => {
                         )}
                     </div>
 
-                    {/* Add & Refresh Buttons */}
+                    {/* Botones para agregar o refrescar */}
                     <div className="mt-8 w-full max-w-4xl mx-auto text-center">
                         <button
                             onClick={() => setShowForm(!showForm)}
@@ -294,6 +283,7 @@ const Meals = () => {
                         </button>
                     </div>
 
+                    {/* Formulario para agregar comida */}
                     {showForm && (
                         <div className="mt-8 w-full max-w-4xl mx-auto">
                             <LayoutForm onRecipeCreated={handleRecipeCreated} />

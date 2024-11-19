@@ -144,7 +144,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Profile Endpoint
+// ProfilePage Endpoint
 router.get('/profile', async (req, res) => {
     console.log('Iniciando proceso para obtener perfil de usuario');
 
