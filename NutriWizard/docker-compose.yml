@@ -12,6 +12,16 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_DB: NutriWizard
 
+  redis:
+    image: redis:latest
+    container_name: nutriwizard-redis
+    restart: always
+    ports:
+      - "6379:6379" # Mapea el puerto 6379 para Redis
+    volumes:
+      - redis_data:/data # Persistencia de datos de Redis
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "verbose"] # Configuración básica
+
   backend:
     build: ./backend
     container_name: nutriwizard-backend
@@ -27,6 +37,8 @@ services:
       DB_DIALECT: postgres
       JWT_SECRET: diQ5Wsu7HMk/JKSl7jcu/w0GJ79OXmIsyoZS4zWqatQ=
       PORT: 5001
+      REDIS_HOST: redis # Conecta al servicio Redis
+      REDIS_PORT: 6379
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -34,6 +46,7 @@ services:
     command: npm run dev
     depends_on:
       - db # Asegura que db se inicie antes del backend
+      - redis # Asegura que Redis se inicie antes del backend
 
   frontend:
     build: ./frontend
@@ -58,3 +71,4 @@ services:
 
 volumes:
   postgres_data:
+  redis_data:
