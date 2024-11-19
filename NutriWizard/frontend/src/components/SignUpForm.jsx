@@ -1,5 +1,3 @@
-// src/components/SignUpForm.jsx
-
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import Logo from './Logo.jsx';
@@ -38,63 +36,38 @@ const SignUpForm = ({ onSwitchToLogin }) => {
         try {
             console.log('Sending sign-up request with:', formData);
 
-            const userResponse = await fetch('http://localhost:5001/api/users/signup', {
+            const response = await fetch('http://localhost:5001/api/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    nombre_completo: formData.nombre_completo,
-                    edad: formData.edad,
-                    sexo: formData.sexo,
-                    altura: formData.altura,
-                    peso: formData.peso,
-                    nivel_actividad: formData.nivel_actividad,
-                    historial_medico: formData.historial_medico,
-                    alergias_alimentarias: formData.alergias_alimentarias,
-                    condicion_especifica: formData.condicion_especifica,
-                    objetivos_nutricionales: formData.objetivos_nutricionales,
-                    dieta: formData.dieta,
-                    consumo_calorias_diario: formData.consumo_calorias_diario,
-                    numero_comidas_bocadillos: formData.numero_comidas_bocadillos,
-                    consumo_agua_diario: formData.consumo_agua_diario,
-                }),
+                body: JSON.stringify(formData),
             });
 
-            if (userResponse.ok) {
-                const userData = await userResponse.json();
-                const usuarioId = userData.id;
+            if (response.ok) {
+                const data = await response.json();
+                console.log('User registered successfully:', data);
 
-                const authResponse = await fetch('http://localhost:5001/api/users/register-auth', {
+                // Auto-login after successful signup
+                const loginResponse = await fetch('http://localhost:5001/api/users/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        usuario_id: usuarioId,
                         email: formData.email,
                         password: formData.password,
                     }),
                 });
 
-                if (authResponse.ok) {
-                    const loginResponse = await fetch('http://localhost:5001/api/users/login', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            email: formData.email,
-                            password: formData.password,
-                        }),
-                    });
-
-                    if (loginResponse.ok) {
-                        const loginData = await loginResponse.json();
-                        login(loginData.data.jwToken, true);
-                    } else {
-                        alert('Registro exitoso, pero no se pudo iniciar sesión automáticamente.');
-                        onSwitchToLogin();
-                    }
+                if (loginResponse.ok) {
+                    const loginData = await loginResponse.json();
+                    console.log('User logged in successfully:', loginData);
+                    login(loginData.token, true); // Save token to context
                 } else {
-                    alert('Registro de autenticación fallido. Por favor, intenta de nuevo.');
+                    alert('Registro exitoso, pero no se pudo iniciar sesión automáticamente.');
+                    onSwitchToLogin();
                 }
             } else {
-                alert('Registro de usuario fallido. Por favor, verifica tus datos.');
+                const errorData = await response.json();
+                console.error('Error during registration:', errorData);
+                alert(errorData.message || 'Registro de usuario fallido.');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -107,8 +80,8 @@ const SignUpForm = ({ onSwitchToLogin }) => {
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 overflow-y-auto max-h-[75vh]">
                 <Logo
                     src="https://media.tenor.com/BIn4gjem0LQAAAAj/naruto-hungry.gif"
-                    alt="Company Name"
-                    className="w-12 h-12 mx-auto" // Ajuste de tamaño del logo a 48x48 píxeles
+                    alt="Company Logo"
+                    className="w-12 h-12 mx-auto"
                 />
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                     Create an account

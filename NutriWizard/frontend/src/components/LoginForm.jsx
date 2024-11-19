@@ -19,7 +19,7 @@ const LoginForm = ({ onSwitchToSignUp }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:5001/api/users/login', { // Cambiado a la URL correcta
+            const response = await fetch('http://localhost:5001/api/users/login', { // URL correcta para login
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -27,13 +27,16 @@ const LoginForm = ({ onSwitchToSignUp }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                login(data.data.jwToken, rememberMe);
+                console.log('Login exitoso:', data);
 
-                // Redirigir después del login exitoso
+                login(data.token, rememberMe); // Usa el token devuelto por el backend
+
+                // Redirigir al perfil del usuario después del login exitoso
                 navigate('/profile');
             } else {
                 const errorResponse = await response.json();
-                setError(errorResponse.error || 'Login failed. Please check your email and password.');
+                console.error('Error en la respuesta del servidor:', errorResponse);
+                setError(errorResponse.message || 'Login failed. Please check your email and password.');
             }
         } catch (error) {
             console.error('Error durante el login:', error);

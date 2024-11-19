@@ -24,16 +24,25 @@ const Meals = () => {
 
     const fetchAllMeals = async () => {
         try {
-            const response = await fetch('http://localhost:5001/api/meals');
+            const token = localStorage.getItem('token');
+
+            const response = await fetch('http://localhost:5001/api/meals', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             if (response.ok) {
                 const data = await response.json();
                 const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 setUserMeals(sortedData);
+            } else if (response.status === 401) {
+                console.error('Unauthorized: Invalid or missing token');
             } else {
                 console.error('Failed to fetch all meals');
             }
         } catch (error) {
-            console.error("Error fetching all meals:", error);
+            console.error('Error fetching all meals:', error);
         }
     };
 
