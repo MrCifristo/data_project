@@ -156,12 +156,19 @@ const Profile = () => {
                             {menuItems.map((item) => (
                                 <li
                                     key={item.id}
-                                    className="flex justify-between bg-white dark:bg-gray-800 p-4 rounded shadow"
+                                    className="flex flex-col bg-white dark:bg-gray-800 p-4 rounded shadow"
                                 >
-                                    <span className="text-gray-800 dark:text-gray-200">{item.name}</span>
-                                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                                        {item.calories} kcal
-                                    </span>
+                                    <div className="flex justify-between">
+                                        <span className="text-gray-800 dark:text-gray-200 font-bold">{item.name}</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                                            {item.calories} kcal
+                                        </span>
+                                    </div>
+                                    <div className="text-sm text-gray-500 dark:text-gray-400 flex justify-between mt-2">
+                                        <span>Protein: {item.protein} g</span>
+                                        <span>Fats: {item.fats} g</span>
+                                        <span>Carbs: {item.carbs} g</span>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
