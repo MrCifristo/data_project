@@ -13,6 +13,10 @@ NutriWizard es una aplicación web diseñada para gestionar y monitorear planes 
 - [Licencia](#licencia)
 
 ---
+## Enlace a la documentación
+```txt
+https://worried-belly-bbc.notion.site/NutriWizard-ec7376ff2d4745af8c8233c109b0db15?pvs=4
+```
 
 ## Características
 
