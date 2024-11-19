@@ -1,103 +1,81 @@
-// File: controllers/mealsController.js
-
+const logger = require('../config/logger');
+const redisClient = require('../config/redis');
 const MealsRepository = require('../repositories/mealsRepository');
-const UserMealsRepository = require('../repositories/userMealsRepository'); // Importación de UserMealsRepository
+const { v4: uuidv4 } = require('uuid'); // Importa para generar identificadores únicos
 
 class MealsController {
-    static async createMeal(req, res) {
+    static async getMealById(req, res) {
+        const { id } = req.params;
+        const requestId = uuidv4(); // Genera un identificador único por solicitud
+        const label = `[PROFILING] Get Meal by ID: ${id} [Request ID: ${requestId}]`;
+
+        logger.info(`${label} - Start`);
+        const startTime = Date.now(); // Inicio del tiempo de respuesta
+
         try {
-            const { userId, ...mealData } = req.body;
-
-            const meal = await MealsRepository.createMeal(mealData);
-            console.log('Comida creada exitosamente:', meal);
-
-            if (userId) {
-                const userMealData = {
-                    userId,
-                    breakfast: mealData.mealType === 'breakfast' ? meal.id : null,
-                    lunch: mealData.mealType === 'lunch' ? meal.id : null,
-                    dinner: mealData.mealType === 'dinner' ? meal.id : null,
-                };
-
-                await UserMealsRepository.createUserMeal(userMealData);
-                console.log('Relación user_meals creada exitosamente');
-            } else {
-                console.warn('userId no proporcionado, no se creó una entrada en user_meals.');
+            const cachedMeal = await redisClient.get(`meal:${id}`);
+            if (cachedMeal) {
+                const endTime = Date.now(); // Fin del tiempo de respuesta
+                logger.info(`${label} - ⚡ Cache hit for meal:${id}`);
+                logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
+                logger.info(`${label} - End`);
+                return res.json(JSON.parse(cachedMeal));
             }
 
-            res.status(201).json(meal);
-        } catch (error) {
-            console.error('Error al crear la comida:', error.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
-
-    static async getMealById(req, res) {
-        try {
-            const meal = await MealsRepository.getMealById(req.params.id);
+            logger.warn(`${label} - ❌ Cache miss for meal:${id}`);
+            const meal = await MealsRepository.getMealById(id);
             if (!meal) {
+                const endTime = Date.now();
+                logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
+                logger.info(`${label} - End`);
                 return res.status(404).json({ error: 'Meal not found' });
             }
+
+            await redisClient.set(`meal:${id}`, JSON.stringify(meal), { EX: 3600 });
+            const endTime = Date.now();
+            logger.info(`${label} - ✅ Data cached for meal:${id}`);
+            logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
+            logger.info(`${label} - End`);
             res.json(meal);
         } catch (error) {
-            console.error('Error al obtener la comida por ID:', error.message);
+            const endTime = Date.now();
+            logger.error(`${label} - Error: ${error.message}`);
+            logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 
     static async getAllMeals(req, res) {
+        const requestId = uuidv4(); // Genera un identificador único por solicitud
+        const label = `[PROFILING] Get All Meals [Request ID: ${requestId}]`;
+
+        logger.info(`${label} - Start`);
+        const startTime = Date.now(); // Inicio del tiempo de respuesta
+
         try {
+            const cachedMeals = await redisClient.get('all_meals');
+            if (cachedMeals) {
+                const endTime = Date.now(); // Fin del tiempo de respuesta
+                logger.info(`${label} - ⚡ Cache hit for all_meals`);
+                logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
+                logger.info(`${label} - End`);
+                return res.json(JSON.parse(cachedMeals));
+            }
+
+            logger.warn(`${label} - ❌ Cache miss for all_meals`);
             const meals = await MealsRepository.getAllMeals();
-            console.log('Obteniendo todas las comidas:', meals);
+
+            await redisClient.set('all_meals', JSON.stringify(meals), { EX: 3600 });
+            const endTime = Date.now();
+            logger.info(`${label} - ✅ Data cached for all_meals`);
+            logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
+            logger.info(`${label} - End`);
             res.json(meals);
         } catch (error) {
-            console.error('Error al obtener todas las comidas:', error.message);
+            const endTime = Date.now();
+            logger.error(`${label} - Error: ${error.message}`);
+            logger.info(`${label} - Response Time: ${endTime - startTime}ms`);
             res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
-
-    static async updateMeal(req, res) {
-        try {
-            const { id } = req.params;
-            const { userId, ...mealData } = req.body;
-
-            const updatedMeal = await MealsRepository.updateMeal(id, mealData);
-            if (updatedMeal) {
-                if (userId) {
-                    const userMealData = {
-                        breakfast: mealData.mealType === 'breakfast' ? id : null,
-                        lunch: mealData.mealType === 'lunch' ? id : null,
-                        dinner: mealData.mealType === 'dinner' ? id : null,
-                    };
-
-                    await UserMealsRepository.updateUserMeal(userId, userMealData);
-                    console.log('Relación user_meals actualizada exitosamente');
-                }
-                res.status(200).json(updatedMeal);
-            } else {
-                res.status(404).json({ error: 'Comida no encontrada' });
-            }
-        } catch (error) {
-            console.error('Error al actualizar la comida:', error.message);
-            res.status(500).json({ error: 'Error al actualizar la comida' });
-        }
-    }
-
-    static async deleteMeal(req, res) {
-        try {
-            const { id } = req.params;
-
-            await UserMealsRepository.removeMealReferences(id); // Nueva función para limpiar referencias en user_meals
-            const deleted = await MealsRepository.deleteMeal(id);
-            if (deleted) {
-                console.log('Comida eliminada con ID:', id);
-                res.status(204).send();
-            } else {
-                res.status(404).json({ error: 'Comida no encontrada' });
-            }
-        } catch (error) {
-            console.error('Error al eliminar la comida:', error.message);
-            res.status(500).json({ error: 'Error al eliminar la comida' });
         }
     }
 }

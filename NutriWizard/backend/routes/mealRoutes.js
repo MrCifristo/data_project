@@ -1,6 +1,6 @@
 const express = require('express');
+const mealsController = require('../controllers/mealsController');
 const jwt = require('jsonwebtoken');
-const { meals } = require('../models'); // Asegúrate de usar el modelo correcto
 require('dotenv').config();
 
 const router = express.Router();
@@ -23,21 +23,11 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-// GET /api/meals - Obtener todas las comidas sin autenticación
-router.get('/', async (req, res) => {
-    try {
-        console.log('Obteniendo comidas desde la tabla meals');
+// GET /api/meals - Obtener todas las comidas con lógica de cache
+router.get('/', mealsController.getAllMeals);
 
-        // Consulta directa a la tabla meals sin validación de token
-        const allMeals = await meals.findAll();
-
-        res.status(200).json(allMeals); // Devuelve las comidas directamente
-    } catch (error) {
-        console.error('Error al obtener las comidas:', error.message);
-        res.status(500).json({ error: 'Error al obtener las comidas' });
-    }
-});
-
+// GET /api/meals/:id - Obtener una comida específica con lógica de cache
+router.get('/:id', mealsController.getMealById);
 
 // POST /api/meals - Crear una nueva comida para el usuario actual
 router.post('/', authenticateToken, async (req, res) => {

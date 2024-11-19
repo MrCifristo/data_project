@@ -1,52 +1,36 @@
-// File: repositories/mealsRepository.js
-
-const Meal = require('../models/meals');
+const { meals } = require('../models');
+const logger = require('../config/logger');
 
 class MealsRepository {
-    static async createMeal(data) {
+    static async getAllMeals() {
         try {
-            const meal = await Meal.create(data);
-            return meal;
+            const label = 'Database Query: Get All Meals';
+            logger.profileStart(label);
+
+            const mealsList = await meals.findAll({
+                order: [['createdAt', 'DESC']],
+            });
+
+            logger.profileEnd(label);
+            return mealsList;
         } catch (error) {
-            throw new Error('Error al crear la comida');
+            logger.error('❌ Error en getAllMeals:', error.message);
+            throw new Error('Error al obtener todas las comidas');
         }
     }
 
     static async getMealById(id) {
         try {
-            const meal = await Meal.findByPk(id);
+            const label = `Database Query: Get Meal by ID: ${id}`;
+            logger.profileStart(label);
+
+            const meal = await meals.findByPk(id);
+
+            logger.profileEnd(label);
             return meal;
         } catch (error) {
+            logger.error('❌ Error en getMealById:', error.message);
             throw new Error('Error al obtener la comida por ID');
-        }
-    }
-
-    static async getAllMeals() {
-        try {
-            const meals = await Meal.findAll({
-                order: [['createdAt', 'DESC']], // Orden descendente
-            });
-            return meals;
-        } catch (error) {
-            throw new Error('Error al obtener todas las comidas');
-        }
-    }
-
-    static async updateMeal(id, data) {
-        try {
-            const [updated] = await Meal.update(data, { where: { id } });
-            return updated ? await Meal.findByPk(id) : null;
-        } catch (error) {
-            throw new Error('Error al actualizar la comida');
-        }
-    }
-
-    static async deleteMeal(id) {
-        try {
-            const deleted = await Meal.destroy({ where: { id } });
-            return deleted;
-        } catch (error) {
-            throw new Error('Error al eliminar la comida');
         }
     }
 }
