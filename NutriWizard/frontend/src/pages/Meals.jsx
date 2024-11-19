@@ -70,6 +70,13 @@ const Meals = () => {
         setHighlightedMeal(null);
     };
 
+    const handleSearch = () => {
+        const foundMeal = userMeals.find(
+            (meal) => meal.name.toLowerCase() === searchTerm.toLowerCase().trim()
+        );
+        setHighlightedMeal(foundMeal || null); // Si no se encuentra nada, `null`
+    };
+
     const handleDeleteMeal = async (id) => {
         try {
             const response = await fetch(`http://localhost:5001/api/meals/${id}`, {
@@ -235,6 +242,51 @@ const Meals = () => {
                         </div>
                         <Carousel />
                     </div>
+
+                    {/* Input de búsqueda */}
+                    <div className="mt-8 w-full max-w-4xl mx-auto flex items-center gap-4">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search for a meal..."
+                            className="block w-full px-4 py-2 border rounded-md text-gray-700 focus:ring-2 focus:ring-indigo-600"
+                        />
+                        <button
+                            onClick={() => handleSearch()}
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                        >
+                            Search
+                        </button>
+                    </div>
+
+                    {highlightedMeal && (
+                        <div className="mt-8 w-full max-w-4xl mx-auto bg-yellow-100 p-4 rounded-lg shadow-lg">
+                            <h3 className="text-xl font-semibold text-gray-900 mb-2">Search Result</h3>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-full bg-white border">
+                                    <thead>
+                                    <tr>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Name</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Calories</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Protein</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Fats</th>
+                                        <th className="px-4 py-3 border-b text-left text-xs font-semibold text-gray-900">Carbs</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.name}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.calories}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.protein}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.fats}</td>
+                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{highlightedMeal.carbs}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Tabla de comidas */}
                     <div className="mt-8 w-full max-w-4xl mx-auto">

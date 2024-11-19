@@ -129,13 +129,22 @@ const Profile = () => {
                     </h1>
                     {profileData ? (
                         <>
-                            <Section title="Personal Information" icon={<UserIcon className="h-6 w-6 text-blue-500" />}>
+                            <Section
+                                title="Personal Information"
+                                icon={
+                                    <div className="flex items-center space-x-2">
+                                        <UserIcon className="h-6 w-6 text-blue-500" />
+                                        <MoonIcon className="h-6 w-6 text-gray-400" />
+                                    </div>
+                                }
+                            >
                                 <ProfileDetail label="Full Name" value={profileData.nombre_completo} />
                                 <ProfileDetail label="Age" value={profileData.edad} />
                                 <ProfileDetail label="Sex" value={profileData.sexo?.trim()} />
                                 <ProfileDetail label="Height" value={profileData.altura ? `${profileData.altura} cm` : null} />
                                 <ProfileDetail label="Weight" value={profileData.peso ? `${profileData.peso} kg` : null} />
                             </Section>
+
                             <Section title="Health & Fitness" icon={<FireIcon className="h-6 w-6 text-red-500" />}>
                                 <ProfileDetail label="Activity Level" value={profileData.nivel_actividad} />
                                 <ProfileDetail label="Daily Caloric Intake" value={profileData.consumo_calorias_diario ? `${profileData.consumo_calorias_diario} kcal` : null} />
