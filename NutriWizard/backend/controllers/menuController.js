@@ -31,16 +31,7 @@ class MenuController {
             }
 
             // Crear una nueva entrada en la colección de menú
-            const newMenuEntry = await MenuRepository.create({
-                userId,
-                mealId,
-                name: mealData.name,
-                calories: mealData.calories,
-                protein: mealData.protein,
-                fats: mealData.fats,
-                carbs: mealData.carbs,
-                mealType: mealData.mealType,
-            });
+            const newMenuEntry = await MenuRepository.createMenuEntry(userId, mealData);
 
             logger.info(`${label} - Nuevo menú creado: ${JSON.stringify(newMenuEntry)}`);
             const endTime = Date.now();
@@ -106,14 +97,14 @@ class MenuController {
 
         try {
             // Buscar la entrada del menú por ID en MongoDB
-            const menuEntry = await MenuRepository.getMenuEntryById(menuId);
+            const menuEntry = await MenuRepository.getMenuById(menuId);
             if (!menuEntry) {
                 logger.warn(`${label} - Entrada no encontrada para menuId: ${menuId}`);
                 return res.status(404).json({ error: 'Entrada no encontrada en el menú.' });
             }
 
             // Eliminar la entrada
-            await MenuRepository.delete(menuId);
+            await MenuRepository.deleteMenuEntry(menuId);
             logger.info(`${label} - Entrada eliminada con éxito: ${menuId}`);
             const endTime = Date.now();
             logger.info(`${label} - Response Time: ${endTime - startTime}ms`);

@@ -52,7 +52,8 @@ const Profile = () => {
 
     const fetchUserMenu = useCallback(async () => {
         console.log('Fetching user menu...');
-        if (!profileData?.id) {
+        const userId = profileData?._id || profileData?.id;
+        if (!userId) {
             console.warn('No user ID found. Skipping menu fetch.');
             return;
         }
@@ -65,7 +66,7 @@ const Profile = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5001/api/menu/${profileData.id}`, {
+            const response = await fetch(`http://localhost:5001/api/menu/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -83,7 +84,7 @@ const Profile = () => {
         } catch (error) {
             console.error('Error fetching user menu:', error);
         }
-    }, [profileData?.id, handleAuthError]);
+    }, [profileData, handleAuthError]);
 
     useEffect(() => {
         console.log('Fetching profile data...');

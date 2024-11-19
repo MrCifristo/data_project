@@ -815,3 +815,264 @@
 [2024-11-19T21:06:04.355Z] INFO: Insertando datos en Usuario...
 [2024-11-19T21:06:04.357Z] INFO: Datos iniciales insertados correctamente.
 [2024-11-19T21:06:04.360Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:17:32.453Z] INFO: Iniciando servidor...
+[2024-11-19T21:17:32.454Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:17:32.522Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:17:32.522Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:17:32.546Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:17:32.548Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:20:17.576Z] INFO: Iniciando servidor...
+[2024-11-19T21:20:17.577Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:20:17.610Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:20:17.611Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:20:17.622Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:20:17.623Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:25:06.374Z] INFO: Iniciando servidor...
+[2024-11-19T21:25:06.375Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:25:06.402Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:25:06.402Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:25:06.421Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:25:06.422Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:29:05.593Z] INFO: Iniciando servidor...
+[2024-11-19T21:29:05.594Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:29:05.619Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:29:05.619Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:29:05.629Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:29:05.631Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:37:02.721Z] INFO: Iniciando servidor...
+[2024-11-19T21:37:02.724Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:37:02.832Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:37:02.833Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:37:02.888Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:37:02.899Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:37:18.619Z] INFO: Iniciando servidor...
+[2024-11-19T21:37:18.621Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:37:18.714Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:37:18.714Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:37:18.947Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:37:18.961Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:38:42.277Z] INFO: Iniciando servidor...
+[2024-11-19T21:38:42.279Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:38:42.321Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:38:42.321Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:38:42.340Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:38:42.342Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:38:53.948Z] INFO: Iniciando servidor...
+[2024-11-19T21:38:53.952Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:38:54.091Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:38:54.091Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:38:54.131Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:38:54.136Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:41:58.360Z] INFO: Iniciando servidor...
+[2024-11-19T21:41:58.361Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:41:58.394Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:41:58.394Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:41:58.407Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:41:58.408Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:42:14.640Z] INFO: [PROFILING] Get All Meals [Request ID: 4fb5454c-c3f6-48f4-9785-9f55a50193b7] - Start
+[2024-11-19T21:42:14.644Z] WARN: [PROFILING] Get All Meals [Request ID: 4fb5454c-c3f6-48f4-9785-9f55a50193b7] - ❌ Cache miss for all_meals
+[2024-11-19T21:42:14.644Z] INFO: [PROFILING START] Database Query: Get All Meals
+[2024-11-19T21:42:14.658Z] INFO: [PROFILING END] Database Query: Get All Meals
+[2024-11-19T21:42:14.661Z] INFO: [PROFILING] Get All Meals [Request ID: 4fb5454c-c3f6-48f4-9785-9f55a50193b7] - ✅ Data cached for all_meals
+[2024-11-19T21:42:14.661Z] INFO: [PROFILING] Get All Meals [Request ID: 4fb5454c-c3f6-48f4-9785-9f55a50193b7] - Response Time: 21ms
+[2024-11-19T21:42:14.661Z] INFO: [PROFILING] Get All Meals [Request ID: 4fb5454c-c3f6-48f4-9785-9f55a50193b7] - End
+[2024-11-19T21:42:14.663Z] INFO: [PROFILING] Get All Meals [Request ID: 6172998c-6f8c-4c6a-bd46-3d9e9c5ade5b] - Start
+[2024-11-19T21:42:14.664Z] INFO: [PROFILING] Get All Meals [Request ID: 6172998c-6f8c-4c6a-bd46-3d9e9c5ade5b] - ⚡ Cache hit for all_meals
+[2024-11-19T21:42:14.664Z] INFO: [PROFILING] Get All Meals [Request ID: 6172998c-6f8c-4c6a-bd46-3d9e9c5ade5b] - Response Time: 1ms
+[2024-11-19T21:42:14.664Z] INFO: [PROFILING] Get All Meals [Request ID: 6172998c-6f8c-4c6a-bd46-3d9e9c5ade5b] - End
+[2024-11-19T21:43:16.233Z] INFO: [PROFILING] Refresh Cache [Request ID: 90bcbe7f-1f32-4850-a566-dfed6a640c5c] - Start
+[2024-11-19T21:43:16.235Z] INFO: [PROFILING START] Database Query: Get All Meals
+[2024-11-19T21:43:16.255Z] INFO: [PROFILING END] Database Query: Get All Meals
+[2024-11-19T21:43:16.266Z] INFO: [PROFILING] Refresh Cache [Request ID: 90bcbe7f-1f32-4850-a566-dfed6a640c5c] - ✅ Cache refreshed successfully.
+[2024-11-19T21:43:16.267Z] INFO: [PROFILING] Refresh Cache [Request ID: 90bcbe7f-1f32-4850-a566-dfed6a640c5c] - Response Time: 31ms
+[2024-11-19T21:43:16.268Z] INFO: [PROFILING] Refresh Cache [Request ID: 90bcbe7f-1f32-4850-a566-dfed6a640c5c] - End
+[2024-11-19T21:43:16.280Z] INFO: [PROFILING] Get All Meals [Request ID: 4c0e687f-a534-4938-ad01-fec1cfd4a35f] - Start
+[2024-11-19T21:43:16.280Z] INFO: [PROFILING] Get All Meals [Request ID: 4c0e687f-a534-4938-ad01-fec1cfd4a35f] - ⚡ Cache hit for all_meals
+[2024-11-19T21:43:16.281Z] INFO: [PROFILING] Get All Meals [Request ID: 4c0e687f-a534-4938-ad01-fec1cfd4a35f] - Response Time: 0ms
+[2024-11-19T21:43:16.281Z] INFO: [PROFILING] Get All Meals [Request ID: 4c0e687f-a534-4938-ad01-fec1cfd4a35f] - End
+[2024-11-19T21:43:35.712Z] INFO: [PROFILING] Get All Meals [Request ID: 98407441-6599-4e11-a4fd-d1397e572669] - Start
+[2024-11-19T21:43:35.715Z] INFO: [PROFILING] Get All Meals [Request ID: 98407441-6599-4e11-a4fd-d1397e572669] - ⚡ Cache hit for all_meals
+[2024-11-19T21:43:35.715Z] INFO: [PROFILING] Get All Meals [Request ID: 98407441-6599-4e11-a4fd-d1397e572669] - Response Time: 3ms
+[2024-11-19T21:43:35.715Z] INFO: [PROFILING] Get All Meals [Request ID: 98407441-6599-4e11-a4fd-d1397e572669] - End
+[2024-11-19T21:43:35.720Z] INFO: [PROFILING] Get All Meals [Request ID: 7c27f1ca-dde5-4d12-a87a-fd1f57f06b8c] - Start
+[2024-11-19T21:43:35.743Z] INFO: [PROFILING] Get All Meals [Request ID: 7c27f1ca-dde5-4d12-a87a-fd1f57f06b8c] - ⚡ Cache hit for all_meals
+[2024-11-19T21:43:35.744Z] INFO: [PROFILING] Get All Meals [Request ID: 7c27f1ca-dde5-4d12-a87a-fd1f57f06b8c] - Response Time: 23ms
+[2024-11-19T21:43:35.744Z] INFO: [PROFILING] Get All Meals [Request ID: 7c27f1ca-dde5-4d12-a87a-fd1f57f06b8c] - End
+[2024-11-19T21:48:35.961Z] INFO: [PROFILING] Get All Meals [Request ID: 3c44d3f8-15dd-4616-bfad-6349e8f4fd32] - Start
+[2024-11-19T21:48:35.970Z] INFO: [PROFILING] Get All Meals [Request ID: 3c44d3f8-15dd-4616-bfad-6349e8f4fd32] - ⚡ Cache hit for all_meals
+[2024-11-19T21:48:35.970Z] INFO: [PROFILING] Get All Meals [Request ID: 3c44d3f8-15dd-4616-bfad-6349e8f4fd32] - Response Time: 4ms
+[2024-11-19T21:48:35.970Z] INFO: [PROFILING] Get All Meals [Request ID: 3c44d3f8-15dd-4616-bfad-6349e8f4fd32] - End
+[2024-11-19T21:48:42.836Z] INFO: [PROFILING] Get All Meals [Request ID: fb0618d3-e7d0-4884-9fbf-8a51dfb43eba] - Start
+[2024-11-19T21:48:42.843Z] INFO: [PROFILING] Get All Meals [Request ID: fb0618d3-e7d0-4884-9fbf-8a51dfb43eba] - ⚡ Cache hit for all_meals
+[2024-11-19T21:48:42.843Z] INFO: [PROFILING] Get All Meals [Request ID: fb0618d3-e7d0-4884-9fbf-8a51dfb43eba] - Response Time: 4ms
+[2024-11-19T21:48:42.845Z] INFO: [PROFILING] Get All Meals [Request ID: fb0618d3-e7d0-4884-9fbf-8a51dfb43eba] - End
+[2024-11-19T21:48:42.855Z] INFO: [PROFILING] Get All Meals [Request ID: 5d867770-c1e0-4b35-bb7c-c230d9e958b2] - Start
+[2024-11-19T21:48:42.856Z] INFO: [PROFILING] Get All Meals [Request ID: 5d867770-c1e0-4b35-bb7c-c230d9e958b2] - ⚡ Cache hit for all_meals
+[2024-11-19T21:48:42.856Z] INFO: [PROFILING] Get All Meals [Request ID: 5d867770-c1e0-4b35-bb7c-c230d9e958b2] - Response Time: 1ms
+[2024-11-19T21:48:42.856Z] INFO: [PROFILING] Get All Meals [Request ID: 5d867770-c1e0-4b35-bb7c-c230d9e958b2] - End
+[2024-11-19T21:54:01.032Z] INFO: [PROFILING] Get User Menu [Request ID: 6d2052b0-a083-42a5-a54f-858c087c7b4c] - Start
+[2024-11-19T21:54:01.039Z] ERROR: [PROFILING] Get User Menu [Request ID: 6d2052b0-a083-42a5-a54f-858c087c7b4c] - Error: MenuRepository.getMenuByUserId is not a function
+[2024-11-19T21:54:01.039Z] INFO: [PROFILING] Get User Menu [Request ID: 6d2052b0-a083-42a5-a54f-858c087c7b4c] - Response Time: 2ms
+[2024-11-19T21:54:01.069Z] INFO: [PROFILING] Get User Menu [Request ID: bf827d80-8831-41b4-8863-2df17dd6d8bc] - Start
+[2024-11-19T21:54:01.070Z] ERROR: [PROFILING] Get User Menu [Request ID: bf827d80-8831-41b4-8863-2df17dd6d8bc] - Error: MenuRepository.getMenuByUserId is not a function
+[2024-11-19T21:54:01.070Z] INFO: [PROFILING] Get User Menu [Request ID: bf827d80-8831-41b4-8863-2df17dd6d8bc] - Response Time: 0ms
+[2024-11-19T21:55:49.967Z] INFO: [PROFILING] Get User Menu [Request ID: f0250192-c72c-42ec-a4f3-d884cb1e62cc] - Start
+[2024-11-19T21:55:49.975Z] ERROR: [PROFILING] Get User Menu [Request ID: f0250192-c72c-42ec-a4f3-d884cb1e62cc] - Error: MenuRepository.getMenuByUserId is not a function
+[2024-11-19T21:55:49.975Z] INFO: [PROFILING] Get User Menu [Request ID: f0250192-c72c-42ec-a4f3-d884cb1e62cc] - Response Time: 6ms
+[2024-11-19T21:55:50.007Z] INFO: [PROFILING] Get User Menu [Request ID: cc3965ec-59c2-4da4-a1cd-acdf857e21d8] - Start
+[2024-11-19T21:55:50.009Z] ERROR: [PROFILING] Get User Menu [Request ID: cc3965ec-59c2-4da4-a1cd-acdf857e21d8] - Error: MenuRepository.getMenuByUserId is not a function
+[2024-11-19T21:55:50.009Z] INFO: [PROFILING] Get User Menu [Request ID: cc3965ec-59c2-4da4-a1cd-acdf857e21d8] - Response Time: 0ms
+[2024-11-19T21:58:41.038Z] INFO: Iniciando servidor...
+[2024-11-19T21:58:41.039Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:58:41.240Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:58:41.241Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:58:41.283Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:58:41.287Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T21:59:52.294Z] INFO: Iniciando servidor...
+[2024-11-19T21:59:52.294Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T21:59:52.338Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T21:59:52.339Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T21:59:52.353Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T21:59:52.356Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T22:00:48.047Z] INFO: Iniciando servidor...
+[2024-11-19T22:00:48.048Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T22:00:48.148Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T22:00:48.148Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T22:00:48.163Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T22:00:48.164Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T22:01:37.849Z] INFO: [PROFILING] Get User Menu [Request ID: 89b9f78a-bb93-4e3c-afa8-b178e8062573] - Start
+[2024-11-19T22:01:37.859Z] ERROR: [PROFILING] Get User Menu [Request ID: 89b9f78a-bb93-4e3c-afa8-b178e8062573] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:01:37.860Z] INFO: [PROFILING] Get User Menu [Request ID: 89b9f78a-bb93-4e3c-afa8-b178e8062573] - Response Time: 10ms
+[2024-11-19T22:01:37.865Z] INFO: [PROFILING] Get User Menu [Request ID: a603254d-772d-499e-9ff7-4fe1d1b213c1] - Start
+[2024-11-19T22:01:37.866Z] ERROR: [PROFILING] Get User Menu [Request ID: a603254d-772d-499e-9ff7-4fe1d1b213c1] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:01:37.866Z] INFO: [PROFILING] Get User Menu [Request ID: a603254d-772d-499e-9ff7-4fe1d1b213c1] - Response Time: 1ms
+[2024-11-19T22:01:45.117Z] INFO: [PROFILING] Get User Menu [Request ID: 559ae675-b3e9-4f17-be30-65c79132750e] - Start
+[2024-11-19T22:01:45.119Z] ERROR: [PROFILING] Get User Menu [Request ID: 559ae675-b3e9-4f17-be30-65c79132750e] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:01:45.119Z] INFO: [PROFILING] Get User Menu [Request ID: 559ae675-b3e9-4f17-be30-65c79132750e] - Response Time: 2ms
+[2024-11-19T22:01:45.121Z] INFO: [PROFILING] Get User Menu [Request ID: 489f53f9-f6f5-444f-acd3-2695950421ba] - Start
+[2024-11-19T22:01:45.122Z] ERROR: [PROFILING] Get User Menu [Request ID: 489f53f9-f6f5-444f-acd3-2695950421ba] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:01:45.122Z] INFO: [PROFILING] Get User Menu [Request ID: 489f53f9-f6f5-444f-acd3-2695950421ba] - Response Time: 1ms
+[2024-11-19T22:01:46.854Z] INFO: [PROFILING] Get All Meals [Request ID: 139b05cf-55dd-4f6e-a8fa-a2e23d940290] - Start
+[2024-11-19T22:01:46.859Z] INFO: [PROFILING] Get All Meals [Request ID: 139b05cf-55dd-4f6e-a8fa-a2e23d940290] - ⚡ Cache hit for all_meals
+[2024-11-19T22:01:46.859Z] INFO: [PROFILING] Get All Meals [Request ID: 139b05cf-55dd-4f6e-a8fa-a2e23d940290] - Response Time: 5ms
+[2024-11-19T22:01:46.860Z] INFO: [PROFILING] Get All Meals [Request ID: 139b05cf-55dd-4f6e-a8fa-a2e23d940290] - End
+[2024-11-19T22:01:46.862Z] INFO: [PROFILING] Get All Meals [Request ID: ceee965f-06ba-428f-accd-1a2d359f2f07] - Start
+[2024-11-19T22:01:46.863Z] INFO: [PROFILING] Get All Meals [Request ID: ceee965f-06ba-428f-accd-1a2d359f2f07] - ⚡ Cache hit for all_meals
+[2024-11-19T22:01:46.863Z] INFO: [PROFILING] Get All Meals [Request ID: ceee965f-06ba-428f-accd-1a2d359f2f07] - Response Time: 1ms
+[2024-11-19T22:01:46.864Z] INFO: [PROFILING] Get All Meals [Request ID: ceee965f-06ba-428f-accd-1a2d359f2f07] - End
+[2024-11-19T22:01:52.717Z] INFO: [PROFILING] Get User Menu [Request ID: 18b2d273-455d-4268-9969-61ee5dc5e1f4] - Start
+[2024-11-19T22:01:52.718Z] ERROR: [PROFILING] Get User Menu [Request ID: 18b2d273-455d-4268-9969-61ee5dc5e1f4] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:01:52.718Z] INFO: [PROFILING] Get User Menu [Request ID: 18b2d273-455d-4268-9969-61ee5dc5e1f4] - Response Time: 1ms
+[2024-11-19T22:01:52.736Z] INFO: [PROFILING] Get User Menu [Request ID: 77dc56a8-5774-4ed6-a643-8aac7f36bb8b] - Start
+[2024-11-19T22:01:52.738Z] ERROR: [PROFILING] Get User Menu [Request ID: 77dc56a8-5774-4ed6-a643-8aac7f36bb8b] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:01:52.738Z] INFO: [PROFILING] Get User Menu [Request ID: 77dc56a8-5774-4ed6-a643-8aac7f36bb8b] - Response Time: 2ms
+[2024-11-19T22:05:12.922Z] INFO: Iniciando servidor...
+[2024-11-19T22:05:12.923Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T22:05:12.974Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T22:05:12.974Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T22:05:12.991Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T22:05:12.994Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T22:05:17.850Z] INFO: [PROFILING] Get User Menu [Request ID: 26fc4851-c7d9-46cc-be19-626f4a42a5a7] - Start
+[2024-11-19T22:05:17.851Z] ERROR: [PROFILING] Get User Menu [Request ID: 26fc4851-c7d9-46cc-be19-626f4a42a5a7] - Error: MenuRepository.getMenuByUser is not a function
+[2024-11-19T22:05:17.851Z] INFO: [PROFILING] Get User Menu [Request ID: 26fc4851-c7d9-46cc-be19-626f4a42a5a7] - Response Time: 0ms
+[2024-11-19T22:05:17.854Z] INFO: [PROFILING] Get User Menu [Request ID: f242155b-0986-4669-91e7-b5ccf136bba2] - Start
+[2024-11-19T22:05:17.855Z] ERROR: [PROFILING] Get User Menu [Request ID: f242155b-0986-4669-91e7-b5ccf136bba2] - Error: MenuRepository.getMenuByUser is not a function
+[2024-11-19T22:05:17.855Z] INFO: [PROFILING] Get User Menu [Request ID: f242155b-0986-4669-91e7-b5ccf136bba2] - Response Time: 0ms
+[2024-11-19T22:08:42.004Z] INFO: Iniciando servidor...
+[2024-11-19T22:08:42.005Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T22:08:42.045Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T22:08:42.045Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T22:08:42.075Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T22:08:42.077Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T22:08:49.895Z] INFO: [PROFILING] Get User Menu [Request ID: 6b180d11-fd80-40ec-91f7-01f518e8e5d1] - Start
+[2024-11-19T22:08:49.896Z] ERROR: [PROFILING] Get User Menu [Request ID: 6b180d11-fd80-40ec-91f7-01f518e8e5d1] - Error: MenuRepository.getMenuByUser is not a function
+[2024-11-19T22:08:49.896Z] INFO: [PROFILING] Get User Menu [Request ID: 6b180d11-fd80-40ec-91f7-01f518e8e5d1] - Response Time: 0ms
+[2024-11-19T22:08:49.899Z] INFO: [PROFILING] Get User Menu [Request ID: ac94f70a-ef66-478f-ba26-8a213eeda692] - Start
+[2024-11-19T22:08:49.899Z] ERROR: [PROFILING] Get User Menu [Request ID: ac94f70a-ef66-478f-ba26-8a213eeda692] - Error: MenuRepository.getMenuByUser is not a function
+[2024-11-19T22:08:49.900Z] INFO: [PROFILING] Get User Menu [Request ID: ac94f70a-ef66-478f-ba26-8a213eeda692] - Response Time: 0ms
+[2024-11-19T22:10:25.526Z] INFO: Iniciando servidor...
+[2024-11-19T22:10:25.527Z] INFO: Intentando conectar a MongoDB...
+[2024-11-19T22:10:25.588Z] INFO: Conexión exitosa a MongoDB.
+[2024-11-19T22:10:25.588Z] INFO: Iniciando la inserción de datos iniciales...
+[2024-11-19T22:10:25.599Z] INFO: Datos iniciales ya existen. Saltando la inserción.
+[2024-11-19T22:10:25.600Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T22:11:30.323Z] INFO: [PROFILING] Get User Menu [Request ID: 7f437806-6665-4cc9-b7b2-2e3583e71ab3] - Start
+[2024-11-19T22:11:30.327Z] ERROR: [PROFILING] Get User Menu [Request ID: 7f437806-6665-4cc9-b7b2-2e3583e71ab3] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:11:30.327Z] INFO: [PROFILING] Get User Menu [Request ID: 7f437806-6665-4cc9-b7b2-2e3583e71ab3] - Response Time: 2ms
+[2024-11-19T22:11:30.330Z] INFO: [PROFILING] Get User Menu [Request ID: f7995423-a156-428c-bd22-30567f70bc92] - Start
+[2024-11-19T22:11:30.333Z] ERROR: [PROFILING] Get User Menu [Request ID: f7995423-a156-428c-bd22-30567f70bc92] - Error: Error al obtener el menú del usuario: Cast to ObjectId failed for value "undefined" (type string) at path "userId" for model "menu"
+[2024-11-19T22:11:30.334Z] INFO: [PROFILING] Get User Menu [Request ID: f7995423-a156-428c-bd22-30567f70bc92] - Response Time: 2ms
+[2024-11-19T22:19:46.903Z] INFO: [PROFILING] Get User Menu [Request ID: 64727773-5d21-44c8-9b4e-42574a3ce441] - Start
+[2024-11-19T22:19:46.916Z] WARN: [PROFILING] Get User Menu [Request ID: 64727773-5d21-44c8-9b4e-42574a3ce441] - Menú vacío o no encontrado para userId: 673d023bf129b00b4f498e24
+[2024-11-19T22:19:46.916Z] INFO: [PROFILING] Get User Menu [Request ID: 64727773-5d21-44c8-9b4e-42574a3ce441] - Response Time: 13ms
+[2024-11-19T22:19:46.916Z] INFO: [PROFILING] Get User Menu [Request ID: 64727773-5d21-44c8-9b4e-42574a3ce441] - End
+[2024-11-19T22:19:46.922Z] INFO: [PROFILING] Get User Menu [Request ID: 9efc8e2c-20b1-48ea-a6dc-9d5427f1ed50] - Start
+[2024-11-19T22:19:46.924Z] WARN: [PROFILING] Get User Menu [Request ID: 9efc8e2c-20b1-48ea-a6dc-9d5427f1ed50] - Menú vacío o no encontrado para userId: 673d023bf129b00b4f498e24
+[2024-11-19T22:19:46.924Z] INFO: [PROFILING] Get User Menu [Request ID: 9efc8e2c-20b1-48ea-a6dc-9d5427f1ed50] - Response Time: 2ms
+[2024-11-19T22:19:46.924Z] INFO: [PROFILING] Get User Menu [Request ID: 9efc8e2c-20b1-48ea-a6dc-9d5427f1ed50] - End
+[2024-11-19T22:22:04.950Z] INFO: [PROFILING] Get User Menu [Request ID: a9139abd-e821-4f4d-bfdf-6bfc257d9ac1] - Start
+[2024-11-19T22:22:04.961Z] WARN: [PROFILING] Get User Menu [Request ID: a9139abd-e821-4f4d-bfdf-6bfc257d9ac1] - Menú vacío o no encontrado para userId: 673d023bf129b00b4f498e24
+[2024-11-19T22:22:04.962Z] INFO: [PROFILING] Get User Menu [Request ID: a9139abd-e821-4f4d-bfdf-6bfc257d9ac1] - Response Time: 10ms
+[2024-11-19T22:22:04.963Z] INFO: [PROFILING] Get User Menu [Request ID: a9139abd-e821-4f4d-bfdf-6bfc257d9ac1] - End
+[2024-11-19T22:22:04.972Z] INFO: [PROFILING] Get User Menu [Request ID: df73a624-30ef-4e5e-acd5-8ebcbc647bb9] - Start
+[2024-11-19T22:22:04.977Z] WARN: [PROFILING] Get User Menu [Request ID: df73a624-30ef-4e5e-acd5-8ebcbc647bb9] - Menú vacío o no encontrado para userId: 673d023bf129b00b4f498e24
+[2024-11-19T22:22:04.977Z] INFO: [PROFILING] Get User Menu [Request ID: df73a624-30ef-4e5e-acd5-8ebcbc647bb9] - Response Time: 4ms
+[2024-11-19T22:22:04.977Z] INFO: [PROFILING] Get User Menu [Request ID: df73a624-30ef-4e5e-acd5-8ebcbc647bb9] - End
+[2024-11-19T22:22:16.118Z] INFO: [PROFILING] Get User Menu [Request ID: 28d94919-ce86-4dcd-8c3d-9526c692fb11] - Start
+[2024-11-19T22:22:16.124Z] WARN: [PROFILING] Get User Menu [Request ID: 28d94919-ce86-4dcd-8c3d-9526c692fb11] - Menú vacío o no encontrado para userId: 673d023bf129b00b4f498e24
+[2024-11-19T22:22:16.124Z] INFO: [PROFILING] Get User Menu [Request ID: 28d94919-ce86-4dcd-8c3d-9526c692fb11] - Response Time: 5ms
+[2024-11-19T22:22:16.124Z] INFO: [PROFILING] Get User Menu [Request ID: 28d94919-ce86-4dcd-8c3d-9526c692fb11] - End
+[2024-11-19T22:22:16.136Z] INFO: [PROFILING] Get User Menu [Request ID: d1e9fc69-4673-420a-8208-401cdc5ff5be] - Start
+[2024-11-19T22:22:16.140Z] WARN: [PROFILING] Get User Menu [Request ID: d1e9fc69-4673-420a-8208-401cdc5ff5be] - Menú vacío o no encontrado para userId: 673d023bf129b00b4f498e24
+[2024-11-19T22:22:16.140Z] INFO: [PROFILING] Get User Menu [Request ID: d1e9fc69-4673-420a-8208-401cdc5ff5be] - Response Time: 3ms
+[2024-11-19T22:22:16.140Z] INFO: [PROFILING] Get User Menu [Request ID: d1e9fc69-4673-420a-8208-401cdc5ff5be] - End
+[2024-11-19T22:22:23.682Z] INFO: [PROFILING] Get All Meals [Request ID: c3af6c46-55a9-482b-9496-469b82b8ac68] - Start
+[2024-11-19T22:22:23.695Z] INFO: [PROFILING] Get All Meals [Request ID: c3af6c46-55a9-482b-9496-469b82b8ac68] - ⚡ Cache hit for all_meals
+[2024-11-19T22:22:23.696Z] INFO: [PROFILING] Get All Meals [Request ID: c3af6c46-55a9-482b-9496-469b82b8ac68] - Response Time: 11ms
+[2024-11-19T22:22:23.697Z] INFO: [PROFILING] Get All Meals [Request ID: c3af6c46-55a9-482b-9496-469b82b8ac68] - End
+[2024-11-19T22:22:23.728Z] INFO: [PROFILING] Get All Meals [Request ID: 2b706054-7fcd-4ca6-874a-b15d10903295] - Start
+[2024-11-19T22:22:23.730Z] INFO: [PROFILING] Get All Meals [Request ID: 2b706054-7fcd-4ca6-874a-b15d10903295] - ⚡ Cache hit for all_meals
+[2024-11-19T22:22:23.730Z] INFO: [PROFILING] Get All Meals [Request ID: 2b706054-7fcd-4ca6-874a-b15d10903295] - Response Time: 1ms
+[2024-11-19T22:22:23.730Z] INFO: [PROFILING] Get All Meals [Request ID: 2b706054-7fcd-4ca6-874a-b15d10903295] - End
+[2024-11-19T22:31:29.913Z] INFO: [PROFILING] Get All Meals [Request ID: bda58748-685e-4892-81b5-aeafbbb4429f] - Start
+[2024-11-19T22:31:29.918Z] INFO: [PROFILING] Get All Meals [Request ID: bda58748-685e-4892-81b5-aeafbbb4429f] - ⚡ Cache hit for all_meals
+[2024-11-19T22:31:29.919Z] INFO: [PROFILING] Get All Meals [Request ID: bda58748-685e-4892-81b5-aeafbbb4429f] - Response Time: 3ms
+[2024-11-19T22:31:29.919Z] INFO: [PROFILING] Get All Meals [Request ID: bda58748-685e-4892-81b5-aeafbbb4429f] - End
+[2024-11-19T22:32:34.165Z] INFO: [PROFILING] Get All Meals [Request ID: fb96ad57-9802-4420-9e65-609cb3edf62d] - Start
+[2024-11-19T22:32:34.168Z] INFO: [PROFILING] Get All Meals [Request ID: fb96ad57-9802-4420-9e65-609cb3edf62d] - ⚡ Cache hit for all_meals
+[2024-11-19T22:32:34.168Z] INFO: [PROFILING] Get All Meals [Request ID: fb96ad57-9802-4420-9e65-609cb3edf62d] - Response Time: 2ms
+[2024-11-19T22:32:34.168Z] INFO: [PROFILING] Get All Meals [Request ID: fb96ad57-9802-4420-9e65-609cb3edf62d] - End
+[2024-11-19T22:32:34.172Z] INFO: [PROFILING] Get All Meals [Request ID: 37ef21e7-09ec-4af1-97b9-4c7cdec329d9] - Start
+[2024-11-19T22:32:34.173Z] INFO: [PROFILING] Get All Meals [Request ID: 37ef21e7-09ec-4af1-97b9-4c7cdec329d9] - ⚡ Cache hit for all_meals
+[2024-11-19T22:32:34.173Z] INFO: [PROFILING] Get All Meals [Request ID: 37ef21e7-09ec-4af1-97b9-4c7cdec329d9] - Response Time: 1ms
+[2024-11-19T22:32:34.173Z] INFO: [PROFILING] Get All Meals [Request ID: 37ef21e7-09ec-4af1-97b9-4c7cdec329d9] - End
+[2024-11-19T22:32:56.936Z] INFO: [PROFILING] Get All Meals [Request ID: bae7afb7-83d9-4d8d-8f81-9642735e7039] - Start
+[2024-11-19T22:32:56.938Z] INFO: [PROFILING] Get All Meals [Request ID: bae7afb7-83d9-4d8d-8f81-9642735e7039] - ⚡ Cache hit for all_meals
+[2024-11-19T22:32:56.938Z] INFO: [PROFILING] Get All Meals [Request ID: bae7afb7-83d9-4d8d-8f81-9642735e7039] - Response Time: 1ms
+[2024-11-19T22:32:56.938Z] INFO: [PROFILING] Get All Meals [Request ID: bae7afb7-83d9-4d8d-8f81-9642735e7039] - End
+[2024-11-19T22:34:14.908Z] INFO: [PROFILING] Get All Meals [Request ID: cd7e82bf-4553-4a93-97d7-31472703b9be] - Start
+[2024-11-19T22:34:14.921Z] INFO: [PROFILING] Get All Meals [Request ID: cd7e82bf-4553-4a93-97d7-31472703b9be] - ⚡ Cache hit for all_meals
+[2024-11-19T22:34:14.921Z] INFO: [PROFILING] Get All Meals [Request ID: cd7e82bf-4553-4a93-97d7-31472703b9be] - Response Time: 5ms
+[2024-11-19T22:34:14.921Z] INFO: [PROFILING] Get All Meals [Request ID: cd7e82bf-4553-4a93-97d7-31472703b9be] - End
+[2024-11-19T22:34:17.936Z] INFO: [PROFILING] Get All Meals [Request ID: a883e22b-cc38-420d-96a0-2f8972d9cb33] - Start
+[2024-11-19T22:34:17.940Z] INFO: [PROFILING] Get All Meals [Request ID: a883e22b-cc38-420d-96a0-2f8972d9cb33] - ⚡ Cache hit for all_meals
+[2024-11-19T22:34:17.940Z] INFO: [PROFILING] Get All Meals [Request ID: a883e22b-cc38-420d-96a0-2f8972d9cb33] - Response Time: 3ms
+[2024-11-19T22:34:17.940Z] INFO: [PROFILING] Get All Meals [Request ID: a883e22b-cc38-420d-96a0-2f8972d9cb33] - End
+[2024-11-19T22:34:17.953Z] INFO: [PROFILING] Get All Meals [Request ID: 5726b328-5ac7-4c9e-b6bd-52f3756f1160] - Start
+[2024-11-19T22:34:17.966Z] INFO: [PROFILING] Get All Meals [Request ID: 5726b328-5ac7-4c9e-b6bd-52f3756f1160] - ⚡ Cache hit for all_meals
+[2024-11-19T22:34:17.966Z] INFO: [PROFILING] Get All Meals [Request ID: 5726b328-5ac7-4c9e-b6bd-52f3756f1160] - Response Time: 13ms
+[2024-11-19T22:34:17.967Z] INFO: [PROFILING] Get All Meals [Request ID: 5726b328-5ac7-4c9e-b6bd-52f3756f1160] - End
+[2024-11-19T22:34:19.493Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 68bef080-eba8-4bd2-ac47-5d9c15acfd12] - Start
+[2024-11-19T22:34:19.494Z] INFO: [PROFILING START] Database Query: Get Meal by ID: 673cfdbc469993b5e7638ef8
+[2024-11-19T22:34:19.502Z] INFO: [PROFILING END] Database Query: Get Meal by ID: 673cfdbc469993b5e7638ef8
+[2024-11-19T22:34:19.518Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 68bef080-eba8-4bd2-ac47-5d9c15acfd12] - Nuevo menú creado: {"userId":"673d023bf129b00b4f498e24","mealId":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch","_id":"673d126bd8f7e4c43b32396e","createdAt":"2024-11-19T22:34:19.506Z","updatedAt":"2024-11-19T22:34:19.506Z","__v":0}
+[2024-11-19T22:34:19.518Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 68bef080-eba8-4bd2-ac47-5d9c15acfd12] - Response Time: 25ms
+[2024-11-19T22:34:19.518Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 68bef080-eba8-4bd2-ac47-5d9c15acfd12] - End
+[2024-11-19T22:34:26.300Z] INFO: [PROFILING] Get User Menu [Request ID: 72a80b9a-319c-4ffa-806a-db7cd968a05a] - Start
+[2024-11-19T22:34:26.322Z] INFO: [PROFILING] Get User Menu [Request ID: 72a80b9a-319c-4ffa-806a-db7cd968a05a] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
+[2024-11-19T22:34:26.322Z] INFO: [PROFILING] Get User Menu [Request ID: 72a80b9a-319c-4ffa-806a-db7cd968a05a] - Response Time: 22ms
+[2024-11-19T22:34:26.322Z] INFO: [PROFILING] Get User Menu [Request ID: 72a80b9a-319c-4ffa-806a-db7cd968a05a] - End
+[2024-11-19T22:34:26.325Z] INFO: [PROFILING] Get User Menu [Request ID: 761ae16e-f719-4df8-9e1b-a4a0a05d3856] - Start
+[2024-11-19T22:34:26.328Z] INFO: [PROFILING] Get User Menu [Request ID: 761ae16e-f719-4df8-9e1b-a4a0a05d3856] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
+[2024-11-19T22:34:26.328Z] INFO: [PROFILING] Get User Menu [Request ID: 761ae16e-f719-4df8-9e1b-a4a0a05d3856] - Response Time: 3ms
+[2024-11-19T22:34:26.328Z] INFO: [PROFILING] Get User Menu [Request ID: 761ae16e-f719-4df8-9e1b-a4a0a05d3856] - End

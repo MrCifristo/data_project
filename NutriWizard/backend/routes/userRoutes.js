@@ -1,12 +1,27 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { usuario, Authentication } = require('../models'); // Importar modelos desde index.js
+const { usuarios, Authentication } = require('../models'); // Importar modelos
+const authMiddleware = require('../middleware/authMiddleware'); // Importar middleware
 require('dotenv').config();
 
 const router = express.Router();
 
-// Signup Endpoint
+// Mapas para normalizar valores
+const sexoMap = {
+    male: 'masculino',
+    female: 'femenino',
+    other: 'otro',
+};
+
+const nivelActividadMap = {
+    Sedentario: 'sedentario',
+    Ligero: 'ligero',
+    Moderado: 'moderado',
+    Intenso: 'intenso',
+};
+
+// Endpoint para registrarse
 router.post('/signup', async (req, res) => {
     try {
         console.log('Datos recibidos en /signup:', req.body);
@@ -36,8 +51,12 @@ router.post('/signup', async (req, res) => {
             return res.status(400).json({ message: 'Todos los campos son requeridos' });
         }
 
+        // Normalizar valores de sexo y nivel de actividad
+        const normalizedSexo = sexoMap[sexo] || sexo;
+        const normalizedNivelActividad = nivelActividadMap[nivel_actividad] || nivel_actividad;
+
         console.log('Verificando si el email ya existe en la tabla Authentication');
-        const existingAuth = await Authentication.findOne({ where: { email } });
+        const existingAuth = await Authentication.findOne({ email });
         if (existingAuth) {
             console.log(`El correo ya está registrado: ${email}`);
             return res.status(400).json({ message: 'El correo ya está registrado' });
@@ -47,13 +66,13 @@ router.post('/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         console.log('Creando registro en la tabla usuarios');
-        const newUser = await usuario.create({
+        const newUser = await usuarios.create({
             nombre_completo,
-            edad: edad ? parseInt(edad, 10) : null, // Ensure edad is an integer
-            sexo,
-            altura: altura ? parseFloat(altura) : null, // Ensure altura is a float
-            peso: peso ? parseFloat(peso) : null, // Ensure peso is a float
-            nivel_actividad,
+            edad: edad ? parseInt(edad, 10) : null,
+            sexo: normalizedSexo,
+            altura: altura ? parseFloat(altura) : null,
+            peso: peso ? parseFloat(peso) : null,
+            nivel_actividad: normalizedNivelActividad,
             historial_medico,
             alergias_alimentarias,
             condicion_especifica,
@@ -66,17 +85,17 @@ router.post('/signup', async (req, res) => {
 
         console.log('Usuario creado en la tabla usuarios:', newUser);
 
-        console.log('Creando registro en la tabla authentication');
+        console.log('Creando registro en la tabla Authentication');
         const newAuth = await Authentication.create({
             usuario_id: newUser.id,
             email,
             password_hash: hashedPassword,
         });
 
-        console.log('Registro creado en la tabla authentication:', newAuth);
+        console.log('Registro creado en la tabla Authentication:', newAuth);
 
         console.log('Generando token JWT');
-        const token = jwt.sign({ id: newAuth.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: newAuth.usuario_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         console.log('Registro y autenticación completados con éxito');
         res.status(201).json({
@@ -90,28 +109,24 @@ router.post('/signup', async (req, res) => {
         });
     } catch (error) {
         console.error('Error en /signup:', error.message);
-        if (error.errors) {
-            console.error('Detalles del error de validación:', error.errors.map(e => e.message));
-        }
         res.status(500).json({ error: 'Error al registrar el usuario', details: error.message });
     }
 });
 
-// Login Endpoint
+// Endpoint para iniciar sesión
 router.post('/login', async (req, res) => {
     try {
         console.log('Datos recibidos en /login:', req.body);
 
         const { email, password } = req.body;
 
-        // Validar datos requeridos
         if (!email || !password) {
             console.log('Faltan campos obligatorios: email o password');
             return res.status(400).json({ message: 'Email y contraseña son requeridos' });
         }
 
         console.log(`Buscando usuario en la tabla Authentication con email: ${email}`);
-        const userAuth = await Authentication.findOne({ where: { email } });
+        const userAuth = await Authentication.findOne({ email });
 
         if (!userAuth) {
             console.log('Usuario no encontrado con el email proporcionado');
@@ -127,7 +142,7 @@ router.post('/login', async (req, res) => {
         }
 
         console.log('Contraseña validada, generando token JWT');
-        const token = jwt.sign({ id: userAuth.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: userAuth.usuario_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         console.log('Inicio de sesión exitoso');
         res.status(200).json({
@@ -144,44 +159,24 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// ProfilePage Endpoint
-router.get('/profile', async (req, res) => {
-    console.log('Iniciando proceso para obtener perfil de usuario');
-
-    const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        console.log('Token no proporcionado en la solicitud');
-        return res.status(401).json({ message: 'Token requerido' });
-    }
-
+// Endpoint para obtener el perfil del usuario
+router.get('/profile', authMiddleware, async (req, res) => {
     try {
-        console.log('Verificando token JWT');
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('Token JWT decodificado:', decoded);
+        console.log('Obteniendo perfil del usuario con ID:', req.user.id);
 
-        console.log('Buscando usuario en la base de datos con ID:', decoded.id);
-        const user = await usuario.findOne({
-            where: { id: decoded.id },
-            attributes: [
-                'id', 'nombre_completo', 'edad', 'sexo', 'altura', 'peso',
-                'nivel_actividad', 'consumo_calorias_diario', 'consumo_agua_diario',
-                'dieta', 'alergias_alimentarias', 'historial_medico',
-                'numero_comidas_bocadillos', 'objetivos_nutricionales',
-            ],
-        });
+        // Cambiar la consulta para buscar por _id
+        const user = await usuarios.findById(req.user.id).select('-__v -createdAt -updatedAt');
 
         if (!user) {
-            console.log('Usuario no encontrado en la base de datos');
+            console.log('Usuario no encontrado');
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        console.log('Usuario encontrado, enviando datos del perfil');
+        console.log('Perfil del usuario obtenido con éxito');
         res.status(200).json(user);
     } catch (error) {
         console.error('Error en /profile:', error.message);
-        res.status(401).json({ message: 'Token inválido', details: error.message });
+        res.status(500).json({ error: 'Error al obtener el perfil del usuario', details: error.message });
     }
 });
 

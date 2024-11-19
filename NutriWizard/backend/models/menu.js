@@ -42,14 +42,18 @@ if (!mongoose.models[modelName]) {
             mealType: {
                 type: String,
                 required: true,
-                default: 'unknown',
-                enum: ['breakfast', 'lunch', 'dinner', 'snack', 'unknown'], // Valores válidos
+                enum: ['breakfast', 'lunch', 'dinner', 'snack'], // Valores válidos
+                default: 'snack', // Cambia 'unknown' por un valor más común
             },
         },
         {
             timestamps: true, // Agrega automáticamente createdAt y updatedAt
+            collection: 'menu', // Nombre exacto de la colección
         }
     );
+
+    // Índice compuesto para mejorar búsquedas frecuentes
+    menuSchema.index({ userId: 1, mealId: 1 }, { unique: true });
 
     mongoose.model(modelName, menuSchema);
 }

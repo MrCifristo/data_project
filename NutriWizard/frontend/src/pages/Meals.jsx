@@ -99,9 +99,10 @@ const Meals = () => {
             return;
         }
 
-        const userId = userProfile?.id; // Obtén el userId desde el contexto
+        // Verificar y obtener el ID del usuario
+        const userId = userProfile?.id || userProfile?._id;
         if (!userId) {
-            alert('No se encontró el ID del usuario');
+            alert('No se encontró el ID del usuario. Por favor, recarga la página o inicia sesión.');
             return;
         }
 
@@ -119,10 +120,13 @@ const Meals = () => {
             if (response.ok) {
                 alert('Comida agregada al menú con éxito');
             } else {
-                console.error('Error al agregar comida al menú:', response.statusText);
+                const errorData = await response.json();
+                console.error('Error al agregar comida al menú:', errorData);
+                alert(`Error: ${errorData.message || 'No se pudo agregar la comida al menú.'}`);
             }
         } catch (error) {
             console.error('Error adding meal to menu:', error);
+            alert('Ocurrió un error inesperado. Intenta nuevamente.');
         }
     };
 
@@ -305,7 +309,7 @@ const Meals = () => {
                                 </thead>
                                 <tbody>
                                 {userMeals.map((meal) => (
-                                    <tr key={meal.id}>
+                                    <tr key={meal._id || meal.id}>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.name}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.calories}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.protein}</td>
@@ -313,13 +317,13 @@ const Meals = () => {
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.carbs}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900 space-x-2">
                                             <button
-                                                onClick={() => handleAddToMenu(meal.id)}
+                                                onClick={() => handleAddToMenu(meal._id)}
                                                 className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                                             >
                                                 Add to Menu
                                             </button>
                                             <button
-                                                onClick={() => handleDeleteMeal(meal.id)}
+                                                onClick={() => handleDeleteMeal(meal._id)}
                                                 className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                                             >
                                                 Delete

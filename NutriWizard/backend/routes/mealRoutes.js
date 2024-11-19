@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const router = express.Router();
 
-// Middleware para autenticar el token JWT
+// authMiddleware.js para autenticar el token JWT
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];

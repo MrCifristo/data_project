@@ -1,5 +1,4 @@
 const Menu = require('../models/menu'); // Modelo de menú
-const Meal = require('../models/meals'); // Modelo de comidas
 
 const MenuRepository = {
     /**
@@ -9,6 +8,9 @@ const MenuRepository = {
      * @returns {Promise<Object>} Entrada de menú creada.
      */
     async createMenuEntry(userId, meal) {
+        if (!userId || !meal || !meal._id) {
+            throw new Error('Faltan datos requeridos para crear una entrada en el menú.');
+        }
         try {
             const newMenuEntry = new Menu({
                 userId,
@@ -31,7 +33,10 @@ const MenuRepository = {
      * @param {String} userId - ID del usuario.
      * @returns {Promise<Array>} Lista de entradas de menú.
      */
-    async getMenuByUser(userId) {
+    async getMenuByUserId(userId) {
+        if (!userId) {
+            throw new Error('El userId es requerido para obtener el menú.');
+        }
         try {
             return await Menu.find({ userId })
                 .populate({
@@ -50,8 +55,15 @@ const MenuRepository = {
      * @returns {Promise<Object>} Resultado de la operación de eliminación.
      */
     async deleteMenuEntry(menuId) {
+        if (!menuId) {
+            throw new Error('El menuId es requerido para eliminar una entrada del menú.');
+        }
         try {
-            return await Menu.findByIdAndDelete(menuId);
+            const deletedEntry = await Menu.findByIdAndDelete(menuId);
+            if (!deletedEntry) {
+                throw new Error('La entrada del menú no existe.');
+            }
+            return deletedEntry;
         } catch (error) {
             throw new Error(`Error al eliminar una entrada del menú: ${error.message}`);
         }
