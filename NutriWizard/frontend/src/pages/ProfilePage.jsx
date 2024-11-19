@@ -160,30 +160,30 @@ const Profile = () => {
 
                 {/* Columna derecha: Menú del usuario */}
                 <div className="flex flex-col items-center justify-start bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">Your Menu</h2>
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">Tu Menú</h2>
                     {menuItems.length > 0 ? (
                         <ul className="space-y-2 w-full">
                             {menuItems.map((item) => (
                                 <li
-                                    key={item.id}
+                                    key={item.id || item._id} // Asegura que se use un identificador único
                                     className="flex flex-col bg-white dark:bg-gray-800 p-4 rounded shadow"
                                 >
                                     <div className="flex justify-between">
                                         <span className="text-gray-800 dark:text-gray-200 font-bold">{item.name}</span>
                                         <span className="text-sm text-gray-500 dark:text-gray-400">
-                                            {item.calories} kcal
-                                        </span>
+                            {item.calories} kcal
+                        </span>
                                     </div>
                                     <div className="text-sm text-gray-500 dark:text-gray-400 flex justify-between mt-2">
-                                        <span>Protein: {item.protein} g</span>
-                                        <span>Fats: {item.fats} g</span>
-                                        <span>Carbs: {item.carbs} g</span>
+                                        <span>Proteína: {item.protein} g</span>
+                                        <span>Grasas: {item.fats} g</span>
+                                        <span>Carbohidratos: {item.carbs} g</span>
                                     </div>
                                 </li>
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-gray-400 dark:text-gray-500">No items in your menu.</p>
+                        <p className="text-gray-400 dark:text-gray-500">No hay elementos en tu menú.</p>
                     )}
                 </div>
             </div>

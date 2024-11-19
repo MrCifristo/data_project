@@ -1076,3 +1076,62 @@
 [2024-11-19T22:34:26.328Z] INFO: [PROFILING] Get User Menu [Request ID: 761ae16e-f719-4df8-9e1b-a4a0a05d3856] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
 [2024-11-19T22:34:26.328Z] INFO: [PROFILING] Get User Menu [Request ID: 761ae16e-f719-4df8-9e1b-a4a0a05d3856] - Response Time: 3ms
 [2024-11-19T22:34:26.328Z] INFO: [PROFILING] Get User Menu [Request ID: 761ae16e-f719-4df8-9e1b-a4a0a05d3856] - End
+[2024-11-19T22:35:18.351Z] INFO: [PROFILING] Get All Meals [Request ID: 55ee9acb-f707-4c75-90d3-cc8e781c34cc] - Start
+[2024-11-19T22:35:18.369Z] INFO: [PROFILING] Get All Meals [Request ID: 55ee9acb-f707-4c75-90d3-cc8e781c34cc] - ⚡ Cache hit for all_meals
+[2024-11-19T22:35:18.369Z] INFO: [PROFILING] Get All Meals [Request ID: 55ee9acb-f707-4c75-90d3-cc8e781c34cc] - Response Time: 11ms
+[2024-11-19T22:35:18.369Z] INFO: [PROFILING] Get All Meals [Request ID: 55ee9acb-f707-4c75-90d3-cc8e781c34cc] - End
+[2024-11-19T22:35:18.384Z] INFO: [PROFILING] Get All Meals [Request ID: 5be75c53-c0f7-47dd-8a59-1f6a3a06b1c5] - Start
+[2024-11-19T22:35:18.386Z] INFO: [PROFILING] Get All Meals [Request ID: 5be75c53-c0f7-47dd-8a59-1f6a3a06b1c5] - ⚡ Cache hit for all_meals
+[2024-11-19T22:35:18.387Z] INFO: [PROFILING] Get All Meals [Request ID: 5be75c53-c0f7-47dd-8a59-1f6a3a06b1c5] - Response Time: 1ms
+[2024-11-19T22:35:18.387Z] INFO: [PROFILING] Get All Meals [Request ID: 5be75c53-c0f7-47dd-8a59-1f6a3a06b1c5] - End
+[2024-11-19T22:35:38.387Z] INFO: [PROFILING] Get All Meals [Request ID: f34b86ef-2a38-4fba-820b-90218e60d1f5] - Start
+[2024-11-19T22:35:38.390Z] INFO: [PROFILING] Get All Meals [Request ID: f34b86ef-2a38-4fba-820b-90218e60d1f5] - ⚡ Cache hit for all_meals
+[2024-11-19T22:35:38.391Z] INFO: [PROFILING] Get All Meals [Request ID: f34b86ef-2a38-4fba-820b-90218e60d1f5] - Response Time: 2ms
+[2024-11-19T22:35:38.391Z] INFO: [PROFILING] Get All Meals [Request ID: f34b86ef-2a38-4fba-820b-90218e60d1f5] - End
+[2024-11-19T22:39:52.986Z] INFO: [PROFILING] Get All Meals [Request ID: 2af8ed59-347c-4550-8f62-31fa211722f3] - Start
+[2024-11-19T22:39:53.004Z] INFO: [PROFILING] Get All Meals [Request ID: 2af8ed59-347c-4550-8f62-31fa211722f3] - ⚡ Cache hit for all_meals
+[2024-11-19T22:39:53.004Z] INFO: [PROFILING] Get All Meals [Request ID: 2af8ed59-347c-4550-8f62-31fa211722f3] - Response Time: 10ms
+[2024-11-19T22:39:53.004Z] INFO: [PROFILING] Get All Meals [Request ID: 2af8ed59-347c-4550-8f62-31fa211722f3] - End
+[2024-11-19T22:41:00.958Z] INFO: [PROFILING] Get All Meals [Request ID: 64ea976d-c534-43b8-bad2-555dd5203196] - Start
+[2024-11-19T22:41:00.969Z] INFO: [PROFILING] Get All Meals [Request ID: 64ea976d-c534-43b8-bad2-555dd5203196] - ⚡ Cache hit for all_meals
+[2024-11-19T22:41:00.970Z] INFO: [PROFILING] Get All Meals [Request ID: 64ea976d-c534-43b8-bad2-555dd5203196] - Response Time: 7ms
+[2024-11-19T22:41:00.970Z] INFO: [PROFILING] Get All Meals [Request ID: 64ea976d-c534-43b8-bad2-555dd5203196] - End
+[2024-11-19T22:41:38.410Z] INFO: [PROFILING] Get All Meals [Request ID: d8fa295a-17d1-43f2-a95d-ad84b273aa40] - Start
+[2024-11-19T22:41:38.424Z] INFO: [PROFILING] Get All Meals [Request ID: d8fa295a-17d1-43f2-a95d-ad84b273aa40] - ⚡ Cache hit for all_meals
+[2024-11-19T22:41:38.424Z] INFO: [PROFILING] Get All Meals [Request ID: d8fa295a-17d1-43f2-a95d-ad84b273aa40] - Response Time: 10ms
+[2024-11-19T22:41:38.424Z] INFO: [PROFILING] Get All Meals [Request ID: d8fa295a-17d1-43f2-a95d-ad84b273aa40] - End
+[2024-11-19T22:41:38.441Z] INFO: [PROFILING] Get All Meals [Request ID: 355737ea-6a2a-48a9-b2b2-d5c89e2eca9e] - Start
+[2024-11-19T22:41:38.446Z] INFO: [PROFILING] Get All Meals [Request ID: 355737ea-6a2a-48a9-b2b2-d5c89e2eca9e] - ⚡ Cache hit for all_meals
+[2024-11-19T22:41:38.447Z] INFO: [PROFILING] Get All Meals [Request ID: 355737ea-6a2a-48a9-b2b2-d5c89e2eca9e] - Response Time: 3ms
+[2024-11-19T22:41:38.447Z] INFO: [PROFILING] Get All Meals [Request ID: 355737ea-6a2a-48a9-b2b2-d5c89e2eca9e] - End
+[2024-11-19T22:41:40.908Z] INFO: [PROFILING] Get User Menu [Request ID: 1510392d-7acf-4e95-bfc4-d55d8b0faf69] - Start
+[2024-11-19T22:41:40.924Z] INFO: [PROFILING] Get User Menu [Request ID: 1510392d-7acf-4e95-bfc4-d55d8b0faf69] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
+[2024-11-19T22:41:40.925Z] INFO: [PROFILING] Get User Menu [Request ID: 1510392d-7acf-4e95-bfc4-d55d8b0faf69] - Response Time: 17ms
+[2024-11-19T22:41:40.925Z] INFO: [PROFILING] Get User Menu [Request ID: 1510392d-7acf-4e95-bfc4-d55d8b0faf69] - End
+[2024-11-19T22:41:40.927Z] INFO: [PROFILING] Get User Menu [Request ID: 16e8b2b2-3e99-46b2-9849-5c2c2d69fe73] - Start
+[2024-11-19T22:41:40.930Z] INFO: [PROFILING] Get User Menu [Request ID: 16e8b2b2-3e99-46b2-9849-5c2c2d69fe73] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
+[2024-11-19T22:41:40.930Z] INFO: [PROFILING] Get User Menu [Request ID: 16e8b2b2-3e99-46b2-9849-5c2c2d69fe73] - Response Time: 3ms
+[2024-11-19T22:41:40.930Z] INFO: [PROFILING] Get User Menu [Request ID: 16e8b2b2-3e99-46b2-9849-5c2c2d69fe73] - End
+[2024-11-19T22:45:54.988Z] INFO: [PROFILING] Get User Menu [Request ID: c627cf96-8a15-402e-8254-c40900d6f60b] - Start
+[2024-11-19T22:45:55.015Z] INFO: [PROFILING] Get User Menu [Request ID: c627cf96-8a15-402e-8254-c40900d6f60b] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
+[2024-11-19T22:45:55.015Z] INFO: [PROFILING] Get User Menu [Request ID: c627cf96-8a15-402e-8254-c40900d6f60b] - Response Time: 26ms
+[2024-11-19T22:45:55.015Z] INFO: [PROFILING] Get User Menu [Request ID: c627cf96-8a15-402e-8254-c40900d6f60b] - End
+[2024-11-19T22:46:03.288Z] INFO: [PROFILING] Get User Menu [Request ID: a2da4990-badc-43ad-a10b-f2d1d056fadb] - Start
+[2024-11-19T22:46:03.293Z] INFO: [PROFILING] Get User Menu [Request ID: a2da4990-badc-43ad-a10b-f2d1d056fadb] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
+[2024-11-19T22:46:03.293Z] INFO: [PROFILING] Get User Menu [Request ID: a2da4990-badc-43ad-a10b-f2d1d056fadb] - Response Time: 5ms
+[2024-11-19T22:46:03.293Z] INFO: [PROFILING] Get User Menu [Request ID: a2da4990-badc-43ad-a10b-f2d1d056fadb] - End
+[2024-11-19T22:46:03.297Z] INFO: [PROFILING] Get User Menu [Request ID: ea8de623-b967-4a41-be7a-d83465361d79] - Start
+[2024-11-19T22:46:03.301Z] INFO: [PROFILING] Get User Menu [Request ID: ea8de623-b967-4a41-be7a-d83465361d79] - Menú encontrado para userId 673d023bf129b00b4f498e24: [{"_id":"673d126bd8f7e4c43b32396e","mealId":{"_id":"673cfdbc469993b5e7638ef8","name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"},"name":"Test Meal","calories":500,"protein":20,"fats":10,"carbs":50,"mealType":"lunch"}]
+[2024-11-19T22:46:03.301Z] INFO: [PROFILING] Get User Menu [Request ID: ea8de623-b967-4a41-be7a-d83465361d79] - Response Time: 4ms
+[2024-11-19T22:46:03.301Z] INFO: [PROFILING] Get User Menu [Request ID: ea8de623-b967-4a41-be7a-d83465361d79] - End
+[2024-11-19T22:46:05.898Z] INFO: [PROFILING] Get All Meals [Request ID: a0f9c209-38b4-457a-afe7-e28aa24fd713] - Start
+[2024-11-19T22:46:05.900Z] WARN: [PROFILING] Get All Meals [Request ID: a0f9c209-38b4-457a-afe7-e28aa24fd713] - ❌ Cache miss for all_meals
+[2024-11-19T22:46:05.901Z] INFO: [PROFILING START] Database Query: Get All Meals
+[2024-11-19T22:46:05.920Z] INFO: [PROFILING END] Database Query: Get All Meals
+[2024-11-19T22:46:05.925Z] INFO: [PROFILING] Get All Meals [Request ID: a0f9c209-38b4-457a-afe7-e28aa24fd713] - ✅ Data cached for all_meals
+[2024-11-19T22:46:05.925Z] INFO: [PROFILING] Get All Meals [Request ID: a0f9c209-38b4-457a-afe7-e28aa24fd713] - Response Time: 27ms
+[2024-11-19T22:46:05.925Z] INFO: [PROFILING] Get All Meals [Request ID: a0f9c209-38b4-457a-afe7-e28aa24fd713] - End
+[2024-11-19T22:46:05.929Z] INFO: [PROFILING] Get All Meals [Request ID: a7705289-201f-445a-a261-fe653c3cfd3b] - Start
+[2024-11-19T22:46:05.930Z] INFO: [PROFILING] Get All Meals [Request ID: a7705289-201f-445a-a261-fe653c3cfd3b] - ⚡ Cache hit for all_meals
+[2024-11-19T22:46:05.930Z] INFO: [PROFILING] Get All Meals [Request ID: a7705289-201f-445a-a261-fe653c3cfd3b] - Response Time: 1ms
+[2024-11-19T22:46:05.930Z] INFO: [PROFILING] Get All Meals [Request ID: a7705289-201f-445a-a261-fe653c3cfd3b] - End

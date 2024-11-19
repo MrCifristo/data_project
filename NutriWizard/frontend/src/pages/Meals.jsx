@@ -310,7 +310,7 @@ const Meals = () => {
                                 <tbody>
                                 {userMeals.map((meal) => (
                                     <tr key={meal._id || meal.id}>
-                                        <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.name}</td>
+                                    <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.name}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.calories}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.protein}</td>
                                         <td className="px-4 py-3 border-b text-xs text-gray-900">{meal.fats}</td>
