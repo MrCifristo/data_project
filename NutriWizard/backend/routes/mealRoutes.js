@@ -1,5 +1,6 @@
 const express = require('express');
 const mealsController = require('../controllers/mealsController');
+const { meals } = require('../models'); // Importar el modelo meals
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -26,20 +27,23 @@ const authenticateToken = (req, res, next) => {
 // GET /api/meals - Obtener todas las comidas con lógica de cache
 router.get('/', mealsController.getAllMeals);
 
+// Ruta para refrescar el caché
+router.get('/refresh', mealsController.refreshCache);
+
 // GET /api/meals/:id - Obtener una comida específica con lógica de cache
 router.get('/:id', mealsController.getMealById);
 
-// POST /api/meals - Crear una nueva comida para el usuario actual
-router.post('/', authenticateToken, async (req, res) => {
+
+// POST /api/meals - Crear una nueva comida sin autenticación
+router.post('/', async (req, res) => {
     try {
         const { name, calories, protein, fats, carbs, mealType } = req.body;
 
-        // Validar datos requeridos
         if (!name || !calories || !protein || !fats || !carbs || !mealType) {
             return res.status(400).json({ error: 'Todos los campos son requeridos' });
         }
 
-        console.log(`Creando nueva comida para el usuario con ID: ${req.user.id}`);
+        console.log('Creando nueva comida:', { name, calories, protein, fats, carbs, mealType });
 
         const newMeal = await meals.create({
             name,
@@ -48,7 +52,6 @@ router.post('/', authenticateToken, async (req, res) => {
             fats: parseFloat(fats),
             carbs: parseFloat(carbs),
             mealType,
-            userId: req.user.id, // Asociar la comida al usuario actual
         });
 
         console.log('Nueva comida creada:', newMeal);
@@ -67,7 +70,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
         console.log(`Intentando eliminar la comida con ID: ${mealId} para el usuario con ID: ${req.user.id}`);
 
         const meal = await meals.findOne({
-            where: { id: mealId, userId: req.user.id }, // Asegurarse de que la comida pertenece al usuario actual
+            where: { id: mealId, userId: req.user.id },
         });
 
         if (!meal) {

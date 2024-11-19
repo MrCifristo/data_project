@@ -427,3 +427,268 @@
 [2024-11-19T15:02:30.592Z] INFO: [PROFILING] Get All Meals [Request ID: aa741fe3-4c5d-490a-b861-1c52f988ea07] - ⚡ Cache hit for all_meals
 [2024-11-19T15:02:30.593Z] INFO: [PROFILING] Get All Meals [Request ID: aa741fe3-4c5d-490a-b861-1c52f988ea07] - Response Time: 3ms
 [2024-11-19T15:02:30.593Z] INFO: [PROFILING] Get All Meals [Request ID: aa741fe3-4c5d-490a-b861-1c52f988ea07] - End
+[2024-11-19T15:03:11.875Z] INFO: [PROFILING] Get All Meals [Request ID: a2329848-bcc7-4ce6-8ab6-8e53be562225] - Start
+[2024-11-19T15:03:11.881Z] INFO: [PROFILING] Get All Meals [Request ID: a2329848-bcc7-4ce6-8ab6-8e53be562225] - ⚡ Cache hit for all_meals
+[2024-11-19T15:03:11.881Z] INFO: [PROFILING] Get All Meals [Request ID: a2329848-bcc7-4ce6-8ab6-8e53be562225] - Response Time: 5ms
+[2024-11-19T15:03:11.881Z] INFO: [PROFILING] Get All Meals [Request ID: a2329848-bcc7-4ce6-8ab6-8e53be562225] - End
+[2024-11-19T15:03:11.889Z] INFO: [PROFILING] Get All Meals [Request ID: a8b1f691-33a3-4a82-8c52-bcd7e9671458] - Start
+[2024-11-19T15:03:11.901Z] INFO: [PROFILING] Get All Meals [Request ID: a8b1f691-33a3-4a82-8c52-bcd7e9671458] - ⚡ Cache hit for all_meals
+[2024-11-19T15:03:11.902Z] INFO: [PROFILING] Get All Meals [Request ID: a8b1f691-33a3-4a82-8c52-bcd7e9671458] - Response Time: 11ms
+[2024-11-19T15:03:11.902Z] INFO: [PROFILING] Get All Meals [Request ID: a8b1f691-33a3-4a82-8c52-bcd7e9671458] - End
+[2024-11-19T15:09:10.842Z] INFO: Iniciando servidor...
+[2024-11-19T15:09:10.850Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T15:09:10.986Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T15:09:10.990Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T15:09:11.002Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T15:09:11.011Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T15:09:18.542Z] INFO: [PROFILING] Get All Meals [Request ID: 1f8f27c4-775b-4672-beed-d795db7b27c7] - Start
+[2024-11-19T15:09:18.563Z] INFO: [PROFILING] Get All Meals [Request ID: 1f8f27c4-775b-4672-beed-d795db7b27c7] - ⚡ Cache hit for all_meals
+[2024-11-19T15:09:18.610Z] INFO: [PROFILING] Get All Meals [Request ID: 1f8f27c4-775b-4672-beed-d795db7b27c7] - Response Time: 15ms
+[2024-11-19T15:09:18.610Z] INFO: [PROFILING] Get All Meals [Request ID: 1f8f27c4-775b-4672-beed-d795db7b27c7] - End
+[2024-11-19T15:09:18.654Z] INFO: [PROFILING] Get All Meals [Request ID: 999b3e10-b1fc-41d7-b5d9-591b9b35c4b3] - Start
+[2024-11-19T15:09:18.659Z] INFO: [PROFILING] Get All Meals [Request ID: 999b3e10-b1fc-41d7-b5d9-591b9b35c4b3] - ⚡ Cache hit for all_meals
+[2024-11-19T15:09:18.661Z] INFO: [PROFILING] Get All Meals [Request ID: 999b3e10-b1fc-41d7-b5d9-591b9b35c4b3] - Response Time: 4ms
+[2024-11-19T15:09:18.662Z] INFO: [PROFILING] Get All Meals [Request ID: 999b3e10-b1fc-41d7-b5d9-591b9b35c4b3] - End
+[2024-11-19T15:11:24.599Z] INFO: Iniciando servidor...
+[2024-11-19T15:11:24.605Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T15:11:24.722Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T15:11:24.725Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T15:11:24.727Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T15:11:24.730Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T15:11:30.912Z] INFO: [PROFILING] Get All Meals [Request ID: 88fcc6ae-5305-4d90-86d1-307c6d430a4a] - Start
+[2024-11-19T15:11:30.922Z] INFO: [PROFILING] Get All Meals [Request ID: 88fcc6ae-5305-4d90-86d1-307c6d430a4a] - ⚡ Cache hit for all_meals
+[2024-11-19T15:11:30.924Z] INFO: [PROFILING] Get All Meals [Request ID: 88fcc6ae-5305-4d90-86d1-307c6d430a4a] - Response Time: 9ms
+[2024-11-19T15:11:30.925Z] INFO: [PROFILING] Get All Meals [Request ID: 88fcc6ae-5305-4d90-86d1-307c6d430a4a] - End
+[2024-11-19T15:11:35.469Z] INFO: [PROFILING] Get All Meals [Request ID: 44996170-ef8c-459f-b566-3834295e6c27] - Start
+[2024-11-19T15:11:35.471Z] INFO: [PROFILING] Get All Meals [Request ID: 44996170-ef8c-459f-b566-3834295e6c27] - ⚡ Cache hit for all_meals
+[2024-11-19T15:11:35.473Z] INFO: [PROFILING] Get All Meals [Request ID: 44996170-ef8c-459f-b566-3834295e6c27] - Response Time: 1ms
+[2024-11-19T15:11:35.473Z] INFO: [PROFILING] Get All Meals [Request ID: 44996170-ef8c-459f-b566-3834295e6c27] - End
+[2024-11-19T16:18:37.852Z] INFO: Iniciando servidor...
+[2024-11-19T16:18:37.856Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:18:37.922Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:18:37.926Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:18:37.926Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:18:37.928Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:19:40.110Z] INFO: [PROFILING] Get All Meals [Request ID: dcc516ff-3eda-4986-9bbb-d16d49f434df] - Start
+[2024-11-19T16:19:40.129Z] WARN: [PROFILING] Get All Meals [Request ID: dcc516ff-3eda-4986-9bbb-d16d49f434df] - ❌ Cache miss for all_meals
+[2024-11-19T16:19:40.131Z] INFO: [PROFILING START] Database Query: Get All Meals
+[2024-11-19T16:19:40.200Z] INFO: [PROFILING END] Database Query: Get All Meals
+[2024-11-19T16:19:40.204Z] INFO: [PROFILING] Get All Meals [Request ID: dcc516ff-3eda-4986-9bbb-d16d49f434df] - ✅ Data cached for all_meals
+[2024-11-19T16:19:40.205Z] INFO: [PROFILING] Get All Meals [Request ID: dcc516ff-3eda-4986-9bbb-d16d49f434df] - Response Time: 88ms
+[2024-11-19T16:19:40.205Z] INFO: [PROFILING] Get All Meals [Request ID: dcc516ff-3eda-4986-9bbb-d16d49f434df] - End
+[2024-11-19T16:19:54.095Z] INFO: [PROFILING] Get All Meals [Request ID: 3bb6dac0-c59e-44c8-8987-9c384540589a] - Start
+[2024-11-19T16:19:54.103Z] INFO: [PROFILING] Get All Meals [Request ID: 3bb6dac0-c59e-44c8-8987-9c384540589a] - ⚡ Cache hit for all_meals
+[2024-11-19T16:19:54.103Z] INFO: [PROFILING] Get All Meals [Request ID: 3bb6dac0-c59e-44c8-8987-9c384540589a] - Response Time: 6ms
+[2024-11-19T16:19:54.103Z] INFO: [PROFILING] Get All Meals [Request ID: 3bb6dac0-c59e-44c8-8987-9c384540589a] - End
+[2024-11-19T16:19:56.376Z] INFO: [PROFILING] Get All Meals [Request ID: 0b15f4ab-12dd-42a3-b047-29f52d9e9927] - Start
+[2024-11-19T16:19:56.397Z] INFO: [PROFILING] Get All Meals [Request ID: 0b15f4ab-12dd-42a3-b047-29f52d9e9927] - ⚡ Cache hit for all_meals
+[2024-11-19T16:19:56.398Z] INFO: [PROFILING] Get All Meals [Request ID: 0b15f4ab-12dd-42a3-b047-29f52d9e9927] - Response Time: 20ms
+[2024-11-19T16:19:56.398Z] INFO: [PROFILING] Get All Meals [Request ID: 0b15f4ab-12dd-42a3-b047-29f52d9e9927] - End
+[2024-11-19T16:19:56.405Z] INFO: [PROFILING] Get All Meals [Request ID: a6ab24f1-325b-4da5-a659-51cdc18a1265] - Start
+[2024-11-19T16:19:56.408Z] INFO: [PROFILING] Get All Meals [Request ID: a6ab24f1-325b-4da5-a659-51cdc18a1265] - ⚡ Cache hit for all_meals
+[2024-11-19T16:19:56.408Z] INFO: [PROFILING] Get All Meals [Request ID: a6ab24f1-325b-4da5-a659-51cdc18a1265] - Response Time: 3ms
+[2024-11-19T16:19:56.408Z] INFO: [PROFILING] Get All Meals [Request ID: a6ab24f1-325b-4da5-a659-51cdc18a1265] - End
+[2024-11-19T16:20:00.489Z] INFO: [PROFILING] Get All Meals [Request ID: 9fc48889-0813-4fae-949e-855df1ade0a5] - Start
+[2024-11-19T16:20:00.503Z] INFO: [PROFILING] Get All Meals [Request ID: 9fc48889-0813-4fae-949e-855df1ade0a5] - ⚡ Cache hit for all_meals
+[2024-11-19T16:20:00.503Z] INFO: [PROFILING] Get All Meals [Request ID: 9fc48889-0813-4fae-949e-855df1ade0a5] - Response Time: 13ms
+[2024-11-19T16:20:00.503Z] INFO: [PROFILING] Get All Meals [Request ID: 9fc48889-0813-4fae-949e-855df1ade0a5] - End
+[2024-11-19T16:20:00.533Z] INFO: [PROFILING] Get All Meals [Request ID: 387903ec-e1a6-4816-8d67-fb1afc1c15a5] - Start
+[2024-11-19T16:20:00.536Z] INFO: [PROFILING] Get User Menu [Request ID: 6068c866-ee99-4e17-bfe6-c9de501de155] - Start
+[2024-11-19T16:20:00.542Z] INFO: [PROFILING] Get All Meals [Request ID: 387903ec-e1a6-4816-8d67-fb1afc1c15a5] - ⚡ Cache hit for all_meals
+[2024-11-19T16:20:00.542Z] INFO: [PROFILING] Get All Meals [Request ID: 387903ec-e1a6-4816-8d67-fb1afc1c15a5] - Response Time: 9ms
+[2024-11-19T16:20:00.542Z] INFO: [PROFILING] Get All Meals [Request ID: 387903ec-e1a6-4816-8d67-fb1afc1c15a5] - End
+[2024-11-19T16:20:00.547Z] INFO: [PROFILING] Get User Menu [Request ID: 6068c866-ee99-4e17-bfe6-c9de501de155] - Menú encontrado para userId 11: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z","meal":{"id":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T13:01:19.964Z","updatedAt":"2024-11-19T13:01:19.964Z"}}]
+[2024-11-19T16:20:00.547Z] INFO: [PROFILING] Get User Menu [Request ID: 6068c866-ee99-4e17-bfe6-c9de501de155] - Response Time: 10ms
+[2024-11-19T16:20:00.547Z] INFO: [PROFILING] Get User Menu [Request ID: 6068c866-ee99-4e17-bfe6-c9de501de155] - End
+[2024-11-19T16:20:00.552Z] INFO: [PROFILING] Get User Menu [Request ID: a7301915-8979-4418-818f-98fd4b208bcf] - Start
+[2024-11-19T16:20:00.556Z] INFO: [PROFILING] Get User Menu [Request ID: a7301915-8979-4418-818f-98fd4b208bcf] - Menú encontrado para userId 11: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z","meal":{"id":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T13:01:19.964Z","updatedAt":"2024-11-19T13:01:19.964Z"}}]
+[2024-11-19T16:20:00.557Z] INFO: [PROFILING] Get User Menu [Request ID: a7301915-8979-4418-818f-98fd4b208bcf] - Response Time: 5ms
+[2024-11-19T16:20:00.557Z] INFO: [PROFILING] Get User Menu [Request ID: a7301915-8979-4418-818f-98fd4b208bcf] - End
+[2024-11-19T16:20:02.570Z] INFO: [PROFILING] Get All Meals [Request ID: 4cbba3a0-b4c4-4de1-bca5-b57699432466] - Start
+[2024-11-19T16:20:02.571Z] INFO: [PROFILING] Get All Meals [Request ID: 4cbba3a0-b4c4-4de1-bca5-b57699432466] - ⚡ Cache hit for all_meals
+[2024-11-19T16:20:02.571Z] INFO: [PROFILING] Get All Meals [Request ID: 4cbba3a0-b4c4-4de1-bca5-b57699432466] - Response Time: 1ms
+[2024-11-19T16:20:02.572Z] INFO: [PROFILING] Get All Meals [Request ID: 4cbba3a0-b4c4-4de1-bca5-b57699432466] - End
+[2024-11-19T16:20:02.577Z] INFO: [PROFILING] Get All Meals [Request ID: cbf52247-8f98-425a-8689-6a7d9626e3f5] - Start
+[2024-11-19T16:20:02.579Z] INFO: [PROFILING] Get All Meals [Request ID: cbf52247-8f98-425a-8689-6a7d9626e3f5] - ⚡ Cache hit for all_meals
+[2024-11-19T16:20:02.580Z] INFO: [PROFILING] Get All Meals [Request ID: cbf52247-8f98-425a-8689-6a7d9626e3f5] - Response Time: 2ms
+[2024-11-19T16:20:02.580Z] INFO: [PROFILING] Get All Meals [Request ID: cbf52247-8f98-425a-8689-6a7d9626e3f5] - End
+[2024-11-19T16:20:03.775Z] INFO: [PROFILING] Get All Meals [Request ID: 0d480133-27e4-4f59-9195-b24b91b01f0e] - Start
+[2024-11-19T16:20:03.781Z] INFO: [PROFILING] Get All Meals [Request ID: 0d480133-27e4-4f59-9195-b24b91b01f0e] - ⚡ Cache hit for all_meals
+[2024-11-19T16:20:03.782Z] INFO: [PROFILING] Get All Meals [Request ID: 0d480133-27e4-4f59-9195-b24b91b01f0e] - Response Time: 6ms
+[2024-11-19T16:20:03.782Z] INFO: [PROFILING] Get All Meals [Request ID: 0d480133-27e4-4f59-9195-b24b91b01f0e] - End
+[2024-11-19T16:20:03.804Z] INFO: [PROFILING] Get All Meals [Request ID: d4105f71-46bb-4ae5-acd7-48c9b59b006e] - Start
+[2024-11-19T16:20:03.813Z] INFO: [PROFILING] Get All Meals [Request ID: d4105f71-46bb-4ae5-acd7-48c9b59b006e] - ⚡ Cache hit for all_meals
+[2024-11-19T16:20:03.813Z] INFO: [PROFILING] Get All Meals [Request ID: d4105f71-46bb-4ae5-acd7-48c9b59b006e] - Response Time: 9ms
+[2024-11-19T16:20:03.813Z] INFO: [PROFILING] Get All Meals [Request ID: d4105f71-46bb-4ae5-acd7-48c9b59b006e] - End
+[2024-11-19T16:20:55.225Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: cf0dac92-ca6e-4156-b288-a8d830876308] - Start
+[2024-11-19T16:20:55.230Z] WARN: [PROFILING] Get Meal by ID: refresh [Request ID: cf0dac92-ca6e-4156-b288-a8d830876308] - ❌ Cache miss for meal:refresh
+[2024-11-19T16:20:55.231Z] INFO: [PROFILING START] Database Query: Get Meal by ID: refresh
+[2024-11-19T16:20:55.300Z] ERROR: ❌ Error en getMealById:
+[2024-11-19T16:20:55.300Z] ERROR: [PROFILING] Get Meal by ID: refresh [Request ID: cf0dac92-ca6e-4156-b288-a8d830876308] - Error: Error al obtener la comida por ID
+[2024-11-19T16:20:55.300Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: cf0dac92-ca6e-4156-b288-a8d830876308] - Response Time: 73ms
+[2024-11-19T16:21:09.450Z] INFO: [PROFILING] Get All Meals [Request ID: 106ba2d6-ff64-4a23-a4de-fb2cdbae302b] - Start
+[2024-11-19T16:21:09.454Z] INFO: [PROFILING] Get All Meals [Request ID: 106ba2d6-ff64-4a23-a4de-fb2cdbae302b] - ⚡ Cache hit for all_meals
+[2024-11-19T16:21:09.454Z] INFO: [PROFILING] Get All Meals [Request ID: 106ba2d6-ff64-4a23-a4de-fb2cdbae302b] - Response Time: 3ms
+[2024-11-19T16:21:09.454Z] INFO: [PROFILING] Get All Meals [Request ID: 106ba2d6-ff64-4a23-a4de-fb2cdbae302b] - End
+[2024-11-19T16:21:09.467Z] INFO: [PROFILING] Get All Meals [Request ID: e7e9912f-36b7-4f8a-a8b4-904a55f19b2d] - Start
+[2024-11-19T16:21:09.469Z] INFO: [PROFILING] Get All Meals [Request ID: e7e9912f-36b7-4f8a-a8b4-904a55f19b2d] - ⚡ Cache hit for all_meals
+[2024-11-19T16:21:09.469Z] INFO: [PROFILING] Get All Meals [Request ID: e7e9912f-36b7-4f8a-a8b4-904a55f19b2d] - Response Time: 2ms
+[2024-11-19T16:21:09.469Z] INFO: [PROFILING] Get All Meals [Request ID: e7e9912f-36b7-4f8a-a8b4-904a55f19b2d] - End
+[2024-11-19T16:21:19.071Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: b2ab29e0-b344-464e-af74-09ebaeda163f] - Start
+[2024-11-19T16:21:19.075Z] WARN: [PROFILING] Get Meal by ID: refresh [Request ID: b2ab29e0-b344-464e-af74-09ebaeda163f] - ❌ Cache miss for meal:refresh
+[2024-11-19T16:21:19.076Z] INFO: [PROFILING START] Database Query: Get Meal by ID: refresh
+[2024-11-19T16:21:19.091Z] ERROR: ❌ Error en getMealById:
+[2024-11-19T16:21:19.091Z] ERROR: [PROFILING] Get Meal by ID: refresh [Request ID: b2ab29e0-b344-464e-af74-09ebaeda163f] - Error: Error al obtener la comida por ID
+[2024-11-19T16:21:19.092Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: b2ab29e0-b344-464e-af74-09ebaeda163f] - Response Time: 19ms
+[2024-11-19T16:23:07.242Z] INFO: Iniciando servidor...
+[2024-11-19T16:23:07.247Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:23:07.367Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:23:07.370Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:23:07.371Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:23:07.374Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:23:16.456Z] INFO: Iniciando servidor...
+[2024-11-19T16:23:16.457Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:23:16.544Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:23:16.548Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:23:16.549Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:23:16.572Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:23:20.734Z] INFO: [PROFILING] Get All Meals [Request ID: b1020ec1-6f55-4000-8eed-b0f5415de47d] - Start
+[2024-11-19T16:23:20.772Z] INFO: [PROFILING] Get All Meals [Request ID: b1020ec1-6f55-4000-8eed-b0f5415de47d] - ⚡ Cache hit for all_meals
+[2024-11-19T16:23:20.773Z] INFO: [PROFILING] Get All Meals [Request ID: b1020ec1-6f55-4000-8eed-b0f5415de47d] - Response Time: 29ms
+[2024-11-19T16:23:20.773Z] INFO: [PROFILING] Get All Meals [Request ID: b1020ec1-6f55-4000-8eed-b0f5415de47d] - End
+[2024-11-19T16:23:20.789Z] INFO: [PROFILING] Get All Meals [Request ID: ade7aeff-a493-43a2-9dc9-d849b358cce6] - Start
+[2024-11-19T16:23:20.804Z] INFO: [PROFILING] Get All Meals [Request ID: ade7aeff-a493-43a2-9dc9-d849b358cce6] - ⚡ Cache hit for all_meals
+[2024-11-19T16:23:20.804Z] INFO: [PROFILING] Get All Meals [Request ID: ade7aeff-a493-43a2-9dc9-d849b358cce6] - Response Time: 10ms
+[2024-11-19T16:23:20.804Z] INFO: [PROFILING] Get All Meals [Request ID: ade7aeff-a493-43a2-9dc9-d849b358cce6] - End
+[2024-11-19T16:23:23.015Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: 63214cb9-f00c-4031-96c9-378d7453a608] - Start
+[2024-11-19T16:23:23.020Z] WARN: [PROFILING] Get Meal by ID: refresh [Request ID: 63214cb9-f00c-4031-96c9-378d7453a608] - ❌ Cache miss for meal:refresh
+[2024-11-19T16:23:23.021Z] INFO: [PROFILING START] Database Query: Get Meal by ID: refresh
+[2024-11-19T16:23:23.032Z] ERROR: ❌ Error en getMealById:
+[2024-11-19T16:23:23.032Z] ERROR: [PROFILING] Get Meal by ID: refresh [Request ID: 63214cb9-f00c-4031-96c9-378d7453a608] - Error: Error al obtener la comida por ID
+[2024-11-19T16:23:23.032Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: 63214cb9-f00c-4031-96c9-378d7453a608] - Response Time: 16ms
+[2024-11-19T16:23:47.361Z] INFO: Iniciando servidor...
+[2024-11-19T16:23:47.363Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:23:47.456Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:23:47.457Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:23:47.459Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:23:47.461Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:23:52.730Z] INFO: [PROFILING] Get All Meals [Request ID: 3dc0b3f3-a212-4e4c-af4b-36bafc552236] - Start
+[2024-11-19T16:23:52.746Z] INFO: [PROFILING] Get All Meals [Request ID: 3dc0b3f3-a212-4e4c-af4b-36bafc552236] - ⚡ Cache hit for all_meals
+[2024-11-19T16:23:52.746Z] INFO: [PROFILING] Get All Meals [Request ID: 3dc0b3f3-a212-4e4c-af4b-36bafc552236] - Response Time: 13ms
+[2024-11-19T16:23:52.749Z] INFO: [PROFILING] Get All Meals [Request ID: 3dc0b3f3-a212-4e4c-af4b-36bafc552236] - End
+[2024-11-19T16:23:52.791Z] INFO: [PROFILING] Get All Meals [Request ID: da6c43f9-e4c3-4867-bbda-0a61f0124910] - Start
+[2024-11-19T16:23:52.868Z] INFO: [PROFILING] Get All Meals [Request ID: da6c43f9-e4c3-4867-bbda-0a61f0124910] - ⚡ Cache hit for all_meals
+[2024-11-19T16:23:52.870Z] INFO: [PROFILING] Get All Meals [Request ID: da6c43f9-e4c3-4867-bbda-0a61f0124910] - Response Time: 75ms
+[2024-11-19T16:23:52.871Z] INFO: [PROFILING] Get All Meals [Request ID: da6c43f9-e4c3-4867-bbda-0a61f0124910] - End
+[2024-11-19T16:23:54.669Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: b6cee8e1-0fa7-4c34-bb1b-01706c91c5d4] - Start
+[2024-11-19T16:23:54.677Z] WARN: [PROFILING] Get Meal by ID: refresh [Request ID: b6cee8e1-0fa7-4c34-bb1b-01706c91c5d4] - ❌ Cache miss for meal:refresh
+[2024-11-19T16:23:54.678Z] INFO: [PROFILING START] Database Query: Get Meal by ID: refresh
+[2024-11-19T16:23:54.716Z] ERROR: ❌ Error en getMealById:
+[2024-11-19T16:23:54.716Z] ERROR: [PROFILING] Get Meal by ID: refresh [Request ID: b6cee8e1-0fa7-4c34-bb1b-01706c91c5d4] - Error: Error al obtener la comida por ID
+[2024-11-19T16:23:54.716Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: b6cee8e1-0fa7-4c34-bb1b-01706c91c5d4] - Response Time: 46ms
+[2024-11-19T16:29:13.996Z] INFO: Iniciando servidor...
+[2024-11-19T16:29:13.998Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:29:14.180Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:29:14.182Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:29:14.185Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:29:14.193Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:36:42.781Z] INFO: [PROFILING] Get All Meals [Request ID: 30679918-1eaa-44b9-84c9-f6b7416b6d4a] - Start
+[2024-11-19T16:36:42.812Z] INFO: [PROFILING] Get All Meals [Request ID: 30679918-1eaa-44b9-84c9-f6b7416b6d4a] - ⚡ Cache hit for all_meals
+[2024-11-19T16:36:42.812Z] INFO: [PROFILING] Get All Meals [Request ID: 30679918-1eaa-44b9-84c9-f6b7416b6d4a] - Response Time: 23ms
+[2024-11-19T16:36:42.813Z] INFO: [PROFILING] Get All Meals [Request ID: 30679918-1eaa-44b9-84c9-f6b7416b6d4a] - End
+[2024-11-19T16:36:42.827Z] INFO: [PROFILING] Get All Meals [Request ID: b358ee8f-a111-4d64-89bb-a1423cd6b38c] - Start
+[2024-11-19T16:36:42.840Z] INFO: [PROFILING] Get All Meals [Request ID: b358ee8f-a111-4d64-89bb-a1423cd6b38c] - ⚡ Cache hit for all_meals
+[2024-11-19T16:36:42.841Z] INFO: [PROFILING] Get All Meals [Request ID: b358ee8f-a111-4d64-89bb-a1423cd6b38c] - Response Time: 12ms
+[2024-11-19T16:36:42.842Z] INFO: [PROFILING] Get All Meals [Request ID: b358ee8f-a111-4d64-89bb-a1423cd6b38c] - End
+[2024-11-19T16:36:44.710Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: 31fca144-77a6-4ba7-9315-67cbc66b4b51] - Start
+[2024-11-19T16:36:44.716Z] WARN: [PROFILING] Get Meal by ID: refresh [Request ID: 31fca144-77a6-4ba7-9315-67cbc66b4b51] - ❌ Cache miss for meal:refresh
+[2024-11-19T16:36:44.717Z] INFO: [PROFILING START] Database Query: Get Meal by ID: refresh
+[2024-11-19T16:36:44.739Z] ERROR: ❌ Error en getMealById:
+[2024-11-19T16:36:44.740Z] ERROR: [PROFILING] Get Meal by ID: refresh [Request ID: 31fca144-77a6-4ba7-9315-67cbc66b4b51] - Error: Error al obtener la comida por ID
+[2024-11-19T16:36:44.741Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: 31fca144-77a6-4ba7-9315-67cbc66b4b51] - Response Time: 27ms
+[2024-11-19T16:44:39.743Z] INFO: Iniciando servidor...
+[2024-11-19T16:44:39.745Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:44:39.872Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:44:39.873Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:44:39.875Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:44:39.880Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:45:35.164Z] INFO: Iniciando servidor...
+[2024-11-19T16:45:35.165Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:45:35.244Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:45:35.245Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:45:35.246Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:45:35.248Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:45:50.997Z] INFO: [PROFILING] Get All Meals [Request ID: 89e2bd9b-0fb8-4a92-b9e0-eaad45287cdc] - Start
+[2024-11-19T16:45:51.002Z] INFO: [PROFILING] Get All Meals [Request ID: 89e2bd9b-0fb8-4a92-b9e0-eaad45287cdc] - ⚡ Cache hit for all_meals
+[2024-11-19T16:45:51.005Z] INFO: [PROFILING] Get All Meals [Request ID: 89e2bd9b-0fb8-4a92-b9e0-eaad45287cdc] - Response Time: 4ms
+[2024-11-19T16:45:51.008Z] INFO: [PROFILING] Get All Meals [Request ID: 89e2bd9b-0fb8-4a92-b9e0-eaad45287cdc] - End
+[2024-11-19T16:45:51.051Z] INFO: [PROFILING] Get All Meals [Request ID: b3d2f30b-476d-410d-9574-8d922cf07ee7] - Start
+[2024-11-19T16:45:51.054Z] INFO: [PROFILING] Get All Meals [Request ID: b3d2f30b-476d-410d-9574-8d922cf07ee7] - ⚡ Cache hit for all_meals
+[2024-11-19T16:45:51.055Z] INFO: [PROFILING] Get All Meals [Request ID: b3d2f30b-476d-410d-9574-8d922cf07ee7] - Response Time: 1ms
+[2024-11-19T16:45:51.055Z] INFO: [PROFILING] Get All Meals [Request ID: b3d2f30b-476d-410d-9574-8d922cf07ee7] - End
+[2024-11-19T16:45:53.270Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: b6bb4115-a28d-4704-b2f9-257f0e9f7fd6] - Start
+[2024-11-19T16:45:53.274Z] WARN: [PROFILING] Get Meal by ID: refresh [Request ID: b6bb4115-a28d-4704-b2f9-257f0e9f7fd6] - ❌ Cache miss for meal:refresh
+[2024-11-19T16:45:53.274Z] INFO: [PROFILING START] Database Query: Get Meal by ID: refresh
+[2024-11-19T16:45:53.284Z] ERROR: ❌ Error en getMealById:
+[2024-11-19T16:45:53.284Z] ERROR: [PROFILING] Get Meal by ID: refresh [Request ID: b6bb4115-a28d-4704-b2f9-257f0e9f7fd6] - Error: Error al obtener la comida por ID
+[2024-11-19T16:45:53.285Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: b6bb4115-a28d-4704-b2f9-257f0e9f7fd6] - Response Time: 13ms
+[2024-11-19T16:48:56.525Z] INFO: [PROFILING] Get All Meals [Request ID: 570e73cb-8598-4fc4-8691-68c86a1fcaa7] - Start
+[2024-11-19T16:48:56.530Z] INFO: [PROFILING] Get All Meals [Request ID: 570e73cb-8598-4fc4-8691-68c86a1fcaa7] - ⚡ Cache hit for all_meals
+[2024-11-19T16:48:56.530Z] INFO: [PROFILING] Get All Meals [Request ID: 570e73cb-8598-4fc4-8691-68c86a1fcaa7] - Response Time: 3ms
+[2024-11-19T16:48:56.530Z] INFO: [PROFILING] Get All Meals [Request ID: 570e73cb-8598-4fc4-8691-68c86a1fcaa7] - End
+[2024-11-19T16:48:56.539Z] INFO: [PROFILING] Get All Meals [Request ID: 5b6d20bd-b28f-4504-ab6b-0c9573767c05] - Start
+[2024-11-19T16:48:56.545Z] INFO: [PROFILING] Get All Meals [Request ID: 5b6d20bd-b28f-4504-ab6b-0c9573767c05] - ⚡ Cache hit for all_meals
+[2024-11-19T16:48:56.546Z] INFO: [PROFILING] Get All Meals [Request ID: 5b6d20bd-b28f-4504-ab6b-0c9573767c05] - Response Time: 6ms
+[2024-11-19T16:48:56.546Z] INFO: [PROFILING] Get All Meals [Request ID: 5b6d20bd-b28f-4504-ab6b-0c9573767c05] - End
+[2024-11-19T16:48:58.335Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: a3f66269-dcf0-4213-959f-04ed5c8e280a] - Start
+[2024-11-19T16:48:58.349Z] WARN: [PROFILING] Get Meal by ID: refresh [Request ID: a3f66269-dcf0-4213-959f-04ed5c8e280a] - ❌ Cache miss for meal:refresh
+[2024-11-19T16:48:58.350Z] INFO: [PROFILING START] Database Query: Get Meal by ID: refresh
+[2024-11-19T16:48:58.362Z] ERROR: ❌ Error en getMealById:
+[2024-11-19T16:48:58.362Z] ERROR: [PROFILING] Get Meal by ID: refresh [Request ID: a3f66269-dcf0-4213-959f-04ed5c8e280a] - Error: Error al obtener la comida por ID
+[2024-11-19T16:48:58.362Z] INFO: [PROFILING] Get Meal by ID: refresh [Request ID: a3f66269-dcf0-4213-959f-04ed5c8e280a] - Response Time: 25ms
+[2024-11-19T16:55:30.736Z] INFO: Iniciando servidor...
+[2024-11-19T16:55:30.738Z] INFO: Modelos cargados: Authentication, meals, menu, user_meals, usuario, sequelize, Sequelize
+[2024-11-19T16:55:30.822Z] INFO: Menus encontrados: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z"}]
+[2024-11-19T16:55:30.824Z] INFO: Conexión exitosa a la base de datos.
+[2024-11-19T16:55:30.826Z] INFO: Sincronización de todas las tablas completada.
+[2024-11-19T16:55:30.827Z] INFO: Servidor ejecutándose en el puerto 5001
+[2024-11-19T16:55:38.482Z] INFO: [PROFILING] Get All Meals [Request ID: 80e28922-6c54-4bcd-a0e6-59b6fe6b7580] - Start
+[2024-11-19T16:55:38.492Z] INFO: [PROFILING] Get All Meals [Request ID: 80e28922-6c54-4bcd-a0e6-59b6fe6b7580] - ⚡ Cache hit for all_meals
+[2024-11-19T16:55:38.492Z] INFO: [PROFILING] Get All Meals [Request ID: 80e28922-6c54-4bcd-a0e6-59b6fe6b7580] - Response Time: 7ms
+[2024-11-19T16:55:38.493Z] INFO: [PROFILING] Get All Meals [Request ID: 80e28922-6c54-4bcd-a0e6-59b6fe6b7580] - End
+[2024-11-19T16:55:38.538Z] INFO: [PROFILING] Get All Meals [Request ID: 9abcd01f-1fdd-4d78-abbc-3c8759471af0] - Start
+[2024-11-19T16:55:38.551Z] INFO: [PROFILING] Get All Meals [Request ID: 9abcd01f-1fdd-4d78-abbc-3c8759471af0] - ⚡ Cache hit for all_meals
+[2024-11-19T16:55:38.551Z] INFO: [PROFILING] Get All Meals [Request ID: 9abcd01f-1fdd-4d78-abbc-3c8759471af0] - Response Time: 10ms
+[2024-11-19T16:55:38.551Z] INFO: [PROFILING] Get All Meals [Request ID: 9abcd01f-1fdd-4d78-abbc-3c8759471af0] - End
+[2024-11-19T16:55:40.244Z] INFO: [PROFILING] Refresh Cache [Request ID: 94d2724e-9c37-4cd4-a875-7d0178fee16b] - Start
+[2024-11-19T16:55:40.245Z] INFO: [PROFILING START] Database Query: Get All Meals
+[2024-11-19T16:55:40.270Z] INFO: [PROFILING END] Database Query: Get All Meals
+[2024-11-19T16:55:40.274Z] INFO: [PROFILING] Refresh Cache [Request ID: 94d2724e-9c37-4cd4-a875-7d0178fee16b] - ✅ Cache refreshed successfully.
+[2024-11-19T16:55:40.274Z] INFO: [PROFILING] Refresh Cache [Request ID: 94d2724e-9c37-4cd4-a875-7d0178fee16b] - Response Time: 29ms
+[2024-11-19T16:55:40.275Z] INFO: [PROFILING] Refresh Cache [Request ID: 94d2724e-9c37-4cd4-a875-7d0178fee16b] - End
+[2024-11-19T16:55:40.285Z] INFO: [PROFILING] Get All Meals [Request ID: 898c80a1-ceb0-4a99-9fee-16d388834716] - Start
+[2024-11-19T16:55:40.287Z] INFO: [PROFILING] Get All Meals [Request ID: 898c80a1-ceb0-4a99-9fee-16d388834716] - ⚡ Cache hit for all_meals
+[2024-11-19T16:55:40.287Z] INFO: [PROFILING] Get All Meals [Request ID: 898c80a1-ceb0-4a99-9fee-16d388834716] - Response Time: 1ms
+[2024-11-19T16:55:40.288Z] INFO: [PROFILING] Get All Meals [Request ID: 898c80a1-ceb0-4a99-9fee-16d388834716] - End
+[2024-11-19T16:56:54.321Z] INFO: [PROFILING] Refresh Cache [Request ID: 59646327-d1e2-4b65-8116-ee6e249d63b1] - Start
+[2024-11-19T16:56:54.324Z] INFO: [PROFILING START] Database Query: Get All Meals
+[2024-11-19T16:56:54.389Z] INFO: [PROFILING END] Database Query: Get All Meals
+[2024-11-19T16:56:54.393Z] INFO: [PROFILING] Refresh Cache [Request ID: 59646327-d1e2-4b65-8116-ee6e249d63b1] - ✅ Cache refreshed successfully.
+[2024-11-19T16:56:54.393Z] INFO: [PROFILING] Refresh Cache [Request ID: 59646327-d1e2-4b65-8116-ee6e249d63b1] - Response Time: 69ms
+[2024-11-19T16:56:54.393Z] INFO: [PROFILING] Refresh Cache [Request ID: 59646327-d1e2-4b65-8116-ee6e249d63b1] - End
+[2024-11-19T16:56:54.410Z] INFO: [PROFILING] Get All Meals [Request ID: b3d3887a-6699-4006-8cce-807e5dd6c993] - Start
+[2024-11-19T16:56:54.412Z] INFO: [PROFILING] Get All Meals [Request ID: b3d3887a-6699-4006-8cce-807e5dd6c993] - ⚡ Cache hit for all_meals
+[2024-11-19T16:56:54.412Z] INFO: [PROFILING] Get All Meals [Request ID: b3d3887a-6699-4006-8cce-807e5dd6c993] - Response Time: 2ms
+[2024-11-19T16:56:54.412Z] INFO: [PROFILING] Get All Meals [Request ID: b3d3887a-6699-4006-8cce-807e5dd6c993] - End
+[2024-11-19T16:56:59.437Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 316e1b0c-6628-49ba-9b7e-fc026edf28cb] - Start
+[2024-11-19T16:56:59.460Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 316e1b0c-6628-49ba-9b7e-fc026edf28cb] - Nuevo menú creado: {"id":2,"userId":11,"mealId":11,"name":"Tamales de Chipilin","calories":400,"protein":30,"fats":40,"carbs":40,"mealType":"dinner","updatedAt":"2024-11-19T16:56:59.445Z","createdAt":"2024-11-19T16:56:59.445Z"}
+[2024-11-19T16:56:59.461Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 316e1b0c-6628-49ba-9b7e-fc026edf28cb] - Response Time: 24ms
+[2024-11-19T16:56:59.461Z] INFO: [PROFILING] Add Meal to Menu [Request ID: 316e1b0c-6628-49ba-9b7e-fc026edf28cb] - End
+[2024-11-19T16:57:02.647Z] INFO: [PROFILING] Get User Menu [Request ID: d36949ba-16ad-473c-a6ff-06334e242064] - Start
+[2024-11-19T16:57:02.661Z] INFO: [PROFILING] Get User Menu [Request ID: d36949ba-16ad-473c-a6ff-06334e242064] - Menú encontrado para userId 11: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z","meal":{"id":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T13:01:19.964Z","updatedAt":"2024-11-19T13:01:19.964Z"}},{"id":2,"userId":11,"mealId":11,"name":"Tamales de Chipilin","calories":400,"protein":30,"fats":40,"carbs":40,"mealType":"dinner","createdAt":"2024-11-19T16:56:59.445Z","updatedAt":"2024-11-19T16:56:59.445Z","meal":{"id":11,"name":"Tamales de Chipilin","calories":400,"protein":30,"fats":40,"carbs":40,"mealType":"dinner","createdAt":"2024-11-19T15:11:30.857Z","updatedAt":"2024-11-19T15:11:30.857Z"}}]
+[2024-11-19T16:57:02.661Z] INFO: [PROFILING] Get User Menu [Request ID: d36949ba-16ad-473c-a6ff-06334e242064] - Response Time: 13ms
+[2024-11-19T16:57:02.661Z] INFO: [PROFILING] Get User Menu [Request ID: d36949ba-16ad-473c-a6ff-06334e242064] - End
+[2024-11-19T16:57:02.665Z] INFO: [PROFILING] Get User Menu [Request ID: 4b341fc8-7e2c-4d16-a502-3eba04c1b6a3] - Start
+[2024-11-19T16:57:02.668Z] INFO: [PROFILING] Get User Menu [Request ID: 4b341fc8-7e2c-4d16-a502-3eba04c1b6a3] - Menú encontrado para userId 11: [{"id":1,"userId":11,"mealId":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T15:02:24.796Z","updatedAt":"2024-11-19T15:02:24.796Z","meal":{"id":1,"name":"Breakfast Burrito","calories":300,"protein":12,"fats":15,"carbs":30,"mealType":"unknown","createdAt":"2024-11-19T13:01:19.964Z","updatedAt":"2024-11-19T13:01:19.964Z"}},{"id":2,"userId":11,"mealId":11,"name":"Tamales de Chipilin","calories":400,"protein":30,"fats":40,"carbs":40,"mealType":"dinner","createdAt":"2024-11-19T16:56:59.445Z","updatedAt":"2024-11-19T16:56:59.445Z","meal":{"id":11,"name":"Tamales de Chipilin","calories":400,"protein":30,"fats":40,"carbs":40,"mealType":"dinner","createdAt":"2024-11-19T15:11:30.857Z","updatedAt":"2024-11-19T15:11:30.857Z"}}]
+[2024-11-19T16:57:02.669Z] INFO: [PROFILING] Get User Menu [Request ID: 4b341fc8-7e2c-4d16-a502-3eba04c1b6a3] - Response Time: 4ms
+[2024-11-19T16:57:02.669Z] INFO: [PROFILING] Get User Menu [Request ID: 4b341fc8-7e2c-4d16-a502-3eba04c1b6a3] - End

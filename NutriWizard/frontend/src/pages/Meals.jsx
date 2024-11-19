@@ -41,12 +41,27 @@ const Meals = () => {
         }
     };
 
-    const handleSearch = () => {
-        const foundMeal = userMeals.find((meal) =>
-            meal.name.toLowerCase() === searchTerm.toLowerCase().trim()
-        );
-        setHighlightedMeal(foundMeal || null);
+    const fetchAndRefreshCache = async () => {
+        try {
+            // Llama a la API para refrescar el caché
+            const response = await fetch('http://localhost:5001/api/meals/refresh', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                console.log('Cache refreshed successfully.');
+                fetchAllMeals(); // Vuelve a consultar las comidas del caché
+            } else {
+                console.error('Failed to refresh cache:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error refreshing cache:', error);
+        }
     };
+
 
     const handleRecipeCreated = () => {
         fetchAllMeals(); // Refresca la lista de comidas tras crear una nueva
@@ -276,11 +291,12 @@ const Meals = () => {
                             Add New Meal
                         </button>
                         <button
-                            onClick={fetchAllMeals}
+                            onClick={fetchAndRefreshCache}
                             className="ml-4 rounded-md bg-gray-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400"
                         >
                             Refresh
                         </button>
+
                     </div>
 
                     {/* Formulario para agregar comida */}
