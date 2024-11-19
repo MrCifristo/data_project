@@ -1,69 +1,48 @@
 // File: server.js
-console.log('Iniciando servidor...'); // Agregar esto al inicio de server.js
+
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
 const mealRoutes = require('./routes/mealRoutes');
 const userRoutes = require('./routes/userRoutes');
 const menuRoutes = require('./routes/menuRoutes');
+const logger = require('./config/logger'); // Importar logger
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());//
+app.use(cors());
 
 const port = process.env.PORT || 5001;
 const db = require('./models');
 
+// Logging de inicio del servidor
+logger.info('Iniciando servidor...');
+
 (async () => {
     try {
-        console.log('Modelos cargados:', Object.keys(db)); // Verifica modelos cargados
+        logger.info('Modelos cargados: ' + Object.keys(db).join(', '));
 
         const menus = await db.menu.findAll(); // Intenta consultar la tabla Menus
-        console.log('Menus encontrados:', menus);
+        logger.info(`Menus encontrados: ${JSON.stringify(menus)}`);
     } catch (error) {
-        console.error('Error interactuando con el modelo Menu:', error);
+        logger.error('Error interactuando con el modelo Menu:', error);
     }
 })();
 
 const syncDatabase = async () => {
     try {
         await sequelize.authenticate();
-        console.log("Conexión exitosa a la base de datos.");
+        logger.info('Conexión exitosa a la base de datos.');
 
         await sequelize.sync();
-        console.log("Sincronizacion de todas las tablas completada")
-
-        //limpiar tabla meals
-        //await meals.destroy({ where: {} });
-        //console.log("Eliminamos lo que esta en meals");
-
-        // Sincronizar el modelo de meal primero para que existan las claves necesarias
-        // await meals.sync({ alter: true });
-        // console.log("Sincronización de 'meal' completa.");
-
-
-        // Desactivar restricciones de clave foránea temporalmente
-        // await sequelize.query('SET session_replication_role = replica');
-
-        // **Eliminar esta línea para evitar limpiar la tabla 'user_meals'**
-        //await user_meal.destroy({ where: {} });
-        //console.log("Sincronización de 'user_meal' sin limpieza.");
-
-        // Sincronizar user_meal
-        // await user_meals.sync({ alter: true });
-        // console.log("Sincronización de 'user_meal' completa.");
-
-        // Reactivar restricciones de clave foránea
-        // await sequelize.query('SET session_replication_role = DEFAULT');
-        // console.log("Restricciones de clave foránea reactivadas.");
+        logger.info('Sincronización de todas las tablas completada.');
 
         app.listen(port, '0.0.0.0', () => {
-            console.log(`Servidor ejecutándose en el puerto ${port}`);
+            logger.info(`Servidor ejecutándose en el puerto ${port}`);
         });
-
     } catch (error) {
-        console.error("Error al conectar o sincronizar con la base de datos:", error);
+        logger.error('Error al conectar o sincronizar con la base de datos:', error);
     }
 };
 
